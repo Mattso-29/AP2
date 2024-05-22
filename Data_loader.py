@@ -25,171 +25,6 @@ def load_all_data():
     portugal = load_data('Portugal copy.xlsx', [], '2000-01-01')
     return france, germany, switzerland, portugal
 
-# Load data
-france, germany, switzerland, portugal = load_all_data()
-
-# Check if dataframes are loaded correctly
-print("France DataFrame head:\n", france.head())
-print("Germany DataFrame head:\n", germany.head())
-print("Switzerland DataFrame head:\n", switzerland.head())
-print("Portugal DataFrame head:\n", portugal.head())
-
-# Function to convert data to weekly frequency
-def to_weekly(macro_df, method='ffill'):
-    try:
-        macro_df.index = pd.to_datetime(macro_df.index, errors='coerce')
-        if method == 'ffill':
-            weekly_df = macro_df.resample('W-SUN').ffill()
-        elif method == 'interpolate':
-            weekly_df = macro_df.resample('W-SUN').interpolate(method='linear')
-        else:
-            raise ValueError(f"Unknown method: {method}")
-        print("Weekly data transformation successful")
-        return weekly_df
-    except Exception as e:
-        print(f"Error in to_weekly function: {e}")
-        return pd.DataFrame()
-
-# Load macroeconomic data with dates
-def load_excel_with_dates(file_path, date_column):
-    try:
-        df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
-        print(f"Loaded {file_path} with dates successfully")
-        return df
-    except Exception as e:
-        print(f"Error loading {file_path} with dates: {e}")
-        return pd.DataFrame()
-
-# Load macroeconomic data
-bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
-bci = load_excel_with_dates('bci copy.xlsx', 0)
-cci = load_excel_with_dates('CCI copy.xlsx', 0)
-exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
-gdp = load_excel_with_dates('GDP copy.xlsx', 0)
-inflation = load_excel_with_dates('Inflation copy.xlsx', 0)
-unemployment = load_excel_with_dates('unemployment copy.xlsx', 0)
-
-# Convert quarterly to date
-def quarter_to_date(quarter):
-    year = int(quarter.split()[1])
-    q = quarter.split()[0]
-    if q == 'Q1':
-        return pd.Timestamp(f'{year}-01-01')
-    elif q == 'Q2':
-        return pd.Timestamp(f'{year}-04-01')
-    elif q == 'Q3':
-        return pd.Timestamp(f'{year}-07-01')
-    elif q == 'Q4':
-        return pd.Timestamp(f'{year}-10-01')
-    else:
-        raise ValueError(f"Trimestre non reconnu : {quarter}")
-
-# Update indices for CCI and unemployment data
-try:
-    cci.index = pd.Index([quarter_to_date(q) for q in cci.index])
-    unemployment.index = pd.Index([quarter_to_date(q) for q in unemployment.index])
-    print("Quarter to date conversion successful")
-except Exception as e:
-    print(f"Error in quarter to date conversion: {e}")
-
-# Apply transformations and resampling
-def transform_and_resample_data():
-    try:
-        global bond, bci, cci, gdp, inflation, exchangerate, unemployment
-
-        bond = bond.loc['2000-01-01':]
-        bond = bond.apply(np.log1p)
-        bci = bci.loc['2000-01-01':]
-        scaler = MinMaxScaler()
-        bci = bci.apply(scaler.fit_transform)
-        cci = cci.loc['2000-01-01':]
-        cci = cci.apply(scaler.fit_transform)
-        gdp = gdp.loc['2000-01-01':]
-        gdp_normalized = gdp.apply(np.log1p)
-        inflation = inflation.loc['2000-01-01':]
-        inflation = inflation.drop(inflation.columns[[4]], axis=1)
-        unemployment = unemployment.loc['2000-01-01':]
-        unemployment = unemployment.apply(scaler.fit_transform)
-
-        # Resample to weekly frequency
-        bond_weekly = to_weekly(bond, method='ffill')
-        bci_weekly = to_weekly(bci, method='ffill')
-        cci_weekly = to_weekly(cci, method='ffill')
-        gdp_weekly = to_weekly(gdp, method='ffill')
-        gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill')
-        inflation_weekly = to_weekly(inflation, method='ffill')
-        exchangerate_weekly = to_weekly(exchangerate, method='ffill')
-        unemployment_weekly = to_weekly(unemployment, method='ffill')
-
-        return bond_weekly, bci_weekly, cci_weekly, gdp_weekly, gdp_weekly_normalized, inflation_weekly, exchangerate_weekly, unemployment_weekly
-    except Exception as e:
-        print(f"Error in transform and resample data: {e}")
-        return None, None, None, None, None, None, None, None
-
-# Transform and resample data
-bond_weekly, bci_weekly, cci_weekly, gdp_weekly, gdp_weekly_normalized, inflation_weekly, exchangerate_weekly, unemployment_weekly = transform_and_resample_data()
-
-# Verify weekly data
-print("Bond weekly head:\n", bond_weekly.head())
-print("BCI weekly head:\n", bci_weekly.head())
-print("CCI weekly head:\n", cci_weekly.head())
-
-# Function to add weekly column to country data
-def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
-    try:
-        selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
-        return country_df.join(selected_column, how='left')
-    except Exception as e:
-        print(f"Error adding weekly column: {e}")
-        return country_df
-
-# Add weekly columns to each country's data
-try:
-    france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
-    france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
-    france = add_weekly_column(france, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
-    france = add_weekly_column(france, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
-    france = add_weekly_column(france, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    france = add_weekly_column(france, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
-    france = add_weekly_column(france, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
-
-    germany = add_weekly_column(germany, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    germany = add_weekly_column(germany, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
-    germany = add_weekly_column(germany, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
-    germany = add_weekly_column(germany, gdp_weekly, 'Germany GDP CONA', 'GDP')
-    germany = add_weekly_column(germany, inflation_weekly, 'Germany INFLATION', 'Inflation')
-    germany = add_weekly_column(germany, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    germany = add_weekly_column(germany, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
-    germany = add_weekly_column(germany, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
-
-    switzerland = add_weekly_column(switzerland, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
-    switzerland = add_weekly_column(switzerland, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
-    switzerland = add_weekly_column(switzerland, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
-    switzerland = add_weekly_column(switzerland, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
-    switzerland = add_weekly_column(switzerland, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
-    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
-    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
-    switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
-    switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
-
-    portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
-    portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
-    portugal = add_weekly_column(portugal, gdp_weekly, 'Portugal GDP CONA', 'GDP')
-    portugal = add_weekly_column(portugal, inflation_weekly, 'Portugal Inflation', 'Inflation')
-    portugal = add_weekly_column(portugal, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    portugal = add_weekly_column(portugal, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
-    portugal = add_weekly_column(portugal, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
-
-    print("Weekly columns added successfully")
-except Exception as e:
-    print(f"Error adding weekly columns: {e}")
-
-# Verify the France dataframe
-print("France DataFrame after adding weekly columns:\n", france.head())
-
-
 stock_market_indices = {
     "France 🇫🇷": {
         "Sectors": {
@@ -660,4 +495,169 @@ center_coords = {
     "Germany 🇩🇪": [51.165691, 12.451526], 
     "Portugal 🇵🇹": [39.399872, -6.224454],  
     "Switzerland 🇨🇭": [46.818188, 10.227512]  
+
+
+# Load data
+france, germany, switzerland, portugal = load_all_data()
+
+# Check if dataframes are loaded correctly
+print("France DataFrame head:\n", france.head())
+print("Germany DataFrame head:\n", germany.head())
+print("Switzerland DataFrame head:\n", switzerland.head())
+print("Portugal DataFrame head:\n", portugal.head())
+
+# Function to convert data to weekly frequency
+def to_weekly(macro_df, method='ffill'):
+    try:
+        macro_df.index = pd.to_datetime(macro_df.index, errors='coerce')
+        if method == 'ffill':
+            weekly_df = macro_df.resample('W-SUN').ffill()
+        elif method == 'interpolate':
+            weekly_df = macro_df.resample('W-SUN').interpolate(method='linear')
+        else:
+            raise ValueError(f"Unknown method: {method}")
+        print("Weekly data transformation successful")
+        return weekly_df
+    except Exception as e:
+        print(f"Error in to_weekly function: {e}")
+        return pd.DataFrame()
+
+# Load macroeconomic data with dates
+def load_excel_with_dates(file_path, date_column):
+    try:
+        df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
+        print(f"Loaded {file_path} with dates successfully")
+        return df
+    except Exception as e:
+        print(f"Error loading {file_path} with dates: {e}")
+        return pd.DataFrame()
+
+# Load macroeconomic data
+bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
+bci = load_excel_with_dates('bci copy.xlsx', 0)
+cci = load_excel_with_dates('CCI copy.xlsx', 0)
+exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
+gdp = load_excel_with_dates('GDP copy.xlsx', 0)
+inflation = load_excel_with_dates('Inflation copy.xlsx', 0)
+unemployment = load_excel_with_dates('unemployment copy.xlsx', 0)
+
+# Convert quarterly to date
+def quarter_to_date(quarter):
+    year = int(quarter.split()[1])
+    q = quarter.split()[0]
+    if q == 'Q1':
+        return pd.Timestamp(f'{year}-01-01')
+    elif q == 'Q2':
+        return pd.Timestamp(f'{year}-04-01')
+    elif q == 'Q3':
+        return pd.Timestamp(f'{year}-07-01')
+    elif q == 'Q4':
+        return pd.Timestamp(f'{year}-10-01')
+    else:
+        raise ValueError(f"Trimestre non reconnu : {quarter}")
+
+# Update indices for CCI and unemployment data
+try:
+    cci.index = pd.Index([quarter_to_date(q) for q in cci.index])
+    unemployment.index = pd.Index([quarter_to_date(q) for q in unemployment.index])
+    print("Quarter to date conversion successful")
+except Exception as e:
+    print(f"Error in quarter to date conversion: {e}")
+
+# Apply transformations and resampling
+def transform_and_resample_data():
+    try:
+        global bond, bci, cci, gdp, inflation, exchangerate, unemployment
+
+        bond = bond.loc['2000-01-01':]
+        bond = bond.apply(np.log1p)
+        bci = bci.loc['2000-01-01':]
+        scaler = MinMaxScaler()
+        bci = bci.apply(scaler.fit_transform)
+        cci = cci.loc['2000-01-01':]
+        cci = cci.apply(scaler.fit_transform)
+        gdp = gdp.loc['2000-01-01':]
+        gdp_normalized = gdp.apply(np.log1p)
+        inflation = inflation.loc['2000-01-01':]
+        inflation = inflation.drop(inflation.columns[[4]], axis=1)
+        unemployment = unemployment.loc['2000-01-01':]
+        unemployment = unemployment.apply(scaler.fit_transform)
+
+        # Resample to weekly frequency
+        bond_weekly = to_weekly(bond, method='ffill')
+        bci_weekly = to_weekly(bci, method='ffill')
+        cci_weekly = to_weekly(cci, method='ffill')
+        gdp_weekly = to_weekly(gdp, method='ffill')
+        gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill')
+        inflation_weekly = to_weekly(inflation, method='ffill')
+        exchangerate_weekly = to_weekly(exchangerate, method='ffill')
+        unemployment_weekly = to_weekly(unemployment, method='ffill')
+
+        return bond_weekly, bci_weekly, cci_weekly, gdp_weekly, gdp_weekly_normalized, inflation_weekly, exchangerate_weekly, unemployment_weekly
+    except Exception as e:
+        print(f"Error in transform and resample data: {e}")
+        return None, None, None, None, None, None, None, None
+
+# Transform and resample data
+bond_weekly, bci_weekly, cci_weekly, gdp_weekly, gdp_weekly_normalized, inflation_weekly, exchangerate_weekly, unemployment_weekly = transform_and_resample_data()
+
+# Verify weekly data
+print("Bond weekly head:\n", bond_weekly.head())
+print("BCI weekly head:\n", bci_weekly.head())
+print("CCI weekly head:\n", cci_weekly.head())
+
+# Function to add weekly column to country data
+def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
+    try:
+        selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
+        return country_df.join(selected_column, how='left')
+    except Exception as e:
+        print(f"Error adding weekly column: {e}")
+        return country_df
+
+# Add weekly columns to each country's data
+try:
+    france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+    france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
+    france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
+    france = add_weekly_column(france, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
+    france = add_weekly_column(france, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
+    france = add_weekly_column(france, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+    france = add_weekly_column(france, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
+    france = add_weekly_column(france, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
+
+    germany = add_weekly_column(germany, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+    germany = add_weekly_column(germany, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
+    germany = add_weekly_column(germany, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
+    germany = add_weekly_column(germany, gdp_weekly, 'Germany GDP CONA', 'GDP')
+    germany = add_weekly_column(germany, inflation_weekly, 'Germany INFLATION', 'Inflation')
+    germany = add_weekly_column(germany, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+    germany = add_weekly_column(germany, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
+    germany = add_weekly_column(germany, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
+
+    switzerland = add_weekly_column(switzerland, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
+    switzerland = add_weekly_column(switzerland, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
+    switzerland = add_weekly_column(switzerland, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
+    switzerland = add_weekly_column(switzerland, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
+    switzerland = add_weekly_column(switzerland, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
+    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
+    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
+    switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
+    switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
+
+    portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+    portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
+    portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
+    portugal = add_weekly_column(portugal, gdp_weekly, 'Portugal GDP CONA', 'GDP')
+    portugal = add_weekly_column(portugal, inflation_weekly, 'Portugal Inflation', 'Inflation')
+    portugal = add_weekly_column(portugal, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+    portugal = add_weekly_column(portugal, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
+    portugal = add_weekly_column(portugal, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
+
+    print("Weekly columns added successfully")
+except Exception as e:
+    print(f"Error adding weekly columns: {e}")
+
+# Verify the France dataframe
+print("France DataFrame after adding weekly columns:\n", france.head())
 
