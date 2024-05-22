@@ -11,6 +11,14 @@ indices_boursiers = {
     "Switzerland": {"SMI": 11000, "SPI": 14000}
 }
 
+# Données fictives pour les secteurs des pays
+secteurs = {
+    "France": {"Technologie": 2000, "Finance": 3000, "Santé": 1500, "Énergie": 2500},
+    "Germany": {"Technologie": 2500, "Finance": 3500, "Santé": 2000, "Énergie": 3000},
+    "Portugal": {"Technologie": 1500, "Finance": 2000, "Santé": 1000, "Énergie": 1800},
+    "Switzerland": {"Technologie": 2200, "Finance": 3100, "Santé": 1700, "Énergie": 2600}
+}
+
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
     "France": {
@@ -448,6 +456,14 @@ def afficher_indice_pays(pays):
         data = indices_boursiers[pays]
         df = pd.DataFrame(list(data.items()), columns=["Indice", "Valeur"])
         st.table(df)
+        
+        st.subheader(f"Résultats pour 4 secteurs en {pays}")
+        if pays in secteurs:
+            secteurs_data = secteurs[pays]
+            df_secteurs = pd.DataFrame(list(secteurs_data.items()), columns=["Secteur", "Valeur"])
+            st.table(df_secteurs)
+        else:
+            st.write("Données non disponibles pour les secteurs.")
     else:
         st.write("Données non disponibles.")
 
