@@ -542,3 +542,26 @@ afficher_carte(st.session_state['pays_selectionne'])
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
     afficher_indice_pays(st.session_state['pays_selectionne'])
+
+    # Ajouter les onglets
+    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast"])
+
+    with tabs[0]:
+        st.write(f"Analysis for {st.session_state['pays_selectionne']}")
+        # Ajouter le contenu de l'analyse du pays ici
+
+    with tabs[1]:
+        st.write(f"Major macroeconomic events for {st.session_state['pays_selectionne']}")
+        # Ajouter le contenu des événements macroéconomiques majeurs ici
+
+    with tabs[2]:
+        st.write(f"Important macroeconomic variables for {st.session_state['pays_selectionne']}")
+        # Ajouter le contenu des variables macroéconomiques importantes ici
+
+    with tabs[3]:
+        st.write(f"Regression analysis for {st.session_state['pays_selectionne']}")
+        # Ajouter le contenu de l'analyse de régression ici
+
+    with tabs[4]:
+        st.write(f"Forecast for {st.session_state['pays_selectionne']}")
+        # Ajouter le contenu des prévisions ici
