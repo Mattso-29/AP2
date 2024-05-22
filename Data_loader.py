@@ -487,3 +487,196 @@ center_coords = {
     "Portugal 🇵🇹": [39.399872, -6.224454],  
     "Switzerland 🇨🇭": [46.818188, 10.227512]  
 }
+bond=pd.read_excel('10Y Bond.xlsx')
+bci=pd.read_excel('bci.xlsx')
+cci=pd.read_excel('CCI.xlsx')
+exchangerate=pd.read_excel('Exchange rate.xlsx')
+gdp=pd.read_excel('GDP.xlsx')
+inflation=pd.read_excel('Inflation.xlsx')
+def load_excel_with_dates(file_path, date_column):
+    df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
+    return df
+
+bond = load_excel_with_dates('10Y Bond.xlsx', 0)  
+bci = load_excel_with_dates('bci.xlsx', 0)
+cci = load_excel_with_dates('CCI.xlsx', 0)
+exchangerate = load_excel_with_dates('Exchange rate.xlsx', 0)
+gdp = load_excel_with_dates('GDP.xlsx', 0)
+inflation = load_excel_with_dates('Inflation.xlsx', 0)
+unemployment=load_excel_with_dates('unemployment.xlsx', 0)
+def quarter_to_date(quarter):
+    year = int(quarter.split()[1])
+    q = quarter.split()[0]
+    if q == 'Q1':
+        return pd.Timestamp(f'{year}-01-01')
+    elif q == 'Q2':
+        return pd.Timestamp(f'{year}-04-01')
+    elif q == 'Q3':
+        return pd.Timestamp(f'{year}-07-01')
+    elif q == 'Q4':
+        return pd.Timestamp(f'{year}-10-01')
+    else:
+        raise ValueError(f"Trimestre non reconnu : {quarter}")
+
+date_index = pd.Index([quarter_to_date(q) for q in cci.index])
+cci.index = date_index
+
+date_index = pd.Index([quarter_to_date(q) for q in unemployment.index])
+unemployment.index=date_index
+bond = bond.loc['2000-01-01':]
+numeric_columns = bond.select_dtypes(include=np.number).columns
+bond = bond[numeric_columns].apply(np.log1p)
+
+bci = bci.loc['2000-01-01':]
+scaler = MinMaxScaler()
+numeric_columns = bci.select_dtypes(include=np.number).columns
+bci[numeric_columns] = scaler.fit_transform(bci[numeric_columns])
+
+cci = cci.loc['2000-01-01':]
+scaler = MinMaxScaler()
+numeric_columns = cci.select_dtypes(include=np.number).columns
+cci[numeric_columns] = scaler.fit_transform(cci[numeric_columns])
+
+gdp = gdp.loc['2000-01-01':]
+numeric_columns = gdp.select_dtypes(include=np.number).columns
+gdp_normalized = gdp[numeric_columns].apply(np.log1p)
+
+exchangerate = exchangerate.loc['2000-01-01':]
+
+inflation = inflation.loc['2000-01-01':]
+inflation = inflation.drop(inflation.columns[[4]], axis=1)
+
+unemployment = unemployment.loc['2000-01-01':]
+scaler = MinMaxScaler()
+numeric_columns = unemployment.select_dtypes(include=np.number).columns
+unemployment[numeric_columns] = scaler.fit_transform(unemployment[numeric_columns])
+def to_weekly(macro_df, method='ffill'):
+    macro_df.index = pd.to_datetime(macro_df.index, errors='coerce')
+    if method == 'ffill':
+        weekly_df = macro_df.resample('W-SUN').ffill()
+    elif method == 'interpolate':
+        weekly_df = macro_df.resample('W-SUN').interpolate(method='linear')
+    else:
+        raise ValueError(f"Unknown method: {method}")
+    
+    return weekly_df
+bond_weekly = to_weekly(bond, method='ffill')
+bond_weekly.index = bond_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+bond_weekly = bond_weekly.reindex(new_index)
+bond_weekly = bond_weekly[(bond_weekly.index >= start_date) & (bond_weekly.index <= end_date)]
+bond_weekly = bond_weekly.apply(pd.to_numeric, errors='coerce')
+bond_weekly.fillna(method='bfill', inplace=True)
+bond_weekly.interpolate(method='linear', inplace=True)
+bci_weekly = to_weekly(bci, method='ffill')
+bci_weekly.index = bci_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+bci_weekly = bci_weekly.reindex(new_index)
+bci_weekly = bci_weekly[(bci_weekly.index >= start_date) & (bci_weekly.index <= end_date)]
+bci_weekly = bci_weekly.apply(pd.to_numeric, errors='coerce')
+bci_weekly.fillna(method='bfill', inplace=True)
+bci_weekly.interpolate(method='linear', inplace=True)
+cci_weekly = to_weekly(cci, method='ffill')
+cci_weekly.index = cci_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+cci_weekly = cci_weekly.reindex(new_index)
+cci_weekly = cci_weekly[(cci_weekly.index >= start_date) & (cci_weekly.index <= end_date)]
+cci_weekly = cci_weekly.apply(pd.to_numeric, errors='coerce')
+cci_weekly.fillna(method='bfill', inplace=True)
+cci_weekly.interpolate(method='linear', inplace=True)
+gdp_weekly = to_weekly(gdp, method='ffill')
+gdp_weekly.index = gdp_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+gdp_weekly = gdp_weekly.reindex(new_index)
+gdp_weekly = gdp_weekly[(gdp_weekly.index >= start_date) & (gdp_weekly.index <= end_date)]
+gdp_weekly = gdp_weekly.apply(pd.to_numeric, errors='coerce')
+gdp_weekly.fillna(method='bfill', inplace=True)
+gdp_weekly.interpolate(method='linear', inplace=True)
+gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill')
+gdp_weekly_normalized.index = gdp_weekly_normalized.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+gdp_weekly_normalized = gdp_weekly_normalized.reindex(new_index)
+gdp_weekly_normalized = gdp_weekly_normalized[(gdp_weekly_normalized.index >= start_date) & (gdp_weekly_normalized.index <= end_date)]
+gdp_weekly_normalized = gdp_weekly_normalized.apply(pd.to_numeric, errors='coerce')
+gdp_weekly_normalized.fillna(method='bfill', inplace=True)
+gdp_weekly_normalized.interpolate(method='linear', inplace=True)
+inflation_weekly = to_weekly(inflation, method='ffill')
+inflation_weekly.index = inflation_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+inflation_weekly = inflation_weekly.reindex(new_index)
+inflation_weekly = inflation_weekly[(inflation_weekly.index >= start_date) & (inflation_weekly.index <= end_date)]
+inflation_weekly = inflation_weekly.apply(pd.to_numeric, errors='coerce')
+inflation_weekly.fillna(method='bfill', inplace=True)
+inflation_weekly.interpolate(method='linear', inplace=True)
+exchangerate_weekly = to_weekly(exchangerate, method='ffill')
+exchangerate_weekly.index = exchangerate_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+exchangerate_weekly = exchangerate_weekly.reindex(new_index)
+exchangerate_weekly = exchangerate_weekly[(exchangerate_weekly.index >= start_date) & (exchangerate_weekly.index <= end_date)]
+exchangerate_weekly = exchangerate_weekly.apply(pd.to_numeric, errors='coerce')
+exchangerate_weekly.fillna(method='bfill', inplace=True)
+exchangerate_weekly.interpolate(method='linear', inplace=True)
+unemployment_weekly = to_weekly(unemployment, method='ffill')
+unemployment_weekly.index = unemployment_weekly.index + pd.DateOffset(days=3)
+start_date = '2000-01-05'
+end_date = '2024-05-01'
+new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
+unemployment_weekly = unemployment_weekly.reindex(new_index)
+unemployment_weekly = unemployment_weekly[(unemployment_weekly.index >= start_date) & (unemployment_weekly.index <= end_date)]
+unemployment_weekly = unemployment_weekly.apply(pd.to_numeric, errors='coerce')
+unemployment_weekly.fillna(method='bfill', inplace=True)
+unemployment_weekly.interpolate(method='linear', inplace=True)
+def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
+    selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
+    return country_df.join(selected_column, how='left')
+
+france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
+france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
+france = add_weekly_column(france, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
+france = add_weekly_column(france, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
+france = add_weekly_column(france, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+france = add_weekly_column(france, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
+france = add_weekly_column(france, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
+
+germany = add_weekly_column(germany, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+germany = add_weekly_column(germany, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
+germany = add_weekly_column(germany, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
+germany = add_weekly_column(germany, gdp_weekly, 'Germany GDP CONA', 'GDP')
+germany = add_weekly_column(germany, inflation_weekly, 'Germany INFLATION', 'Inflation')
+germany = add_weekly_column(germany, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+germany = add_weekly_column(germany, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
+germany = add_weekly_column(germany, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
+
+switzerland = add_weekly_column(switzerland, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
+switzerland = add_weekly_column(switzerland, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
+switzerland = add_weekly_column(switzerland, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
+switzerland = add_weekly_column(switzerland, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
+switzerland = add_weekly_column(switzerland, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
+switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
+switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
+switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
+switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
+
+portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
+portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
+portugal = add_weekly_column(portugal, gdp_weekly, 'Portugal GDP CONA', 'GDP')
+portugal = add_weekly_column(portugal, inflation_weekly, 'Portugal Inflation', 'Inflation')
+portugal = add_weekly_column(portugal, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+portugal = add_weekly_column(portugal, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
+portugal = add_weekly_column(portugal, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
