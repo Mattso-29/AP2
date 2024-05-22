@@ -2,6 +2,10 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+import geopandas as gpd
+
+# URL du fichier GeoJSON des frontières des pays européens
+GEOJSON_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/EUR.geo.json"
 
 # Données fictives pour les indices boursiers
 indices_boursiers = {
@@ -21,22 +25,28 @@ def afficher_indice_pays(pays):
         st.write("Données non disponibles.")
 
 def afficher_carte():
-    m = folium.Map(location=[48.8566, 2.3522], zoom_start=4)
+    m = folium.Map(location=[54, 15], zoom_start=4)
 
-    # Ajouter des marqueurs pour chaque pays
-    pays_locations = {
-        "France": [48.8566, 2.3522],
-        "Allemagne": [52.52, 13.405],
-        "Portugal": [38.71667, -9.139],
-        "Suisse": [46.94809, 7.44744]
-    }
+    # Charger les données GeoJSON
+    geo_data = gpd.read_file(GEOJSON_URL)
 
-    for pays, coords in pays_locations.items():
-        folium.Marker(
-            location=coords,
-            popup=f"<a href='?pays={pays}'>{pays}</a>",
-            tooltip=pays
-        ).add_to(m)
+    # Fonction pour ajouter les frontières des pays et les liens
+    def style_function(feature):
+        return {
+            'fillOpacity': 0.1,
+            'weight': 1,
+            'color': 'black'
+        }
+
+    for _, row in geo_data.iterrows():
+        country = row["name"]
+        if country in indices_boursiers:
+            folium.GeoJson(
+                row["geometry"],
+                style_function=style_function,
+                tooltip=country,
+                popup=f"<a href='?pays={country}'>{country}</a>"
+            ).add_to(m)
 
     st_folium(m, width=700, height=500)
 
