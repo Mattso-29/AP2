@@ -15,6 +15,26 @@ country_data = {
     'Portugal 🇵🇹': portugal
 }
 
+# Dictionnaire pour stocker les chemins des images et les descriptions
+country_images_and_texts = {
+    'France 🇫🇷': {
+        'image': 'regression table france copy.jpg',
+        'text': 'Description of major macroeconomic events in France.'
+    },
+    'Germany 🇩🇪': {
+        'image': 'regression table germany copy.jpg',
+        'text': 'Description of major macroeconomic events in Germany.'
+    },
+    'Switzerland 🇨🇭': {
+        'image': 'regression table portugal copy.jpg',
+        'text': 'Description of major macroeconomic events in Switzerland.'
+    },
+    'Portugal 🇵🇹': {
+        'image': 'regression table switzerland copy.jpg',
+        'text': 'Description of major macroeconomic events in Portugal.'
+    }
+}
+
 def generer_graphique_indice(data, pays, columns, start_date, end_date, chart_type):
     data_filtered = data[start_date:end_date]
     
@@ -153,6 +173,9 @@ if st.session_state['pays_selectionne']:
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des événements macroéconomiques majeurs ici
+        if st.session_state['pays_selectionne'] in country_images_and_texts:
+            st.image(country_images_and_texts[st.session_state['pays_selectionne']]['image'], use_column_width=True)
+            st.write(country_images_and_texts[st.session_state['pays_selectionne']]['text'])
 
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['pays_selectionne']}")
@@ -165,3 +188,4 @@ if st.session_state['pays_selectionne']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des prévisions ici
+
