@@ -484,21 +484,8 @@ center_coords = {
     "Switzerland": [46.818188, 10.227512]  # Décalé vers la droite
 }
 
-# URLs des drapeaux des pays en format PNG
-flag_urls = {
-    "France": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.png",
-    "Germany": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.png",
-    "Portugal": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.png",
-    "Switzerland": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.png"
-}
-
 def afficher_indice_pays(pays):
-    if pays in flag_urls:
-        flag_url = flag_urls[pays]
-        st.markdown(f"### Indices boursiers pour {pays}")
-        st.image(flag_url, width=50)
-    else:
-        st.subheader(f"Indices boursiers pour {pays}")
+    st.subheader(f"Indices boursiers pour {pays}")
 
     if pays in indices_boursiers:
         data = indices_boursiers[pays]
@@ -554,8 +541,4 @@ afficher_carte(st.session_state['pays_selectionne'])
 
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
-    col1, col2 = st.columns([1, 9])
-    with col1:
-        st.image(flag_urls[st.session_state['pays_selectionne']], width=50)
-    with col2:
-        afficher_indice_pays(st.session_state['pays_selectionne'])
+    afficher_indice_pays(st.session_state['pays_selectionne'])
