@@ -470,14 +470,6 @@ def afficher_indice_pays(pays):
 def afficher_carte():
     m = folium.Map(location=[48.8566, 2.3522], zoom_start=4, tiles='CartoDB positron')
 
-    # Ajouter des polygones colorés pour chaque pays
-    couleurs = {
-        "France": "blue",
-        "Germany": "yellow",
-        "Portugal": "green",
-        "Switzerland": "red"
-    }
-
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
