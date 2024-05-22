@@ -40,7 +40,7 @@ stock_market_indices = {
 
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
-    "France": {
+    "France 🇫🇷": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
@@ -150,7 +150,7 @@ geojson_data = {
  ]]
         }
     },
-"Germany": {
+"Germany 🇩🇪": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
@@ -266,7 +266,7 @@ geojson_data = {
 ]]
         }
     },
-    "Portugal": {
+    "Portugal 🇵🇹": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
@@ -357,7 +357,7 @@ geojson_data = {
             ]]
         }
     },
-    "Switzerland": {
+    "Switzerland 🇨🇭": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
@@ -470,10 +470,10 @@ geojson_data = {
 }
 # Coordonnées centrales pour zoomer sur chaque pays (décalées vers la droite)
 center_coords = {
-    "France": [46.603354, 3.888334], 
-    "Germany": [51.165691, 12.451526], 
-    "Portugal": [39.399872, -6.224454],  
-    "Switzerland": [46.818188, 10.227512]  
+    "France 🇫🇷": [46.603354, 3.888334], 
+    "Germany 🇩🇪": [51.165691, 12.451526], 
+    "Portugal 🇵🇹": [39.399872, -6.224454],  
+    "Switzerland 🇨🇭": [46.818188, 10.227512]  
 }
 
 def afficher_indice_pays(pays):
