@@ -476,6 +476,7 @@ geojson_data = {
         }
     }
 }
+# Coordonnées centrales pour zoomer sur chaque pays (décalées vers la droite)
 center_coords = {
     "France": [46.603354, 3.888334],  # Décalé vers la droite
     "Germany": [51.165691, 12.451526],  # Décalé vers la droite
@@ -527,10 +528,14 @@ def afficher_carte(pays_selectionne):
         ).add_to(m)
 
         if pays_selectionne == pays:
-            folium.Marker(
-                location=center_coords[pays],
-                icon=folium.CustomIcon(flag_urls[pays], icon_size=(30, 20)),
-                tooltip=f"Flag of {pays}"
+            folium.raster_layers.ImageOverlay(
+                name=pays,
+                image=flag_urls[pays],
+                bounds=geojson["geometry"]["coordinates"][0],
+                opacity=0.6,
+                interactive=True,
+                cross_origin=False,
+                zindex=1
             ).add_to(m)
 
     st_folium(m, width=1400, height=800)
