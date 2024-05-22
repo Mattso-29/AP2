@@ -457,9 +457,9 @@ def afficher_carte():
     # Ajouter des polygones colorés pour chaque pays
     couleurs = {
         "France": "blue",
-        "Allemagne": "yellow",
+        "Germany": "yellow",
         "Portugal": "green",
-        "Suisse": "red"
+        "Switzerland": "red"
     }
 
     for pays, geojson in geojson_data.items():
@@ -481,5 +481,5 @@ pays_selectionne = st.experimental_get_query_params().get('pays', [None])[0]
 if pays_selectionne:
     afficher_indice_pays(pays_selectionne)
 else:
-    st.title("Carte des Indices Boursiers en Europe")
+    st.title("Map of stock market indices in Europe")
     afficher_carte()
