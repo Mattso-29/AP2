@@ -520,20 +520,14 @@ def afficher_carte(pays_selectionne):
 
 # Début de l'application Streamlit
 st.set_page_config(page_title="AP project", layout="wide")
-# Inclure du CSS personnalisé pour styliser la page et les boutons
+# Inclure du CSS personnalisé pour styliser les boutons
 st.markdown("""
     <style>
-    .stApp {
-        background-color: #333333;
-    }
-    .sidebar .css-1d391kg {
-        background-color: white;
-    }
     .stButton>button {
         display: block;
         width: 100%;
-        background-color: black;
-        color: white;
+        background-color: white;
+        color: black;
         text-align: center;
         padding: 10px;
         margin: 10px 0;
@@ -542,7 +536,10 @@ st.markdown("""
         cursor: pointer;
     }
     .stButton>button:hover {
-        background-color: darkgray;
+        background-color: lightgray;
+    }
+    .sidebar .css-1d391kg {
+        background-color: #333333;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -587,3 +584,4 @@ if st.session_state['pays_selectionne']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des prévisions ici
+
