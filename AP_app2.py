@@ -476,12 +476,19 @@ geojson_data = {
         }
     }
 }
-# Coordonnées centrales pour zoomer sur chaque pays
 center_coords = {
     "France": [46.603354, 3.888334],  # Décalé vers la droite
     "Germany": [51.165691, 12.451526],  # Décalé vers la droite
     "Portugal": [39.399872, -6.224454],  # Décalé vers la droite
     "Switzerland": [46.818188, 10.227512]  # Décalé vers la droite
+}
+
+# URLs des drapeaux des pays
+flag_urls = {
+    "France": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+    "Germany": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg",
+    "Portugal": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
+    "Switzerland": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg"
 }
 
 def afficher_indice_pays(pays):
@@ -510,14 +517,21 @@ def afficher_carte(pays_selectionne):
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x, selected=pays == pays_selectionne: {
-                'color': 'black' if selected else 'gray',
-                'fillColor': 'darkblue' if selected else 'darkgray',
+            style_function=lambda x: {
+                'color': 'gray',
+                'fillColor': 'darkgray',
                 'fillOpacity': 0.7
             },
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
             tooltip=folium.Tooltip(pays)
         ).add_to(m)
+
+        if pays_selectionne == pays:
+            folium.Marker(
+                location=center_coords[pays],
+                icon=folium.CustomIcon(flag_urls[pays], icon_size=(30, 20)),
+                tooltip=f"Flag of {pays}"
+            ).add_to(m)
 
     st_folium(m, width=1400, height=800)
 
