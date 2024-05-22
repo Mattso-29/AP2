@@ -3,6 +3,7 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 from Data_loader import load_all_data, stock_market_indices, geojson_data, center_coords
 
 # Charger les données
@@ -28,6 +29,16 @@ def generer_graphique_indice(data, pays, columns, start_date, end_date, chart_ty
     plt.xlabel("Date")
     plt.ylabel("Index value")
     plt.legend()
+    st.pyplot(plt)
+    plt.close()
+
+def generer_heatmap_correlation(data, columns, start_date, end_date):
+    data_filtered = data[start_date:end_date]
+    correlation_matrix = data_filtered[columns].corr()
+    
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+    plt.title('Correlation Heatmap')
     st.pyplot(plt)
     plt.close()
 
@@ -59,6 +70,11 @@ def afficher_indice_pays(pays):
             chart_type = st.radio("Select chart type", ('Line', 'Bar'))
             
             generer_graphique_indice(country_df, pays, columns, start_date, end_date, chart_type)
+            
+            st.write("### Correlation Heatmap")
+            st.write("#### Modulate Heatmap")
+            heatmap_columns = st.multiselect("Select columns for heatmap", country_df.columns.tolist(), default=country_df.columns.tolist())
+            generer_heatmap_correlation(country_df, heatmap_columns, start_date, end_date)
         else:
             st.write("No data available for the performance chart")
     else:
