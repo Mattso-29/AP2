@@ -35,7 +35,7 @@ country_images_and_texts = {
 }
 
 def generate_index_chart(data, country, columns, start_date, end_date, chart_type):
-    data_filtered = data[start_date:end_date]
+    data_filtered = data.loc[start_date:end_date]
     
     plt.figure(figsize=(20, 12))
     if chart_type == 'Line':
@@ -52,7 +52,7 @@ def generate_index_chart(data, country, columns, start_date, end_date, chart_typ
     plt.close()
 
 def generate_correlation_heatmap(data, columns, start_date, end_date):
-    data_filtered = data[start_date:end_date]
+    data_filtered = data.loc[start_date:end_date]
     correlation_matrix = data_filtered[columns].corr()
     
     plt.figure(figsize=(10, 8))
