@@ -8,10 +8,10 @@ from Data_loader import load_all_data, stock_market_indices, geojson_data, cente
 # Charger les données
 france, germany, switzerland, portugal = load_all_data()
 country_data = {
-    'France': france,
-    'Germany': germany,
-    'Switzerland': switzerland,
-    'Portugal': portugal
+    'France 🇫🇷': france,
+    'Germany 🇩🇪': germany,
+    'Switzerland 🇨🇭': switzerland,
+    'Portugal 🇵🇹': portugal
 }
 
 def generer_graphique_indice(data, pays):
@@ -135,3 +135,4 @@ if st.session_state['pays_selectionne']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des prévisions ici
+
