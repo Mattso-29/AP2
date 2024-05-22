@@ -38,12 +38,6 @@ stock_market_indices = {
     }
 }
 
-# Printing the formatted indices for clarity
-for country, data in stock_market_indices.items():
-    print(f"{country}:")
-    for sector, index in data["Sectors"].items():
-        print(f"  {sector}: {index}")
-
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
     "France": {
@@ -486,13 +480,20 @@ def afficher_indice_pays(pays):
     st.subheader(f"Stock market Index for {pays}")
 
     if pays in stock_market_indices:
-        data = stock_market_indices[pays]
-        df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
+        data = stock_market_indices[pays]['Sectors']
+        indices = list(data.keys())
+        entreprises = [100, 50, 75, 30]  # Exemple de nombres d'entreprises pour chaque indice
+        
+        df_indices = pd.DataFrame({
+            'Index Name': [data[indice] for indice in indices],
+            'Number of Companies': entreprises
+        }, index=indices)
+        
         st.write("### Index Study")
         st.table(df_indices)
     else:
         st.write("No available")
-
+        
 def afficher_carte(pays_selectionne):
     if pays_selectionne and pays_selectionne in center_coords:
         center = center_coords[pays_selectionne]
