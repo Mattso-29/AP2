@@ -477,14 +477,14 @@ geojson_data = {
     }
 }
 def afficher_indice_pays(pays):
-    st.title(f"Indices boursiers pour {pays}")
+    st.subheader(f"Indices boursiers pour {pays}")
     if pays in indices_boursiers:
         data = indices_boursiers[pays]
         df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
         df_secteurs = pd.DataFrame(list(data["Secteurs"].items()), columns=["Secteur", "Valeur"])
-        st.subheader("Indices principaux")
+        st.write("### Indices principaux")
         st.table(df_indices)
-        st.subheader("Résultats par secteur")
+        st.write("### Résultats par secteur")
         st.table(df_secteurs)
     else:
         st.write("Données non disponibles.")
@@ -497,8 +497,7 @@ def afficher_carte():
             geojson,
             style_function=lambda x: {'color': 'gray', 'fillColor': 'darkgray', 'fillOpacity': 0.7},
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
-            tooltip=folium.Tooltip(pays),
-            popup=folium.Popup(f"<a href='?pays={pays}'>{pays}</a>")
+            tooltip=folium.Tooltip(pays)
         ).add_to(m)
 
     st_folium(m, width=1400, height=800)
@@ -510,17 +509,15 @@ st.set_page_config(page_title="Map of stock market indices in Europe", layout="w
 if 'pays_selectionne' not in st.session_state:
     st.session_state['pays_selectionne'] = None
 
-def on_click(pays):
-    st.session_state['pays_selectionne'] = pays
-
 # Affichage de la carte
 st.title("Map of stock market indices in Europe")
 afficher_carte()
 
-# Vérifier les paramètres URL pour les clics sur la carte
-pays_selectionne = st.experimental_get_query_params().get('pays', [None])[0]
-if pays_selectionne:
-    on_click(pays_selectionne)
+# Affichage des boutons pour chaque pays
+st.sidebar.title("Sélectionner un pays")
+for pays in indices_boursiers.keys():
+    if st.sidebar.button(pays):
+        st.session_state['pays_selectionne'] = pays
 
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
