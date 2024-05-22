@@ -4,7 +4,7 @@ from streamlit_folium import st_folium
 import pandas as pd
 
 stock_market_indices = {
-    "France": {
+    "France 🇫🇷": {
         "Sectors": {
             "Technology": {"name": "CAC Technology Financial index (FRTEC)", "companies": 35},
             "Financials": {"name": "CAC Financials Financial index (FRFIN)", "companies": 39},
@@ -12,7 +12,7 @@ stock_market_indices = {
             "Telecom": {"name": "CAC Telecom (FRTEL)", "companies": 6}
         }
     },
-    "Germany": {
+    "Germany 🇩🇪": {
         "Sectors": {
             "Technology": {"name": "DAX Technology (CXPHX)", "companies": 18},
             "Financials": {"name": "DAX Financials (CXPVX)", "companies": 29},
@@ -20,7 +20,7 @@ stock_market_indices = {
             "Telecom": {"name": "DAX Telecom (CXPTX)", "companies": 7}
         }
     },
-    "Portugal": {
+    "Portugal 🇵🇹": {
         "Sectors": {
             "Technology": {"name": "PSI Technology (PTTEC)", "companies": 3},
             "Financials": {"name": "PSI Financials (PTFIN)", "companies": 2},
@@ -28,7 +28,7 @@ stock_market_indices = {
             "Telecom": {"name": "PSI Telecom (PTTEL)", "companies": 4}
         }
     },
-    "Switzerland": {
+    "Switzerland 🇨🇭": {
         "Sectors": {
             "Technology": {"name": "SWX Technology (C9500T)", "companies": 10},
             "Financials": {"name": "SWX Financials (C8700T)", "companies": 33},
