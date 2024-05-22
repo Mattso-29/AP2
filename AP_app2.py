@@ -48,7 +48,6 @@ geojson_data = {
             ]]
         }
     }
-}
 "Allemagne": {
         "type": "Feature",
         "geometry": {
