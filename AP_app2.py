@@ -144,5 +144,43 @@ st.markdown("""
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-  
+    }
+    .stButton>button:hover {
+        background-color: darkgray;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
+if 'selected_country' not in st.session_state:
+    st.session_state['selected_country'] = None
+
+st.sidebar.title("Select a country")
+for country in stock_market_indices.keys():
+    if st.sidebar.button(country):
+        st.session_state['selected_country'] = country
+
+st.title("WORLD MAP 🗺")
+display_map(st.session_state['selected_country'])
+
+if st.session_state['selected_country']:
+    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast"])
+
+    with tabs[0]:
+        st.write(f"Analysis for {st.session_state['selected_country']}")
+        display_country_index(st.session_state['selected_country'])
+
+    with tabs[1]:
+        st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
+        display_image_and_text(st.session_state['selected_country'])
+
+    with tabs[2]:
+        st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
+        # Add content for important macroeconomic variables here
+
+    with tabs[3]:
+        st.write(f"Regression analysis for {st.session_state['selected_country']}")
+        # Add content for regression analysis here
+
+    with tabs[4]:
+        st.write(f"Forecast for {st.session_state['selected_country']}")
+        # Add content for forecast here
