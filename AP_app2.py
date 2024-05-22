@@ -471,7 +471,7 @@ def afficher_carte():
             popup=folium.Popup(f"<a href='?pays={pays}'>{pays}</a>")
         ).add_to(m)
 
-    st_folium(m, width=700, height=500)
+    st_folium(m, width=1400, height=800)
 
 # Début de l'application Streamlit
 st.set_page_config(page_title="Map of stock market indices in Europe", layout="wide")
