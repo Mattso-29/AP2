@@ -18,19 +18,19 @@ country_data = {
 # Dictionnaire pour stocker les chemins des images et les descriptions
 country_images_and_texts = {
     'France 🇫🇷': {
-        'image': 'regression table france copy.pdf',
+        'image': 'table events france.pdf',
         'text': 'Description of major macroeconomic events in France.'
     },
     'Germany 🇩🇪': {
-        'image': 'regression table germany copy.pdf',
+        'image': 'table events germany.pdf',
         'text': 'Description of major macroeconomic events in Germany.'
     },
     'Switzerland 🇨🇭': {
-        'image': 'regression table portugal copy.pdf',
+        'image': 'table events switzerland.pdf',
         'text': 'Description of major macroeconomic events in Switzerland.'
     },
     'Portugal 🇵🇹': {
-        'image': 'regression table switzerland copy.pdf',
+        'image': 'table events portugal.pdf',
         'text': 'Description of major macroeconomic events in Portugal.'
     }
 }
