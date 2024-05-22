@@ -6,3 +6,4 @@ geopandas
 matplotlib
 seaborn
 numpy
+openpyxl
