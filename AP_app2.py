@@ -477,7 +477,7 @@ center_coords = {
 }
 
 def afficher_indice_pays(pays):
-    st.subheader(f"Stock market Indices {pays}")
+    st.subheader(f"Stock market Index for {pays}")
 
     if pays in stock_market_indices:
         data = stock_market_indices[pays]
@@ -512,14 +512,14 @@ def afficher_carte(pays_selectionne):
     st_folium(m, width=1400, height=800)
 
 # Début de l'application Streamlit
-st.set_page_config(page_title="Map of stock market indices in Europe", layout="wide")
+st.set_page_config(page_title="World Map 🗺", layout="wide")
 
 # Gérer la sélection du pays avec un état
 if 'pays_selectionne' not in st.session_state:
     st.session_state['pays_selectionne'] = None
 
 # Affichage des boutons pour chaque pays
-st.sidebar.title("Select a country 🗺")
+st.sidebar.title("Select a country")
 for pays in stock_market_indices.keys():
     if st.sidebar.button(pays):
         st.session_state['pays_selectionne'] = pays
