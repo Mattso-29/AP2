@@ -1,4 +1,6 @@
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+import numpy as np
 
 def load_data(file_path, columns_to_drop, start_date):
     df = pd.read_excel(file_path)
