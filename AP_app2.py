@@ -506,10 +506,22 @@ def afficher_carte():
 # Début de l'application Streamlit
 st.set_page_config(page_title="Map of stock market indices in Europe", layout="wide")
 
-pays_selectionne = st.experimental_get_query_params().get('pays', [None])[0]
+# Gérer la sélection du pays avec un état
+if 'pays_selectionne' not in st.session_state:
+    st.session_state['pays_selectionne'] = None
 
+def on_click(pays):
+    st.session_state['pays_selectionne'] = pays
+
+# Affichage de la carte
+st.title("Map of stock market indices in Europe")
+afficher_carte()
+
+# Vérifier les paramètres URL pour les clics sur la carte
+pays_selectionne = st.experimental_get_query_params().get('pays', [None])[0]
 if pays_selectionne:
-    afficher_indice_pays(pays_selectionne)
-else:
-    st.title("Map of stock market indices in Europe")
-    afficher_carte()
+    on_click(pays_selectionne)
+
+# Afficher les informations du pays sélectionné en dessous de la carte
+if st.session_state['pays_selectionne']:
+    afficher_indice_pays(st.session_state['pays_selectionne'])
