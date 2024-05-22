@@ -3,11 +3,21 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from Data_loader import load_all_data, stock_market_indices, geojson_data, center_coords
 
 # Charger les données
 france, germany, switzerland, portugal = load_all_data()
+
+def generer_graphique_indice(data, pays):
+    plt.figure(figsize=(20, 12))
+    for column in data.columns:
+        plt.plot(data.index, data[column], label=column)
+    plt.title(f"Stock market index performance in {pays}")
+    plt.xlabel("Date")
+    plt.ylabel("Index value")
+    plt.legend()
+    st.pyplot(plt)
+    plt.close()
 
 def afficher_indice_pays(pays):
     st.subheader(f"Stock market Index for {pays}")
@@ -23,6 +33,14 @@ def afficher_indice_pays(pays):
         
         st.write("### Index Study")
         st.table(df_indices)
+        
+        # Vérifier si les données du pays sont disponibles
+        if pays.lower() in globals():
+            country_data = globals()[pays.lower()]
+            st.write("### Index Performance")
+            generer_graphique_indice(country_data, pays)
+        else:
+            st.write("No data available for the performance chart")
     else:
         st.write("No available")
 
@@ -89,14 +107,12 @@ afficher_carte(st.session_state['pays_selectionne'])
 
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
-    afficher_indice_pays(st.session_state['pays_selectionne'])
-
     # Ajouter les onglets
     tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast"])
 
     with tabs[0]:
         st.write(f"Analysis for {st.session_state['pays_selectionne']}")
-        # Ajouter le contenu de l'analyse du pays ici
+        afficher_indice_pays(st.session_state['pays_selectionne'])
 
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['pays_selectionne']}")
