@@ -495,7 +495,8 @@ flag_urls = {
 def afficher_indice_pays(pays):
     if pays in flag_urls:
         flag_url = flag_urls[pays]
-        st.markdown(f"### Indices boursiers pour {pays} ![]({flag_url})", unsafe_allow_html=True)
+        st.markdown(f"### Indices boursiers pour {pays}")
+        st.image(flag_url, width=50)
     else:
         st.subheader(f"Indices boursiers pour {pays}")
 
@@ -523,7 +524,7 @@ def afficher_carte(pays_selectionne):
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x, pays=pays: {
+            style_function=lambda x, pays=pays=pays: {
                 'color': 'black' if pays == pays_selectionne else 'gray',
                 'fillColor': 'black' if pays == pays_selectionne else 'darkgray',
                 'fillOpacity': 0.7
@@ -553,4 +554,8 @@ afficher_carte(st.session_state['pays_selectionne'])
 
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
-    afficher_indice_pays(st.session_state['pays_selectionne'])
+    col1, col2 = st.columns([1, 9])
+    with col1:
+        st.image(flag_urls[st.session_state['pays_selectionne']], width=50)
+    with col2:
+        afficher_indice_pays(st.session_state['pays_selectionne'])
