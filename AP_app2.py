@@ -3,21 +3,48 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
-# Données fictives pour les indices boursiers
 indices_boursiers = {
-    "France": {"CAC 40": 6000, "SBF 120": 4800},
-    "Germany": {"DAX": 15000, "MDAX": 32000},
-    "Portugal": {"PSI 20": 5200},
-    "Switzerland": {"SMI": 11000, "SPI": 14000}
+    "France": {
+        "CAC 40": 6000,
+        "SBF 120": 4800,
+        "Secteurs": {
+            "Technologie": 1500,
+            "Santé": 1200,
+            "Finance": 1800,
+            "Énergie": 1300
+        }
+    },
+    "Germany": {
+        "DAX": 15000,
+        "MDAX": 32000,
+        "Secteurs": {
+            "Technologie": 2500,
+            "Santé": 2200,
+            "Finance": 2800,
+            "Énergie": 2300
+        }
+    },
+    "Portugal": {
+        "PSI 20": 5200,
+        "Secteurs": {
+            "Technologie": 500,
+            "Santé": 700,
+            "Finance": 900,
+            "Énergie": 600
+        }
+    },
+    "Switzerland": {
+        "SMI": 11000,
+        "SPI": 14000,
+        "Secteurs": {
+            "Technologie": 3500,
+            "Santé": 3200,
+            "Finance": 3800,
+            "Énergie": 3300
+        }
+    }
 }
 
-# Données fictives pour les secteurs des pays
-secteurs = {
-    "France": {"Technologie": 2000, "Finance": 3000, "Santé": 1500, "Énergie": 2500},
-    "Germany": {"Technologie": 2500, "Finance": 3500, "Santé": 2000, "Énergie": 3000},
-    "Portugal": {"Technologie": 1500, "Finance": 2000, "Santé": 1000, "Énergie": 1800},
-    "Switzerland": {"Technologie": 2200, "Finance": 3100, "Santé": 1700, "Énergie": 2600}
-}
 
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
