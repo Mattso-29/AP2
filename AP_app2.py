@@ -1,4 +1,6 @@
 import streamlit as st
+pip install streamlit folium pandas
+
 
 def main():
     st.title('My Streamlit App')
