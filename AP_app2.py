@@ -4,7 +4,7 @@ from streamlit_folium import st_folium
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from Data_loader import load_all_data, stock_market_indices, geojson_data, center_coords
+from Data_loader.py import load_all_data, stock_market_indices, geojson_data, center_coords
 
 # Load data
 france, germany, switzerland, portugal = load_all_data()
