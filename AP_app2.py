@@ -38,6 +38,12 @@ stock_market_indices = {
     }
 }
 
+# Printing the formatted indices for clarity
+for country, data in stock_market_indices.items():
+    print(f"{country}:")
+    for sector, index in data["Sectors"].items():
+        print(f"  {sector}: {index}")
+
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
     "France": {
