@@ -17,19 +17,19 @@ country_data = {
 
 country_images_and_texts = {
     'France 🇫🇷': {
-        'image': 'table events france.pdf',
+        'image': 'table_events_france.png',
         'text': 'Description of major macroeconomic events in France.'
     },
     'Germany 🇩🇪': {
-        'image': 'table events germany.pdf',
+        'image': 'table_events_germany.png',
         'text': 'Description of major macroeconomic events in Germany.'
     },
     'Switzerland 🇨🇭': {
-        'image': 'table events switzerland.pdf',
+        'image': 'table_events_switzerland.png',
         'text': 'Description of major macroeconomic events in Switzerland.'
     },
     'Portugal 🇵🇹': {
-        'image': 'table events portugal.pdf',
+        'image': 'table_events_portugal.png',
         'text': 'Description of major macroeconomic events in Portugal.'
     }
 }
@@ -120,8 +120,9 @@ def display_map(selected_country):
 def display_image_and_text(country):
     if country in country_images_and_texts:
         image_info = country_images_and_texts[country]
+        image_path = image_info['image']
         try:
-            st.image(image_info['image'], use_column_width=True)
+            st.image(image_path, use_column_width=True)
         except Exception as e:
             st.error(f"Error loading image: {e}")
         st.write(image_info['text'])
@@ -143,44 +144,5 @@ st.markdown("""
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-    }
-    .stButton>button:hover {
-        background-color: darkgray;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-if 'selected_country' not in st.session_state:
-    st.session_state['selected_country'] = None
-
-st.sidebar.title("Select a country")
-for country in stock_market_indices.keys():
-    if st.sidebar.button(country):
-        st.session_state['selected_country'] = country
-
-st.title("WORLD MAP 🗺")
-display_map(st.session_state['selected_country'])
-
-if st.session_state['selected_country']:
-    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast"])
-
-    with tabs[0]:
-        st.write(f"Analysis for {st.session_state['selected_country']}")
-        display_country_index(st.session_state['selected_country'])
-
-    with tabs[1]:
-        st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
-        display_image_and_text(st.session_state['selected_country'])
-
-    with tabs[2]:
-        st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
-        # Add content for important macroeconomic variables here
-
-    with tabs[3]:
-        st.write(f"Regression analysis for {st.session_state['selected_country']}")
-        # Add content for regression analysis here
-
-    with tabs[4]:
-        st.write(f"Forecast for {st.session_state['selected_country']}")
-        # Add content for forecast here
+  
 
