@@ -477,15 +477,15 @@ center_coords = {
 }
 
 def afficher_indice_pays(pays):
-    st.subheader(f"Indices boursiers pour {pays}")
+    st.subheader(f"Stock market Indices {pays}")
 
-    if pays in indices_boursiers:
-        data = indices_boursiers[pays]
+    if pays in stock_market_indices:
+        data = stock_market_indices[pays]
         df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
         st.write("### Index Study")
         st.table(df_indices)
     else:
-        st.write("Données non disponibles.")
+        st.write("No available")
 
 def afficher_carte(pays_selectionne):
     if pays_selectionne and pays_selectionne in center_coords:
@@ -520,7 +520,7 @@ if 'pays_selectionne' not in st.session_state:
 
 # Affichage des boutons pour chaque pays
 st.sidebar.title("Sélectionner un pays")
-for pays in indices_boursiers.keys():
+for pays in stock_market_indices.keys():
     if st.sidebar.button(pays):
         st.session_state['pays_selectionne'] = pays
 
