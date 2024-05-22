@@ -484,12 +484,12 @@ center_coords = {
     "Switzerland": [46.818188, 10.227512]  # Décalé vers la droite
 }
 
-# URLs des drapeaux des pays
+# URLs des drapeaux des pays en format PNG
 flag_urls = {
-    "France": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
-    "Germany": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg",
-    "Portugal": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
-    "Switzerland": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg"
+    "France": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.png",
+    "Germany": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.png",
+    "Portugal": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.png",
+    "Switzerland": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.png"
 }
 
 def afficher_indice_pays(pays):
@@ -528,10 +528,11 @@ def afficher_carte(pays_selectionne):
         ).add_to(m)
 
         if pays_selectionne == pays:
+            bounds = folium.GeoJson(geojson).get_bounds()
             folium.raster_layers.ImageOverlay(
                 name=pays,
                 image=flag_urls[pays],
-                bounds=geojson["geometry"]["coordinates"][0],
+                bounds=bounds,
                 opacity=0.6,
                 interactive=True,
                 cross_origin=False,
