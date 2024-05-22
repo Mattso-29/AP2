@@ -3,10 +3,10 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
-indices_boursiers = {
+stock_marcket_indices = {
     "France": {
         "Sectors": {
-            "Technology": CAC Technology Financial index (FRTEC),
+            "Technology":,,, CAC Technology Financial index (FRTEC),
             "Financials": CAC Financials Financial index (FRFIN),
             "Industrials": CAC Industrials Financial index (FRIN) ,
             "Telecom": CAC Telecom (FRTEL)
