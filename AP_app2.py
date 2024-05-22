@@ -14,10 +14,16 @@ country_data = {
     'Portugal 🇵🇹': portugal
 }
 
-def generer_graphique_indice(data, pays):
+def generer_graphique_indice(data, pays, columns, start_date, end_date, chart_type):
+    data_filtered = data[start_date:end_date]
+    
     plt.figure(figsize=(20, 12))
-    for column in data.columns:
-        plt.plot(data.index, data[column], label=column)
+    if chart_type == 'Line':
+        for column in columns:
+            plt.plot(data_filtered.index, data_filtered[column], label=column)
+    elif chart_type == 'Bar':
+        data_filtered[columns].plot(kind='bar', ax=plt.gca())
+    
     plt.title(f"Stock market index performance in {pays}")
     plt.xlabel("Date")
     plt.ylabel("Index value")
@@ -44,7 +50,15 @@ def afficher_indice_pays(pays):
         if pays in country_data:
             country_df = country_data[pays]
             st.write("### Index Performance")
-            generer_graphique_indice(country_df, pays)
+            
+            # Options pour moduler les graphiques
+            st.write("#### Modulate Graph")
+            columns = st.multiselect("Select columns to display", country_df.columns.tolist(), default=country_df.columns.tolist())
+            start_date = st.date_input("Start date", value=country_df.index.min(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            end_date = st.date_input("End date", value=country_df.index.max(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            chart_type = st.radio("Select chart type", ('Line', 'Bar'))
+            
+            generer_graphique_indice(country_df, pays, columns, start_date, end_date, chart_type)
         else:
             st.write("No data available for the performance chart")
     else:
@@ -135,4 +149,3 @@ if st.session_state['pays_selectionne']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des prévisions ici
-
