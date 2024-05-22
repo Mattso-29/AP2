@@ -521,6 +521,26 @@ def afficher_carte(pays_selectionne):
 # Début de l'application Streamlit
 st.set_page_config(page_title="AP project", layout="wide")
 
+st.markdown("""
+    <style>
+    .stButton>button {
+        display: block;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .stButton>button:hover {
+        background-color: darkgray;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Gérer la sélection du pays avec un état
 if 'pays_selectionne' not in st.session_state:
     st.session_state['pays_selectionne'] = None
