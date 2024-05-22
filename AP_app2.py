@@ -1,4 +1,4 @@
-import streamlit as st
+anyimport streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
@@ -6,9 +6,9 @@ import pandas as pd
 # Données fictives pour les indices boursiers
 indices_boursiers = {
     "France": {"CAC 40": 6000, "SBF 120": 4800},
-    "Allemagne": {"DAX": 15000, "MDAX": 32000},
+    "Germany": {"DAX": 15000, "MDAX": 32000},
     "Portugal": {"PSI 20": 5200},
-    "Suisse": {"SMI": 11000, "SPI": 14000}
+    "Switzerland": {"SMI": 11000, "SPI": 14000}
 }
 
 # Coordonnées simplifiées des polygones pour chaque pays
@@ -123,7 +123,7 @@ geojson_data = {
  ]]
         }
     },
-"Allemagne": {
+"Germany": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
@@ -330,7 +330,7 @@ geojson_data = {
             ]]
         }
     },
-    "Suisse": {
+    "Switzerland": {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
