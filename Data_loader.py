@@ -2,10 +2,6 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-import numpy as np
-
 # Function to load data and drop specified columns
 def load_data(file_path, columns_to_drop, start_date):
     try:
