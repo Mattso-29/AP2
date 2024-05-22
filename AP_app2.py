@@ -495,6 +495,8 @@ flag_urls = {
 def afficher_indice_pays(pays):
     st.subheader(f"Indices boursiers pour {pays}")
     if pays in indices_boursiers:
+        flag_url = flag_urls[pays]
+        st.image(flag_url, width=100)
         data = indices_boursiers[pays]
         df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
         df_secteurs = pd.DataFrame(list(data["Secteurs"].items()), columns=["Secteur", "Valeur"])
@@ -518,27 +520,14 @@ def afficher_carte(pays_selectionne):
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x: {
-                'color': 'gray',
-                'fillColor': 'darkgray',
+            style_function=lambda x, pays=pays: {
+                'color': 'black' if pays == pays_selectionne else 'gray',
+                'fillColor': 'black' if pays == pays_selectionne else 'darkgray',
                 'fillOpacity': 0.7
             },
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
             tooltip=folium.Tooltip(pays)
         ).add_to(m)
-
-        if pays_selectionne == pays:
-            bounds = folium.GeoJson(geojson).get_bounds()
-            image_overlay = folium.raster_layers.ImageOverlay(
-                name=pays,
-                image=flag_urls[pays],
-                bounds=bounds,
-                opacity=0.6,
-                interactive=True,
-                cross_origin=False,
-                zindex=1
-            )
-            image_overlay.add_to(m)
 
     st_folium(m, width=1400, height=800)
 
