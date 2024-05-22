@@ -6,34 +6,34 @@ import pandas as pd
 stock_market_indices = {
     "France": {
         "Sectors": {
-            "Technology": "CAC Technology Financial index (FRTEC)",
-            "Financials": "CAC Financials Financial index (FRFIN)",
-            "Industrials": "CAC Industrials Financial index (FRIN)",
-            "Telecom": "CAC Telecom (FRTEL)"
+            "Technology": {"name": "CAC Technology Financial index (FRTEC)", "companies": 35},
+            "Financials": {"name": "CAC Financials Financial index (FRFIN)", "companies": 39},
+            "Industrials": {"name": "CAC Industrials Financial index (FRIN)", "companies": 60},
+            "Telecom": {"name": "CAC Telecom (FRTEL)", "companies": 6}
         }
     },
     "Germany": {
         "Sectors": {
-            "Technology": "DAX Technology (CXPHX)",
-            "Financials": "DAX Financials (CXPVX)",
-            "Industrials": "DAX Industrials (CXPNX)",
-            "Telecom": "DAX Telecom (CXPTX)"
+            "Technology": {"name": "DAX Technology (CXPHX)", "companies": 18},
+            "Financials": {"name": "DAX Financials (CXPVX)", "companies": 29},
+            "Industrials": {"name": "DAX Industrials (CXPNX)", "companies": 64},
+            "Telecom": {"name": "DAX Telecom (CXPTX)", "companies": 7}
         }
     },
     "Portugal": {
         "Sectors": {
-            "Technology": "PSI Technology (PTTEC)",
-            "Financials": "PSI Financials (PTFIN)",
-            "Industrials": "PSI Industrials (PTIN)",
-            "Telecom": "PSI Telecom (PTTEL)"
+            "Technology": {"name": "PSI Technology (PTTEC)", "companies": 3},
+            "Financials": {"name": "PSI Financials (PTFIN)", "companies": 2},
+            "Industrials": {"name": "PSI Industrials (PTIN)", "companies": 6},
+            "Telecom": {"name": "PSI Telecom (PTTEL)", "companies": 4}
         }
     },
     "Switzerland": {
         "Sectors": {
-            "Technology": "SWX Technology (C9500T)",
-            "Financials": "SWX Financials (C8700T)",
-            "Industrials": "SWX Industrials (C2700T)",
-            "Telecom": "SWX Telecom (C6500T)"
+            "Technology": {"name": "SWX Technology (C9500T)", "companies": 10},
+            "Financials": {"name": "SWX Financials (C8700T)", "companies": 33},
+            "Industrials": {"name": "SWX Industrials (C2700T)", "companies": 52},
+            "Telecom": {"name": "SWX Telecom (C6500T)", "companies": 1}
         }
     }
 }
@@ -482,17 +482,17 @@ def afficher_indice_pays(pays):
     if pays in stock_market_indices:
         data = stock_market_indices[pays]['Sectors']
         indices = list(data.keys())
-        entreprises = [100, 50, 75, 30]  # Exemple de nombres d'entreprises pour chaque indice
         
         df_indices = pd.DataFrame({
-            'Index Name': [data[indice] for indice in indices],
-            'Number of Companies': entreprises
+            'Index Name': [data[indice]['name'] for indice in indices],
+            'Number of Companies': [data[indice]['companies'] for indice in indices]
         }, index=indices)
         
         st.write("### Index Study")
         st.table(df_indices)
     else:
         st.write("No available")
+
         
 def afficher_carte(pays_selectionne):
     if pays_selectionne and pays_selectionne in center_coords:
