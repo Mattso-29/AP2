@@ -3,3 +3,6 @@ folium
 streamlit-folium
 pandas
 geopandas
+matplotlib
+seaborn
+numpy
