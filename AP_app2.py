@@ -6,7 +6,7 @@ import pandas as pd
 stock_marcket_indices = {
     "France": {
         "Sectors": {
-            "Technology":,,, CAC Technology Financial index (FRTEC),
+            "Technology": CAC Technology Financial index (FRTEC),
             "Financials": CAC Financials Financial index (FRFIN),
             "Industrials": CAC Industrials Financial index (FRIN) ,
             "Telecom": CAC Telecom (FRTEL)
@@ -14,26 +14,26 @@ stock_marcket_indices = {
     },
     "Germany": {
         "Sectors": {
-            "Technology": 2500,
-            "Financials": 2200,
-            "Industrials": 2800,
-            "Telecom": 2300
+            "Technology": DAX Technology (CXPHX),
+            "Financials": DAX Financials (CXPVX) ,
+            "Industrials": DAX Industrials (CXPNX) ,
+            "Telecom": DAX Telecom (CXPTX)
         }
     },
     "Portugal": {
         "Sectors": {
-            "Technology": 500,
-            "Financials": 700,
-            "Industrials": 900,
-            "Telecom": 600
+            "Technology": PSI Technology (PTTEC),
+            "Financials": PSI Financials (PTFIN) ,
+            "Industrials": PSI Industrials (PTIN),
+            "Telecom": PSI Telecom (PTTEL
         }
     },
     "Switzerland": {
         "Sectors": {
-            "Technology": 3500,
-            "Financials": 3200,
-            "Industrials": 3800,
-            "Telecom": 3300
+            "Technology": SWX Technology (C9500T) ,
+            "Financials": SWX Financials (C8700T),
+            "Industrials": SWX Industrials (C2700T),
+            "Telecom": SWX Telecom (C6500T)
         }
     }
 }
