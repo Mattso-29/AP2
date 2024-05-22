@@ -3,41 +3,40 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
-stock_marcket_indices = {
+stock_market_indices = {
     "France": {
         "Sectors": {
-            "Technology": CAC Technology Financial index (FRTEC),
-            "Financials": CAC Financials Financial index (FRFIN),
-            "Industrials": CAC Industrials Financial index (FRIN) ,
-            "Telecom": CAC Telecom (FRTEL)
+            "Technology": "CAC Technology Financial index (FRTEC)",
+            "Financials": "CAC Financials Financial index (FRFIN)",
+            "Industrials": "CAC Industrials Financial index (FRIN)",
+            "Telecom": "CAC Telecom (FRTEL)"
         }
     },
     "Germany": {
         "Sectors": {
-            "Technology": DAX Technology (CXPHX),
-            "Financials": DAX Financials (CXPVX) ,
-            "Industrials": DAX Industrials (CXPNX) ,
-            "Telecom": DAX Telecom (CXPTX)
+            "Technology": "DAX Technology (CXPHX)",
+            "Financials": "DAX Financials (CXPVX)",
+            "Industrials": "DAX Industrials (CXPNX)",
+            "Telecom": "DAX Telecom (CXPTX)"
         }
     },
     "Portugal": {
         "Sectors": {
-            "Technology": PSI Technology (PTTEC),
-            "Financials": PSI Financials (PTFIN) ,
-            "Industrials": PSI Industrials (PTIN),
-            "Telecom": PSI Telecom (PTTEL)
+            "Technology": "PSI Technology (PTTEC)",
+            "Financials": "PSI Financials (PTFIN)",
+            "Industrials": "PSI Industrials (PTIN)",
+            "Telecom": "PSI Telecom (PTTEL)"
         }
     },
     "Switzerland": {
         "Sectors": {
-            "Technology": SWX Technology (C9500T) ,
-            "Financials": SWX Financials (C8700T),
-            "Industrials": SWX Industrials (C2700T),
-            "Telecom": SWX Telecom (C6500T)
+            "Technology": "SWX Technology (C9500T)",
+            "Financials": "SWX Financials (C8700T)",
+            "Industrials": "SWX Industrials (C2700T)",
+            "Telecom": "SWX Telecom (C6500T)"
         }
     }
 }
-
 
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
