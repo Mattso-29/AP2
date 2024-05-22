@@ -490,11 +490,8 @@ def afficher_indice_pays(pays):
     if pays in indices_boursiers:
         data = indices_boursiers[pays]
         df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
-        df_secteurs = pd.DataFrame(list(data["Secteurs"].items()), columns=["Secteur", "Valeur"])
-        st.write("### Indices principaux")
+        st.write("### Index Study")
         st.table(df_indices)
-        st.write("### Résultats par secteur")
-        st.table(df_secteurs)
     else:
         st.write("Données non disponibles.")
 
