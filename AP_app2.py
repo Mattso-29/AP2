@@ -478,13 +478,10 @@ geojson_data = {
 }
 # Coordonnées centrales pour zoomer sur chaque pays
 center_coords = {
-    center_coords = {
     "France": [46.603354, 3.888334],  # Décalé vers la droite
     "Germany": [51.165691, 12.451526],  # Décalé vers la droite
     "Portugal": [39.399872, -6.224454],  # Décalé vers la droite
     "Switzerland": [46.818188, 10.227512]  # Décalé vers la droite
-}
-
 }
 
 def afficher_indice_pays(pays):
