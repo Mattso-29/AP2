@@ -4,6 +4,9 @@ from streamlit_folium import st_folium
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from data_loader import load_all_data
+
+france, germany, switzerland, portugal = load_all_data()
 
 stock_market_indices = {
     "France 🇫🇷": {
