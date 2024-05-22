@@ -470,10 +470,10 @@ geojson_data = {
 }
 # Coordonnées centrales pour zoomer sur chaque pays (décalées vers la droite)
 center_coords = {
-    "France": [46.603354, 3.888334],  # Décalé vers la droite
-    "Germany": [51.165691, 12.451526],  # Décalé vers la droite
-    "Portugal": [39.399872, -6.224454],  # Décalé vers la droite
-    "Switzerland": [46.818188, 10.227512]  # Décalé vers la droite
+    "France": [46.603354, 3.888334], 
+    "Germany": [51.165691, 12.451526], 
+    "Portugal": [39.399872, -6.224454],  
+    "Switzerland": [46.818188, 10.227512]  
 }
 
 def afficher_indice_pays(pays):
@@ -519,7 +519,7 @@ if 'pays_selectionne' not in st.session_state:
     st.session_state['pays_selectionne'] = None
 
 # Affichage des boutons pour chaque pays
-st.sidebar.title("Sélectionner un pays")
+st.sidebar.title("Select a country 🗺")
 for pays in stock_market_indices.keys():
     if st.sidebar.button(pays):
         st.session_state['pays_selectionne'] = pays
