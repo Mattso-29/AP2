@@ -452,7 +452,7 @@ def afficher_indice_pays(pays):
         st.write("Données non disponibles.")
 
 def afficher_carte():
-    m = folium.Map(location=[48.8566, 2.3522], zoom_start=4)
+    m = folium.Map(location=[48.8566, 2.3522], zoom_start=4, tiles='CartoDB positron')
 
     # Ajouter des polygones colorés pour chaque pays
     couleurs = {
@@ -465,7 +465,7 @@ def afficher_carte():
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x, couleur=couleurs[pays]: {'color': couleur, 'fillColor': couleur, 'fillOpacity': 0.5},
+            style_function=lambda x: {'color': 'gray', 'fillColor': 'darkgray', 'fillOpacity': 0.7},
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
             tooltip=folium.Tooltip(pays),
             popup=folium.Popup(f"<a href='?pays={pays}'>{pays}</a>")
@@ -474,7 +474,7 @@ def afficher_carte():
     st_folium(m, width=700, height=500)
 
 # Début de l'application Streamlit
-st.set_page_config(page_title="Carte des Indices Boursiers", layout="wide")
+st.set_page_config(page_title="Map of stock market indices in Europe", layout="wide")
 
 pays_selectionne = st.experimental_get_query_params().get('pays', [None])[0]
 
