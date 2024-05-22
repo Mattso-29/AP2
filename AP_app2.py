@@ -526,8 +526,8 @@ st.markdown("""
     .stButton>button {
         display: block;
         width: 100%;
-        background-color: white;
-        color: black;
+        background-color: black;
+        color: white;
         text-align: center;
         padding: 10px;
         margin: 10px 0;
@@ -536,10 +536,7 @@ st.markdown("""
         cursor: pointer;
     }
     .stButton>button:hover {
-        background-color: lightgray;
-    }
-    .sidebar .css-1d391kg {
-        background-color: #333333;
+        background-color: darkgray;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -584,4 +581,3 @@ if st.session_state['pays_selectionne']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['pays_selectionne']}")
         # Ajouter le contenu des prévisions ici
-
