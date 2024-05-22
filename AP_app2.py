@@ -13,7 +13,6 @@ indices_boursiers = {
 
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
-    geojson_data = {
     "France": {
         "type": "Feature",
         "geometry": {
