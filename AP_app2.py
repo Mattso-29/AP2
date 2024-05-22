@@ -493,10 +493,13 @@ flag_urls = {
 }
 
 def afficher_indice_pays(pays):
-    st.subheader(f"Indices boursiers pour {pays}")
-    if pays in indices_boursiers:
+    if pays in flag_urls:
         flag_url = flag_urls[pays]
-        st.image(flag_url, width=100)
+        st.markdown(f"### Indices boursiers pour {pays} ![]({flag_url})", unsafe_allow_html=True)
+    else:
+        st.subheader(f"Indices boursiers pour {pays}")
+
+    if pays in indices_boursiers:
         data = indices_boursiers[pays]
         df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
         df_secteurs = pd.DataFrame(list(data["Secteurs"].items()), columns=["Secteur", "Valeur"])
