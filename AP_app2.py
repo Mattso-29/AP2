@@ -5,42 +5,35 @@ import pandas as pd
 
 indices_boursiers = {
     "France": {
-        "CAC 40": 6000,
-        "SBF 120": 4800,
-        "Secteurs": {
-            "Technologie": 1500,
-            "Santé": 1200,
-            "Finance": 1800,
-            "Énergie": 1300
+        "Sectors": {
+            "Technology": CAC Technology Financial index (FRTEC),
+            "Financials": CAC Financials Financial index (FRFIN),
+            "Industrials": CAC Industrials Financial index (FRIN) ,
+            "Telecom": CAC Telecom (FRTEL)
         }
     },
     "Germany": {
-        "DAX": 15000,
-        "MDAX": 32000,
-        "Secteurs": {
-            "Technologie": 2500,
-            "Santé": 2200,
-            "Finance": 2800,
-            "Énergie": 2300
+        "Sectors": {
+            "Technology": 2500,
+            "Financials": 2200,
+            "Industrials": 2800,
+            "Telecom": 2300
         }
     },
     "Portugal": {
-        "PSI 20": 5200,
-        "Secteurs": {
-            "Technologie": 500,
-            "Santé": 700,
-            "Finance": 900,
-            "Énergie": 600
+        "Sectors": {
+            "Technology": 500,
+            "Financials": 700,
+            "Industrials": 900,
+            "Telecom": 600
         }
     },
     "Switzerland": {
-        "SMI": 11000,
-        "SPI": 14000,
-        "Secteurs": {
-            "Technologie": 3500,
-            "Santé": 3200,
-            "Finance": 3800,
-            "Énergie": 3300
+        "Sectors": {
+            "Technology": 3500,
+            "Financials": 3200,
+            "Industrials": 3800,
+            "Telecom": 3300
         }
     }
 }
