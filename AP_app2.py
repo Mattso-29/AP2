@@ -476,6 +476,14 @@ geojson_data = {
         }
     }
 }
+# Coordonnées centrales pour zoomer sur chaque pays
+center_coords = {
+    "France": [46.603354, 1.888334],
+    "Germany": [51.165691, 10.451526],
+    "Portugal": [39.399872, -8.224454],
+    "Switzerland": [46.818188, 8.227512]
+}
+
 def afficher_indice_pays(pays):
     st.subheader(f"Indices boursiers pour {pays}")
     if pays in indices_boursiers:
@@ -489,13 +497,24 @@ def afficher_indice_pays(pays):
     else:
         st.write("Données non disponibles.")
 
-def afficher_carte():
-    m = folium.Map(location=[48.8566, 2.3522], zoom_start=4, tiles='CartoDB positron')
+def afficher_carte(pays_selectionne):
+    if pays_selectionne and pays_selectionne in center_coords:
+        center = center_coords[pays_selectionne]
+        zoom_start = 6
+    else:
+        center = [48.8566, 2.3522]
+        zoom_start = 4
+
+    m = folium.Map(location=center, zoom_start=zoom_start, tiles='CartoDB positron')
 
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x: {'color': 'gray', 'fillColor': 'darkgray', 'fillOpacity': 0.7},
+            style_function=lambda x, selected=pays == pays_selectionne: {
+                'color': 'black' if selected else 'gray',
+                'fillColor': 'darkblue' if selected else 'darkgray',
+                'fillOpacity': 0.7
+            },
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
             tooltip=folium.Tooltip(pays)
         ).add_to(m)
@@ -509,15 +528,15 @@ st.set_page_config(page_title="Map of stock market indices in Europe", layout="w
 if 'pays_selectionne' not in st.session_state:
     st.session_state['pays_selectionne'] = None
 
-# Affichage de la carte
-st.title("Map of stock market indices in Europe")
-afficher_carte()
-
 # Affichage des boutons pour chaque pays
 st.sidebar.title("Sélectionner un pays")
 for pays in indices_boursiers.keys():
     if st.sidebar.button(pays):
         st.session_state['pays_selectionne'] = pays
+
+# Affichage de la carte
+st.title("Map of stock market indices in Europe")
+afficher_carte(st.session_state['pays_selectionne'])
 
 # Afficher les informations du pays sélectionné en dessous de la carte
 if st.session_state['pays_selectionne']:
