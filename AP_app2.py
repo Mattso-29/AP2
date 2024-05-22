@@ -7,6 +7,12 @@ from Data_loader import load_all_data, stock_market_indices, geojson_data, cente
 
 # Charger les données
 france, germany, switzerland, portugal = load_all_data()
+country_data = {
+    'France': france,
+    'Germany': germany,
+    'Switzerland': switzerland,
+    'Portugal': portugal
+}
 
 def generer_graphique_indice(data, pays):
     plt.figure(figsize=(20, 12))
@@ -34,11 +40,11 @@ def afficher_indice_pays(pays):
         st.write("### Index Study")
         st.table(df_indices)
         
-        # Vérifier si les données du pays sont disponibles
-        if pays.lower() in globals():
-            country_data = globals()[pays.lower()]
+        # Vérifier si les données du pays sont disponibles dans le dictionnaire
+        if pays in country_data:
+            country_df = country_data[pays]
             st.write("### Index Performance")
-            generer_graphique_indice(country_data, pays)
+            generer_graphique_indice(country_df, pays)
         else:
             st.write("No data available for the performance chart")
     else:
