@@ -512,7 +512,7 @@ def afficher_carte(pays_selectionne):
     st_folium(m, width=1400, height=800)
 
 # Début de l'application Streamlit
-st.set_page_config(page_title="World Map 🗺", layout="wide")
+st.set_page_config(page_title="AP project", layout="wide")
 
 # Gérer la sélection du pays avec un état
 if 'pays_selectionne' not in st.session_state:
@@ -525,7 +525,7 @@ for pays in stock_market_indices.keys():
         st.session_state['pays_selectionne'] = pays
 
 # Affichage de la carte
-st.title("Map of stock market indices in Europe")
+st.title("WORLD MAP 🗺")
 afficher_carte(st.session_state['pays_selectionne'])
 
 # Afficher les informations du pays sélectionné en dessous de la carte
