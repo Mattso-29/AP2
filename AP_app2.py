@@ -17,19 +17,19 @@ country_data = {
 
 country_images_and_texts = {
     'France 🇫🇷': {
-        'image': 'table_events_france.png',
+        'image': 'table events france.png',
         'text': 'Description of major macroeconomic events in France.'
     },
     'Germany 🇩🇪': {
-        'image': 'table_events_germany.png',
+        'image': 'table events germany.png',
         'text': 'Description of major macroeconomic events in Germany.'
     },
     'Switzerland 🇨🇭': {
-        'image': 'table_events_switzerland.png',
+        'image': 'table events switzerland.png',
         'text': 'Description of major macroeconomic events in Switzerland.'
     },
     'Portugal 🇵🇹': {
-        'image': 'table_events_portugal.png',
+        'image': 'table events portugal.png',
         'text': 'Description of major macroeconomic events in Portugal.'
     }
 }
