@@ -113,9 +113,9 @@ def afficher_carte():
     # Ajouter des polygones colorés pour chaque pays
     couleurs = {
         "France": "blue",
-        "Allemagne": "green",
-        "Portugal": "red",
-        "Suisse": "yellow"
+        "Allemagne": "yellow",
+        "Portugal": "green",
+        "Suisse": "red"
     }
 
     for pays, geojson in geojson_data.items():
