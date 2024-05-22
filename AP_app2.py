@@ -449,21 +449,16 @@ geojson_data = {
         }
     }
 }
-
 def afficher_indice_pays(pays):
     st.title(f"Indices boursiers pour {pays}")
     if pays in indices_boursiers:
         data = indices_boursiers[pays]
-        df = pd.DataFrame(list(data.items()), columns=["Indice", "Valeur"])
-        st.table(df)
-        
-        st.subheader(f"Résultats pour 4 secteurs en {pays}")
-        if pays in secteurs:
-            secteurs_data = secteurs[pays]
-            df_secteurs = pd.DataFrame(list(secteurs_data.items()), columns=["Secteur", "Valeur"])
-            st.table(df_secteurs)
-        else:
-            st.write("Données non disponibles pour les secteurs.")
+        df_indices = pd.DataFrame({k: [v] for k, v in data.items() if k != "Secteurs"})
+        df_secteurs = pd.DataFrame(list(data["Secteurs"].items()), columns=["Secteur", "Valeur"])
+        st.subheader("Indices principaux")
+        st.table(df_indices)
+        st.subheader("Résultats par secteur")
+        st.table(df_secteurs)
     else:
         st.write("Données non disponibles.")
 
