@@ -520,9 +520,15 @@ def afficher_carte(pays_selectionne):
 
 # Début de l'application Streamlit
 st.set_page_config(page_title="AP project", layout="wide")
-
+# Inclure du CSS personnalisé pour styliser la page et les boutons
 st.markdown("""
     <style>
+    .stApp {
+        background-color: #333333;
+    }
+    .sidebar .css-1d391kg {
+        background-color: white;
+    }
     .stButton>button {
         display: block;
         width: 100%;
