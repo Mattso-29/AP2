@@ -524,7 +524,7 @@ def afficher_carte(pays_selectionne):
     for pays, geojson in geojson_data.items():
         folium.GeoJson(
             geojson,
-            style_function=lambda x, pays: {
+            style_function=lambda x, pays=pays=pays: {
                 'color': 'black' if pays == pays_selectionne else 'gray',
                 'fillColor': 'black' if pays == pays_selectionne else 'darkgray',
                 'fillOpacity': 0.7
