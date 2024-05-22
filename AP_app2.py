@@ -25,7 +25,7 @@ stock_marcket_indices = {
             "Technology": PSI Technology (PTTEC),
             "Financials": PSI Financials (PTFIN) ,
             "Industrials": PSI Industrials (PTIN),
-            "Telecom": PSI Telecom (PTTEL
+            "Telecom": PSI Telecom (PTTEL)
         }
     },
     "Switzerland": {
