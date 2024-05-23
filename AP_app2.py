@@ -437,93 +437,101 @@ country_images_and_texts = {
                 {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
             ],
             'Industrials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast france ind1.png', 'text': 'Forecast 1 for Industrials in France.'},
+                {'image': 'forecast france ind2.png', 'text': 'Forecast 2 for Industrials in France.'}
             ],
             'Telecom': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
-            ],}}
+                {'image': 'forecast france tel1.png', 'text': 'Forecast 1 for Telecom in France.'},
+                {'image': 'forecast france tel2.png', 'text': 'Forecast 2 for Telecom in France.'}
+            ],
+        }
+    },
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
+            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
         ],
         'regression': {
-            'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
-            'svr': {'image': 'regression france svr.png', 'text': 'SVR Regression analysis in France.'}
+            'randomforest': {'image': 'regression germany randomforest.png', 'text': 'RandomForest Regression analysis in Germany.'},
+            'svr': {'image': 'regression germany svr.png', 'text': 'SVR Regression analysis in Germany.'}
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast france tech1.png', 'text': 'Forecast 1 for Technology in France.'},
-                {'image': 'forecast france tech2.png', 'text': 'Forecast 2 for Technology in France.'}
+                {'image': 'forecast germany tech1.png', 'text': 'Forecast 1 for Technology in Germany.'},
+                {'image': 'forecast germany tech2.png', 'text': 'Forecast 2 for Technology in Germany.'}
             ],
             'Financials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast germany fin1.png', 'text': 'Forecast 1 for Financials in Germany.'},
+                {'image': 'forecast germany fin2.png', 'text': 'Forecast 2 for Financials in Germany.'}
             ],
             'Industrials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast germany ind1.png', 'text': 'Forecast 1 for Industrials in Germany.'},
+                {'image': 'forecast germany ind2.png', 'text': 'Forecast 2 for Industrials in Germany.'}
             ],
             'Telecom': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
-            ],}}
-'Switzerland 🇨🇭': {
+                {'image': 'forecast germany tel1.png', 'text': 'Forecast 1 for Telecom in Germany.'},
+                {'image': 'forecast germany tel2.png', 'text': 'Forecast 2 for Telecom in Germany.'}
+            ],
+        }
+    },
+    'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events switzerland1.png', 'text': 'Description of macroeconomic event 1 in Switzerland.'},
+            {'image': 'table events switzerland2.png', 'text': 'Description of macroeconomic event 2 in Switzerland.'}
         ],
         'regression': {
-            'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
-            'svr': {'image': 'regression france svr.png', 'text': 'SVR Regression analysis in France.'}
+            'randomforest': {'image': 'regression switzerland randomforest.png', 'text': 'RandomForest Regression analysis in Switzerland.'},
+            'svr': {'image': 'regression switzerland svr.png', 'text': 'SVR Regression analysis in Switzerland.'}
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast france tech1.png', 'text': 'Forecast 1 for Technology in France.'},
-                {'image': 'forecast france tech2.png', 'text': 'Forecast 2 for Technology in France.'}
+                {'image': 'forecast switzerland tech1.png', 'text': 'Forecast 1 for Technology in Switzerland.'},
+                {'image': 'forecast switzerland tech2.png', 'text': 'Forecast 2 for Technology in Switzerland.'}
             ],
             'Financials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast switzerland fin1.png', 'text': 'Forecast 1 for Financials in Switzerland.'},
+                {'image': 'forecast switzerland fin2.png', 'text': 'Forecast 2 for Financials in Switzerland.'}
             ],
             'Industrials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast switzerland ind1.png', 'text': 'Forecast 1 for Industrials in Switzerland.'},
+                {'image': 'forecast switzerland ind2.png', 'text': 'Forecast 2 for Industrials in Switzerland.'}
             ],
             'Telecom': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
-            ],}}
-'Portugal 🇵🇹': {
+                {'image': 'forecast switzerland tel1.png', 'text': 'Forecast 1 for Telecom in Switzerland.'},
+                {'image': 'forecast switzerland tel2.png', 'text': 'Forecast 2 for Telecom in Switzerland.'}
+            ],
+        }
+    },
+    'Portugal 🇵🇹': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events portugal1.png', 'text': 'Description of macroeconomic event 1 in Portugal.'},
+            {'image': 'table events portugal2.png', 'text': 'Description of macroeconomic event 2 in Portugal.'}
         ],
         'regression': {
-            'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
-            'svr': {'image': 'regression france svr.png', 'text': 'SVR Regression analysis in France.'}
+            'randomforest': {'image': 'regression portugal randomforest.png', 'text': 'RandomForest Regression analysis in Portugal.'},
+            'svr': {'image': 'regression portugal svr.png', 'text': 'SVR Regression analysis in Portugal.'}
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast france tech1.png', 'text': 'Forecast 1 for Technology in France.'},
-                {'image': 'forecast france tech2.png', 'text': 'Forecast 2 for Technology in France.'}
+                {'image': 'forecast portugal tech1.png', 'text': 'Forecast 1 for Technology in Portugal.'},
+                {'image': 'forecast portugal tech2.png', 'text': 'Forecast 2 for Technology in Portugal.'}
             ],
             'Financials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast portugal fin1.png', 'text': 'Forecast 1 for Financials in Portugal.'},
+                {'image': 'forecast portugal fin2.png', 'text': 'Forecast 2 for Financials in Portugal.'}
             ],
             'Industrials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'forecast portugal ind1.png', 'text': 'Forecast 1 for Industrials in Portugal.'},
+                {'image': 'forecast portugal ind2.png', 'text': 'Forecast 2 for Industrials in Portugal.'}
             ],
             'Telecom': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
-             ],}
+                {'image': 'forecast portugal tel1.png', 'text': 'Forecast 1 for Telecom in Portugal.'},
+                {'image': 'forecast portugal tel2.png', 'text': 'Forecast 2 for Telecom in Portugal.'}
+            ],
+        }
     }
 }
+
             
     
 st.markdown("""
