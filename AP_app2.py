@@ -936,8 +936,8 @@ if st.session_state['selected_country']:
                 'Unemployment', 
                 'GDP(log)'
             ]
-    else: 
-         combined_columns = list(set(columns[:4] + [
+        else: 
+             combined_columns = list(set(columns[:4] + [
                 'Bond_Yield', 
                 'BCI', 
                 'CCI', 
