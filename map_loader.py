@@ -1,8 +1,6 @@
 import folium
 from streamlit_folium import st_folium
 
-
-    st_folium(m, width=1400, height=800)
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
     "France 🇫🇷": {
@@ -441,6 +439,7 @@ center_coords = {
     "Portugal 🇵🇹": [39.399872, -6.224454],  
     "Switzerland 🇨🇭": [46.818188, 10.227512]  
 }
+
 def display_map(selected_country):
     center = center_coords.get(selected_country, [48.8566, 2.3522])
     zoom_start = 6 if selected_country else 4
