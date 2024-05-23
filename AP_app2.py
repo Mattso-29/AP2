@@ -391,8 +391,7 @@ def display_image_and_text(country, section):
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events france.png', 'text': 'Description of macroeconomic event in France.'},
         ],
         'regression': [
             {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
@@ -405,8 +404,7 @@ country_images_and_texts = {
     },
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
-            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
+            {'image': 'table events germany.png', 'text': 'Description of macroeconomic event in Germany.'},
         ],
         'regression': [
             {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
@@ -419,8 +417,7 @@ country_images_and_texts = {
     },
     'Portugal 🇵🇹': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic event in France.'},
         ],
         'regression': [
             {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
@@ -433,8 +430,7 @@ country_images_and_texts = {
     },
     'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
-            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
+            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic event in Germany.'},
         ],
         'regression': [
             {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
