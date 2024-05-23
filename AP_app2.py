@@ -396,13 +396,17 @@ def display_regression_model(country):
         
         if selected_model == 'randomforest' and isinstance(image_info, list):
             cols = st.columns(2)
+            texts = []
             for i, rf_data in enumerate(image_info):
                 with cols[i % 2]:
                     try:
                         st.image(rf_data['image'], use_column_width=True)
                     except Exception as e:
                         st.error(f"Error loading image: {e}")
-                    st.write(rf_data['text'])
+                    texts.append(rf_data['text'])
+            # Combine texts into a single text block below the images
+            combined_text = "\n\n".join(texts)
+            st.write(combined_text)
         else:
             try:
                 st.image(image_info['image'], use_column_width=True)
