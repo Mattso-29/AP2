@@ -63,6 +63,32 @@ country_data['Germany 🇩🇪'] = germany
 country_data['Switzerland 🇨🇭'] = switzerland
 country_data['Portugal 🇵🇹'] = portugal
 
+# Functions to display content
+def display_country_index(country):
+    st.subheader(f"Stock market Index for {country}")
+
+    if country in stock_market_indices:
+        data = stock_market_indices[country]['Sectors']
+        indices = list(data.keys())
+        
+        df_indices = pd.DataFrame({
+            'Index Name': [data[indice]['name'] for indice in indices],
+            'Number of Companies': [data[indice]['companies'] for indice in indices]
+        }, index=indices)
+        
+        st.write("### Index Study")
+        st.table(df_indices)
+        
+        if country in country_data:
+            country_df = country_data[country]
+            st.write("### Index Performance")
+            
+            st.write("#### Modulate Graph")
+            columns = st.multiselect(f"Select columns to display ({country})", country_df.columns.tolist(), default=country_df.columns.tolist()[:4])  # Only the first 4 columns by default
+            start_date = st.date_input(f"Start date ({country})", value=country_df.index.min(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            end_date = st.date_input(f"End date ({country})", value=country_df.index.max(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            chart_type = st.radio(f"Select chart type ({country})", ('Line', 'Bar'))
+
 # Start Streamlit app
 st.markdown("""
     <style>
