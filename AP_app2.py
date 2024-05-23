@@ -536,7 +536,5 @@ if st.session_state['selected_country']:
         st.write(f"Forecast for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'], 'forecast')
 
-    with tabs[5]:
-        st.write(f"Investment strategies for {st.session_state['selected_country']}")
 
 
