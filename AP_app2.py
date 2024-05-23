@@ -17,14 +17,12 @@ def load_data(file_path, columns_to_drop, start_date):
         df.index = pd.to_datetime(df.index)
         df = df.drop(df.columns[columns_to_drop], axis=1)
         df = df.loc[start_date:]
-        # st.write(f"Loaded {file_path} successfully")  # Commented out
         return df
     except Exception as e:
         st.write(f"Error loading {file_path}: {e}")
         return pd.DataFrame()
 
 # Function to load all data for the specified countries
-@st.cache_data
 def load_all_data():
     france = load_data('France copy.xlsx', [1, 4], '2000-01-01')
     germany = load_data('Allemagne copy.xlsx', [2], '2000-01-01')
