@@ -390,11 +390,11 @@ def display_image_and_text(country, section):
         
 def display_regression_model(country):
     if country in country_images_and_texts and 'regression' in country_images_and_texts[country]:
-        models = ['randomforest', 'svr']
+        models = ['Random Forest', 'Support Vector Regression']
         selected_model = st.selectbox(f"Select regression model", models)
         image_info = country_images_and_texts[country]['regression'][selected_model]
         
-        if selected_model == 'randomforest' and isinstance(image_info, list):
+        if selected_model == 'Random Forest' and isinstance(image_info, list):
             cols = st.columns(2)
             texts = []
             for i, rf_data in enumerate(image_info):
@@ -434,12 +434,12 @@ def display_forecast(country):
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
-            {'image': 'table events france.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france.png', 'text': 'Description of macroeconomic events in France.'},
         ],
         'regression': {
             'randomforest': [
-                {'image': 'RF1 france.png', 'text': 'RandomForest Regression analysis in France.'},
-                {'image': 'RF2 france.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 france.png', 'text': 'Random Forest Regression analysis in France.'},
+                {'image': 'RF2 france.png', 'text': ''}
             ],
             'svr': {'image': 'SVR france.png', 'text': 'SVR Regression analysis in France.'}
         },
@@ -464,12 +464,12 @@ country_images_and_texts = {
     },
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events germany.png', 'text': 'Description of macroeconomic event 1 in Germany.'},  
+            {'image': 'table events germany.png', 'text': 'Description of macroeconomic events in Germany.'},  
         ],
         'regression': {
             'randomforest': [
-                {'image': 'RF1 germany.png', 'text': 'RandomForest Regression analysis in Germany.'},
-                {'image': 'RF2 germany.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 germany.png', 'text': 'Random Forest Regression analysis in Germany.'},
+                {'image': 'RF2 germany.png', 'text': ''}
             ],
             'svr': {'image': 'SVR germany.png', 'text': 'SVR Regression analysis in Germany.'}
         },
@@ -494,12 +494,12 @@ country_images_and_texts = {
     },
     'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic event 1 in Switzerland.'},
+            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic events in Switzerland.'},
         ],
         'regression': {
             'randomforest': [
-                {'image': 'RF1 switzerland.png', 'text': 'RandomForest Regression analysis in Switzerland.'},
-                {'image': 'RF2 switzerland.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 switzerland.png', 'text': 'Random Forest Regression analysis in Switzerland.'},
+                {'image': 'RF2 switzerland.png', 'text': ''}
             ],
             'svr': {'image': 'SVR switzerland.png', 'text': 'SVR Regression analysis in Switzerland.'}
         },
@@ -524,12 +524,12 @@ country_images_and_texts = {
     },
     'Portugal 🇵🇹': {
         'events': [
-            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic event 1 in Portugal.'},
+            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic events in Portugal.'},
         ],
         'regression': {
             'randomforest': [
-                {'image': 'RF1 portugal.png', 'text': 'RandomForest Regression analysis in Portugal.'},
-                {'image': 'RF2 portugal.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 portugal.png', 'text': 'Random Forest Regression analysis in Portugal.'},
+                {'image': 'RF2 portugal.png', 'text': ''}
             ],
             'svr': {'image': 'SVR portugal.png', 'text': 'SVR Regression analysis in Portugal.'}
         },
