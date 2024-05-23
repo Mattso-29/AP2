@@ -420,8 +420,7 @@ def display_forecast(country):
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events france.png', 'text': 'Description of macroeconomic event 1 in France.'},
         ],
         'regression': {
             'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
@@ -448,8 +447,7 @@ country_images_and_texts = {
     },
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
-            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
+            {'image': 'table events germany.png', 'text': 'Description of macroeconomic event 1 in Germany.'},  
         ],
         'regression': {
             'randomforest': {'image': 'regression germany randomforest.png', 'text': 'RandomForest Regression analysis in Germany.'},
@@ -476,8 +474,7 @@ country_images_and_texts = {
     },
     'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events switzerland1.png', 'text': 'Description of macroeconomic event 1 in Switzerland.'},
-            {'image': 'table events switzerland2.png', 'text': 'Description of macroeconomic event 2 in Switzerland.'}
+            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic event 1 in Switzerland.'},
         ],
         'regression': {
             'randomforest': {'image': 'regression switzerland randomforest.png', 'text': 'RandomForest Regression analysis in Switzerland.'},
@@ -504,8 +501,7 @@ country_images_and_texts = {
     },
     'Portugal 🇵🇹': {
         'events': [
-            {'image': 'table events portugal1.png', 'text': 'Description of macroeconomic event 1 in Portugal.'},
-            {'image': 'table events portugal2.png', 'text': 'Description of macroeconomic event 2 in Portugal.'}
+            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic event 1 in Portugal.'},
         ],
         'regression': {
             'randomforest': {'image': 'regression portugal randomforest.png', 'text': 'RandomForest Regression analysis in Portugal.'},
