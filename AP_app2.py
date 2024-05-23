@@ -464,10 +464,10 @@ country_images_and_texts = {
         ],
         'regression': {
             'randomforest': [
-                {'image': 'regression germany randomforest.png', 'text': 'RandomForest Regression analysis in Germany.'},
-                {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 germany.png', 'text': 'RandomForest Regression analysis in Germany.'},
+                {'image': 'RF2 germany.png', 'text': 'RandomForest Regression analysis in France.'}
             ],
-            'svr': {'image': 'regression germany svr.png', 'text': 'SVR Regression analysis in Germany.'}
+            'svr': {'image': 'SVR germany.png', 'text': 'SVR Regression analysis in Germany.'}
         },
         'forecast': {
             'Technology': [
@@ -494,10 +494,10 @@ country_images_and_texts = {
         ],
         'regression': {
             'randomforest': [
-                {'image': 'regression switzerland randomforest.png', 'text': 'RandomForest Regression analysis in Switzerland.'},
-                {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 switzerland.png', 'text': 'RandomForest Regression analysis in Switzerland.'},
+                {'image': 'RF2 switzerland.png', 'text': 'RandomForest Regression analysis in France.'}
             ],
-            'svr': {'image': 'regression switzerland svr.png', 'text': 'SVR Regression analysis in Switzerland.'}
+            'svr': {'image': 'SVR switzerland.png', 'text': 'SVR Regression analysis in Switzerland.'}
         },
         'forecast': {
             'Technology': [
@@ -524,10 +524,10 @@ country_images_and_texts = {
         ],
         'regression': {
             'randomforest': [
-                {'image': 'regression portugal randomforest.png', 'text': 'RandomForest Regression analysis in Portugal.'},
-                {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'}
+                {'image': 'RF1 portugal.png', 'text': 'RandomForest Regression analysis in Portugal.'},
+                {'image': 'RF2 portugal.png', 'text': 'RandomForest Regression analysis in France.'}
             ],
-            'svr': {'image': 'regression portugal svr.png', 'text': 'SVR Regression analysis in Portugal.'}
+            'svr': {'image': 'SVR portugal.png', 'text': 'SVR Regression analysis in Portugal.'}
         },
         'forecast': {
             'Technology': [
