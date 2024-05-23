@@ -472,10 +472,11 @@ if st.session_state['selected_country']:
             st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
-    st.write(f"Regression analysis for {st.session_state['selected_country']}")
-
+         st.write(f"Regression analysis for {st.session_state['selected_country']}")
+            # Add content for regression analysis here
 
     with tabs[4]:
-    st.write(f"Forecast for {st.session_state['selected_country']}")
+         st.write(f"Forecast for {st.session_state['selected_country']}")
+        # Add content for forecast here
 
 
