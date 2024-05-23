@@ -398,8 +398,8 @@ country_images_and_texts = {
             {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
         ],
         'forecast': [
-            {'image': 'forecast france1.png', 'text': 'Forecast 1 in France.'},
-            {'image': 'forecast france2.png', 'text': 'Forecast 2 in France.'}
+            {'image': 'sarima_forecast_france copy.png', 'text': 'Forecast 1 in France.'},
+            {'image': 'forecast_france copy.png', 'text': 'Forecast 2 in France.'}
         ]
     },
     'Germany 🇩🇪': {
@@ -411,8 +411,8 @@ country_images_and_texts = {
             {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
         ],
         'forecast': [
-            {'image': 'forecast germany1.png', 'text': 'Forecast 1 in Germany.'},
-            {'image': 'forecast germany2.png', 'text': 'Forecast 2 in Germany.'}
+            {'image': 'sarima_forecast_germany copy.png', 'text': 'Forecast 1 in Germany.'},
+            {'image': 'forecast_germany copy.png', 'text': 'Forecast 2 in Germany.'}
         ]
     },
     'Portugal 🇵🇹': {
@@ -424,8 +424,8 @@ country_images_and_texts = {
             {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
         ],
         'forecast': [
-            {'image': 'forecast france1.png', 'text': 'Forecast 1 in France.'},
-            {'image': 'forecast france2.png', 'text': 'Forecast 2 in France.'}
+            {'image': 'sarima_forecast_portugal copy.png', 'text': 'Forecast 1 in France.'},
+            {'image': 'forecast_portugal copy.png', 'text': 'Forecast 2 in France.'}
         ]
     },
     'Switzerland 🇨🇭': {
@@ -437,8 +437,8 @@ country_images_and_texts = {
             {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
         ],
         'forecast': [
-            {'image': 'forecast germany1.png', 'text': 'Forecast 1 in Germany.'},
-            {'image': 'forecast germany2.png', 'text': 'Forecast 2 in Germany.'}
+            {'image': 'sarima_forecast_switzerland copy.png', 'text': 'Forecast 1 in Germany.'},
+            {'image': 'forecast_switzerland copy.png', 'text': 'Forecast 2 in Germany.'}
         ]
     },
 }
