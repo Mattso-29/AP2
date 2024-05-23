@@ -418,18 +418,33 @@ def display_regression_model(country):
     else:
         st.write("No data available")
         
+
 def display_forecast(country):
     if country in country_images_and_texts and 'forecast' in country_images_and_texts[country]:
-        sectors = list(country_images_and_texts[country]['forecast'].keys())
+        sectors = ['Technology', 'Financials', 'Industrials', 'Telecom']
         selected_sector = st.selectbox(f"Select sector to display forecast", sectors)
-        images_info = country_images_and_texts[country]['forecast'][selected_sector]
         
-        for image_info in images_info:
-            try:
-                st.image(image_info['image'], use_column_width=True)
-            except Exception as e:
-                st.error(f"Error loading image: {e}")
-            st.write(image_info['text'])
+        if selected_sector in country_images_and_texts[country]['forecast']:
+            images_info = country_images_and_texts[country]['forecast'][selected_sector]
+
+            sarima_info = next((info for info in images_info if 'sarima' in info['image'].lower()), None)
+            prophet_info = next((info for info in images_info if 'prophet' in info['image'].lower()), None)
+            
+            if sarima_info:
+                try:
+                    st.image(sarima_info['image'], use_column_width=True)
+                except Exception as e:
+                    st.error(f"Error loading SARIMA image: {e}")
+                st.write(sarima_info['text'])
+            
+            if prophet_info:
+                try:
+                    st.image(prophet_info['image'], use_column_width=True)
+                except Exception as e:
+                    st.error(f"Error loading Prophet image: {e}")
+                st.write(prophet_info['text'])
+        else:
+            st.write("No data available for the selected sector")
     else:
         st.write("No data available")
         
