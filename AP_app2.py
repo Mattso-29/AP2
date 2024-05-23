@@ -690,7 +690,7 @@ inflation = inflation.drop(inflation.columns[[4]], axis=1)
 
 unemployment = unemployment.loc['2000-01-01':]
 scaler = MinMaxScaler()
-numeric_columns = unemployment.select_dtypes(include(np.number).columns
+numeric_columns = unemployment.select_dtypes(include=np.number).columns
 unemployment[numeric_columns] = scaler.fit_transform(unemployment[numeric_columns])
 
 def to_weekly(macro_df, method='ffill'):
