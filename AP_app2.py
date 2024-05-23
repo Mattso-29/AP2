@@ -603,11 +603,61 @@ for country in stock_market_indices.keys():
     if st.sidebar.button(country):
         st.session_state['selected_country'] = country
 
+investment_advice = {
+    'France 🇫🇷': {
+        'Technology': "Investment advice for the technology sector in France...",
+        'Financials': "Investment advice for the financial sector in France...",
+        'Industrials': "Investment advice for the industrial sector in France...",
+        'Telecom': "Investment advice for the telecom sector in France..."
+    },
+    'Germany 🇩🇪': {
+        'Technology': "Investment advice for the technology sector in Germany...",
+        'Financials': "Investment advice for the financial sector in Germany...",
+        'Industrials': "Investment advice for the industrial sector in Germany...",
+        'Telecom': "Investment advice for the telecom sector in Germany..."
+    },
+    'Switzerland 🇨🇭': {
+        'Technology': "Investment advice for the technology sector in Switzerland...",
+        'Financials': "Investment advice for the financial sector in Switzerland...",
+        'Industrials': "Investment advice for the industrial sector in Switzerland...",
+        'Telecom': "Investment advice for the telecom sector in Switzerland..."
+    },
+    'Portugal 🇵🇹': {
+        'Technology': "Investment advice for the technology sector in Portugal...",
+        'Financials': "Investment advice for the financial sector in Portugal...",
+        'Industrials': "Investment advice for the industrial sector in Portugal...",
+        'Telecom': "Investment advice for the telecom sector in Portugal..."
+    }
+}
+
+def display_investment_advice(country):
+    if country in investment_advice:
+        st.subheader(f"Investment Advice for {country}")
+
+        sectors = list(investment_advice[country].keys())
+        selected_sector = st.selectbox(f"Select sector for investment advice", sectors)
+
+        advice = investment_advice[country][selected_sector]
+        
+        st.write(advice)
+    else:
+        st.write("No investment advice available")
+
+
+
+if 'selected_country' not in st.session_state:
+    st.session_state['selected_country'] = None
+
+st.sidebar.title("Select a country")
+for country in stock_market_indices.keys():
+    if st.sidebar.button(country):
+        st.session_state['selected_country'] = country
+
 st.title("WORLD MAP 🗺")
 display_map(st.session_state['selected_country'])
 
 if st.session_state['selected_country']:
-    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast"])
+    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast", "Investment Advice"])
 
     with tabs[0]:
         st.write(f"Analysis for {st.session_state['selected_country']}")
@@ -616,7 +666,7 @@ if st.session_state['selected_country']:
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'], 'events')
-        
+
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
@@ -625,30 +675,30 @@ if st.session_state['selected_country']:
 
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
             combined_columns = [
-            'SWX TECHNOLOGY - PRICE INDEX', 
-            'SWX FINANCIAL SVS - PRICE INDEX', 
-            'SWX INDS GDS & SVS - PRICE INDEX', 
-            'SWX TELECOM - PRICE INDEX', 
-            'Bond_Yield', 
-            'BCI', 
-            'CCI', 
-            'GDP', 
-            'Inflation', 
-            '1usd/chf', 
-            '1eur/chf', 
-            'Unemployment', 
-            'GDP(log)'
+                'SWX TECHNOLOGY - PRICE INDEX', 
+                'SWX FINANCIAL SVS - PRICE INDEX', 
+                'SWX INDS GDS & SVS - PRICE INDEX', 
+                'SWX TELECOM - PRICE INDEX', 
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1usd/chf', 
+                '1eur/chf', 
+                'Unemployment', 
+                'GDP(log)'
             ]
         else:
             combined_columns = list(set(columns[:4] + [
-            'Bond_Yield', 
-            'BCI', 
-            'CCI', 
-            'GDP', 
-            'Inflation', 
-            '1euro/dollar', 
-            'Unemployment', 
-            'GDP(log)'
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1euro/dollar', 
+                'Unemployment', 
+                'GDP(log)'
             ]))
 
         valid_columns = [col for col in combined_columns if col in country_df.columns]
@@ -668,4 +718,6 @@ if st.session_state['selected_country']:
         st.write(f"Forecast for {st.session_state['selected_country']}")
         display_forecast(st.session_state['selected_country'])
 
-
+    with tabs[5]:
+        st.write(f"Investment advice for {st.session_state['selected_country']}")
+        display_investment_advice(st.session_state['selected_country'])
