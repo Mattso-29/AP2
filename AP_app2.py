@@ -473,51 +473,9 @@ if st.session_state['selected_country']:
 
     with tabs[3]:
     st.write(f"Regression analysis for {st.session_state['selected_country']}")
-    
-    regression_images = {
-        'Image 1': {
-            'image': 'regression_image1.png',
-            'text': 'Description for Regression Image 1.'
-        },
-        'Image 2': {
-            'image': 'regression_image2.png',
-            'text': 'Description for Regression Image 2.'
-        }
-    }
-    
-    selected_image = st.radio("Choose an image to display:", list(regression_images.keys()))
-    
-    if selected_image:
-        image_info = regression_images[selected_image]
-        try:
-            st.image(image_info['image'], use_column_width=True)
-        except Exception as e:
-            st.error(f"Error loading image: {e}")
-        st.write(image_info['text'])
 
 
     with tabs[4]:
     st.write(f"Forecast for {st.session_state['selected_country']}")
-    
-    forecast_images = {
-        'Image 1': {
-            'image': 'forecast_image1.png',
-            'text': 'Description for Forecast Image 1.'
-        },
-        'Image 2': {
-            'image': 'forecast_image2.png',
-            'text': 'Description for Forecast Image 2.'
-        }
-    }
-    
-    selected_image = st.radio("Choose an image to display:", list(forecast_images.keys()))
-    
-    if selected_image:
-        image_info = forecast_images[selected_image]
-        try:
-            st.image(image_info['image'], use_column_width=True)
-        except Exception as e:
-            st.error(f"Error loading image: {e}")
-        st.write(image_info['text'])
 
 
