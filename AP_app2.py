@@ -957,7 +957,17 @@ if st.session_state['selected_country']:
         st.write("Valid columns for heatmap:")
         st.write(valid_columns)
 
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
+        # Check for missing data
+        missing_data = country_df[valid_columns].isnull().sum()
+        st.write("Missing data in columns:")
+        st.write(missing_data)
+
+        # Ensure data types are numeric
+        numeric_columns = country_df[valid_columns].select_dtypes(include=[np.number]).columns.tolist()
+        st.write("Numeric columns for heatmap:")
+        st.write(numeric_columns)
+
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", numeric_columns, default=numeric_columns)
 
         if heatmap_columns:
             generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
@@ -965,9 +975,9 @@ if st.session_state['selected_country']:
             st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
-        st.write(f"Regression analysis for {st.session_state['selected_country']}")
-        # Add content for regression analysis here
+         st.write(f"Regression analysis for {st.session_state['selected_country']}")
+            # Add content for regression analysis here
 
     with tabs[4]:
-        st.write(f"Forecast for {st.session_state['selected_country']}")
+         st.write(f"Forecast for {st.session_state['selected_country']}")
         # Add content for forecast here
