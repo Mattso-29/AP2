@@ -5,7 +5,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Set the page configuration
 st.set_page_config(page_title="AP Project", layout="wide")
+
 # Function to load data and drop specified columns
 def load_data(file_path, columns_to_drop, start_date):
     try:
@@ -22,6 +24,7 @@ def load_data(file_path, columns_to_drop, start_date):
         return pd.DataFrame()
 
 # Function to load all data for the specified countries
+@st.cache_data
 def load_all_data():
     france = load_data('France copy.xlsx', [1, 4], '2000-01-01')
     germany = load_data('Allemagne copy.xlsx', [2], '2000-01-01')
@@ -629,7 +632,6 @@ def display_image_and_text(country):
         st.write("No data available")
 
 # Start Streamlit app
-st.set_page_config(page_title="AP Project", layout="wide")
 st.markdown("""
     <style>
     .stButton>button {
@@ -683,4 +685,3 @@ if st.session_state['selected_country']:
     with tabs[4]:
         st.write(f"Forecast for {st.session_state['selected_country']}")
         # Add content for forecast here
-
