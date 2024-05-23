@@ -920,10 +920,6 @@ if st.session_state['selected_country']:
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
 
-        # Affichage des colonnes pour débogage
-        st.write("Dataframe columns:")
-        st.write(columns)
-
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
             combined_columns = [
             'SWX TECHNOLOGY - PRICE INDEX', 
