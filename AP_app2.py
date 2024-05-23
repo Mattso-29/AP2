@@ -900,7 +900,7 @@ if st.session_state['selected_country']:
         columns = country_df.columns.tolist()
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
-        heatmap_columns = st.multiselect("Select columns for heatmap", columns, default=columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']})", columns, default=columns)
         generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
     with tabs[3]:
