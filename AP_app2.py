@@ -913,7 +913,7 @@ if st.session_state['selected_country']:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'])
 
-   with tabs[2]:
+    with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
         country_df = country_data[st.session_state['selected_country']]
