@@ -605,7 +605,20 @@ for country in stock_market_indices.keys():
 
 investment_advice = {
     'France 🇫🇷': {
-        'Technology': "Investment advice for the technology sector in France...",
+        'Technology': "Analysis:
+
+    Historical Performance: The Technology sector showed a significant decline around 2000-2002, followed by a long period of stability and recent growth from around 2015 onwards.
+    Forecast: Projections indicate a steady increase, though with high uncertainty reflected in the wide forecast range.
+
+Political and Economic Outlook:
+
+    Government Support: France is likely to continue investing in technology, given its strategic importance for economic competitiveness.
+    EU Regulations: Stricter EU regulations on data privacy and technology could impact growth but also stabilize the market by creating trust.
+
+Investment Advice:
+
+    Long-Term Investment: The Technology sector appears promising for long-term investment, considering the growing importance of digital transformation and AI.
+    Monitor Regulations: Keep an eye on EU regulations as they can impact the sector’s profitability.",
         'Financials': "Investment advice for the financial sector in France...",
         'Industrials': "Investment advice for the industrial sector in France...",
         'Telecom': "Investment advice for the telecom sector in France..."
