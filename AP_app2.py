@@ -920,9 +920,15 @@ if st.session_state['selected_country']:
         columns = country_df.columns.tolist()
 
         # Combine macroeconomic variables
-        macro_variables = [
-            'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
-        ]
+        if st.session_state['selected_country'] == "Switzerland 🇨🇭":
+            macro_variables = [
+                'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1usd/chf', '1eur/chf', 'Unemployment', 'GDP(log)'
+            ]
+        else:
+            macro_variables = [
+                'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
+            ]
+
         indices = columns[:4]  # Only the first 4 columns are indices
         combined_columns = list(set(indices + macro_variables))  # Avoid duplicates and exclude events
 
