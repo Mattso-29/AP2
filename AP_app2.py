@@ -462,8 +462,8 @@ country_images_and_texts = {
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast france tech1.png', 'text': 'Forecast 1 for Technology in France.'},
-                {'image': 'forecast france tech2.png', 'text': 'Forecast 2 for Technology in France.'}
+                {'image': 'pro tech france.png', 'text': 'Forecast 1 for Technology in France.'},
+                {'image': 'sar tech france.png', 'text': 'Forecast 2 for Technology in France.'}
             ],
             'Financials': [
                 {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
