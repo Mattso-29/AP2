@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-
 # Set the page configuration
 st.set_page_config(page_title="AP Project", layout="wide")
 
@@ -40,6 +39,7 @@ country_data = {
     'Switzerland 🇨🇭': switzerland,
     'Portugal 🇵🇹': portugal
 }
+
 
 country_images_and_texts = {
     'France 🇫🇷': {
@@ -634,7 +634,6 @@ def display_image_and_text(country):
         st.write(image_info['text'])
     else:
         st.write("No data available")
-
 # Load macroeconomic variables
 def load_excel_with_dates(file_path, date_column):
     try:
@@ -648,13 +647,13 @@ def load_excel_with_dates(file_path, date_column):
         return pd.DataFrame()
 
 # Load macroeconomic variables with error handling
-bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)  
-bci = load_excel_with_dates('bci copy.xlsx', 0)
-cci = load_excel_with_dates('CCI copy.xlsx', 0)
-exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
-gdp = load_excel_with_dates('GDP copy.xlsx', 0)
-inflation = load_excel_with_dates('Inflation copy.xlsx', 0)
-unemployment = load_excel_with_dates('unemployment copy.xlsx', 0)
+bond = load_excel_with_dates('10Y Bond.xlsx', 0)  
+bci = load_excel_with_dates('bci.xlsx', 0)
+cci = load_excel_with_dates('CCI.xlsx', 0)
+exchangerate = load_excel_with_dates('Exchange rate.xlsx', 0)
+gdp = load_excel_with_dates('GDP.xlsx', 0)
+inflation = load_excel_with_dates('Inflation.xlsx', 0)
+unemployment = load_excel_with_dates('unemployment.xlsx', 0)
 
 def quarter_to_date(quarter):
     year = int(quarter.split()[1])
@@ -909,9 +908,16 @@ if st.session_state['selected_country']:
 
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
+
+        # Combine macroeconomic variables
+        macro_variables = [
+            'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
+        ]
+        combined_columns = columns + macro_variables
+
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", columns, default=columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", combined_columns, default=combined_columns)
         generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
     with tabs[3]:
