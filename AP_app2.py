@@ -599,7 +599,7 @@ def display_country_index(country):
             
             st.write("### Correlation Heatmap")
             st.write("#### Modulate Heatmap")
-            heatmap_columns = st.multiselect(f"Select columns for heatmap ({country})", country_df.columns.tolist(), default=country_df.columns.tolist())
+            heatmap_columns = country_df.columns.tolist()[:4]  # Only the first 4 columns
             generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
         else:
             st.write("No data available for the performance chart")
@@ -756,7 +756,7 @@ gdp_weekly.interpolate(method='linear', inplace=True)
 gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill')
 gdp_weekly_normalized.index = gdp_weekly_normalized.index + pd.DateOffset(days=3)
 gdp_weekly_normalized = gdp_weekly_normalized.reindex(new_index)
-gdp_weekly_normalized = gdp_weekly_normalized[(gdp_weekly_normalized.index >= start_date) & (gdp_weekly_normalized.index <= end_date)]
+gdp_weekly_normalized = gdp_weekly_normalized[(gdp_weekly_normalized.index >= start_date) & (gdp_weekly.index <= end_date)]
 gdp_weekly_normalized = gdp_weekly_normalized.apply(pd.to_numeric, errors='coerce')
 gdp_weekly_normalized.fillna(method='bfill', inplace=True)
 gdp_weekly_normalized.interpolate(method='linear', inplace=True)
@@ -789,47 +789,85 @@ def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
     selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
     return country_df.join(selected_column, how='left')
 
-# Add weekly data to each country dataframe
-for country, df in country_data.items():
-    if country == 'France 🇫🇷':
-        df = add_weekly_column(df, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-        df = add_weekly_column(df, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
-        df = add_weekly_column(df, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
-        df = add_weekly_column(df, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
-        df = add_weekly_column(df, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
-        df = add_weekly_column(df, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-        df = add_weekly_column(df, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
-        df = add_weekly_column(df, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
-    elif country == 'Germany 🇩🇪':
-        df = add_weekly_column(df, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-        df = add_weekly_column(df, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
-        df = add_weekly_column(df, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
-        df = add_weekly_column(df, gdp_weekly, 'Germany GDP CONA', 'GDP')
-        df = add_weekly_column(df, inflation_weekly, 'Germany INFLATION', 'Inflation')
-        df = add_weekly_column(df, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-        df = add_weekly_column(df, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
-        df = add_weekly_column(df, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
-    elif country == 'Switzerland 🇨🇭':
-        df = add_weekly_column(df, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
-        df = add_weekly_column(df, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
-        df = add_weekly_column(df, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
-        df = add_weekly_column(df, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
-        df = add_weekly_column(df, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
-        df = add_weekly_column(df, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
-        df = add_weekly_column(df, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
-        df = add_weekly_column(df, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
-        df = add_weekly_column(df, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
-    elif country == 'Portugal 🇵🇹':
-        df = add_weekly_column(df, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-        df = add_weekly_column(df, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
-        df = add_weekly_column(df, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
-        df = add_weekly_column(df, gdp_weekly, 'Portugal GDP CONA', 'GDP')
-        df = add_weekly_column(df, inflation_weekly, 'Portugal Inflation', 'Inflation')
-        df = add_weekly_column(df, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-        df = add_weekly_column(df, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
-        df = add_weekly_column(df, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
-    
-    country_data[country] = df
+# Add weekly data to country datasets
+france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
+france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
+france = add_weekly_column(france, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
+france = add_weekly_column(france, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
+france = add_weekly_column(france, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+france = add_weekly_column(france, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
+france = add_weekly_column(france, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
+
+germany = add_weekly_column(germany, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+germany = add_weekly_column(germany, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
+germany = add_weekly_column(germany, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
+germany = add_weekly_column(germany, gdp_weekly, 'Germany GDP CONA', 'GDP')
+germany = add_weekly_column(germany, inflation_weekly, 'Germany INFLATION', 'Inflation')
+germany = add_weekly_column(germany, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+germany = add_weekly_column(germany, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
+germany = add_weekly_column(germany, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
+
+switzerland = add_weekly_column(switzerland, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
+switzerland = add_weekly_column(switzerland, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
+switzerland = add_weekly_column(switzerland, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
+switzerland = add_weekly_column(switzerland, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
+switzerland = add_weekly_column(switzerland, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
+switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
+switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
+switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
+switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
+
+portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
+portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
+portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
+portugal = add_weekly_column(portugal, gdp_weekly, 'Portugal GDP CONA', 'GDP')
+portugal = add_weekly_column(portugal, inflation_weekly, 'Portugal Inflation', 'Inflation')
+portugal = add_weekly_column(portugal, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
+portugal = add_weekly_column(portugal, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
+portugal = add_weekly_column(portugal, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
+
+country_data['France 🇫🇷'] = france
+country_data['Germany 🇩🇪'] = germany
+country_data['Switzerland 🇨🇭'] = switzerland
+country_data['Portugal 🇵🇹'] = portugal
+
+# Add crises and stimulus policies to the data
+crises_france = {'Dotcom bubble burst': ['2000-03-01', '2002-01-01'], 'Subprime crises': ['2008-01-01', '2009-01-01'], 'Covid 19': ['2020-01-01', '2021-01-01']}
+stimulus_policies_france = {'LCME': ['2003-01-01', '2004-01-01'], 'Stimulus policy 2009': ['2009-01-01', '2010-01-01'], 'Stimulus policy Covid': ['2020-03-01', '2022-06-01']}
+
+for crisis, (start_date, end_date) in crises_france.items():
+    france[crisis] = ((france.index >= pd.to_datetime(start_date)) & (france.index <= pd.to_datetime(end_date))).astype(int)
+
+for policy, (start_date, end_date) in stimulus_policies_france.items():
+    france[policy] = ((france.index >= pd.to_datetime(start_date)) & (france.index <= pd.to_datetime(end_date))).astype(int)
+
+crises_germany = {'Dotcom bubble burst': ['2000-03-01', '2002-01-01'], 'Subprime crises': ['2008-01-01', '2009-01-01'], 'Covid 19': ['2020-01-01', '2021-01-01']}
+stimulus_policies_germany = {'Hartz and Agenda2010': ['2009-01-01', '2010-06-01'], 'Konjunkturpaket I': ['2008-11-01', '2011-01-01'], 'Konjunkturpaket II': ['2009-02-01', '2011-01-01'], 'Stimulus policy Covid': ['2020-03-01', '2023-01-01']}
+
+for crisis, (start_date, end_date) in crises_germany.items():
+    germany[crisis] = ((germany.index >= pd.to_datetime(start_date)) & (germany.index <= pd.to_datetime(end_date))).astype(int)
+
+for policy, (start_date, end_date) in stimulus_policies_germany.items():
+    germany[policy] = ((germany.index >= pd.to_datetime(start_date)) & (germany.index <= pd.to_datetime(end_date))).astype(int)
+
+crises_switzerland = {'Dotcom bubble burst': ['2000-03-01', '2002-01-01'], 'Subprime crises': ['2008-01-01', '2009-01-01'], 'Covid 19': ['2020-01-01', '2021-01-01']}
+stimulus_policies_switzerland = {'Stimulus policy 2001': ['2001-05-01', '2003-05-01'], 'Stimulus policy 2009': ['2009-01-01', '2010-01-01'], 'Stimulus policy Covid': ['2020-04-01', '2023-01-01']}
+
+for crisis, (start_date, end_date) in crises_switzerland.items():
+    switzerland[crisis] = ((switzerland.index >= pd.to_datetime(start_date)) & (switzerland.index <= pd.to_datetime(end_date))).astype(int)
+
+for policy, (start_date, end_date) in stimulus_policies_switzerland.items():
+    switzerland[policy] = ((switzerland.index >= pd.to_datetime(start_date)) & (switzerland.index <= pd.to_datetime(end_date))).astype(int)
+
+crises_portugal = {'Sovereign debt crisis': ['2010-01-01', '2012-01-01'], 'Covid 19': ['2020-01-01', '2021-01-01']}
+stimulus_policies_portugal = {'Stimulus debt crisis': ['2011-05-01', '2014-05-01'], 'Political Instability': ['2014-01-01', '2015-01-01'], 'Stimulus policy Covid': ['2020-03-01', '2022-06-01']}
+
+for crisis, (start_date, end_date) in crises_portugal.items():
+    portugal[crisis] = ((portugal.index >= pd.to_datetime(start_date)) & (portugal.index <= pd.to_datetime(end_date))).astype(int)
+
+for policy, (start_date, end_date) in stimulus_policies_portugal.items():
+    portugal[policy] = ((portugal.index >= pd.to_datetime(start_date)) & (portugal.index <= pd.to_datetime(end_date))).astype(int)
 
 # Start Streamlit app
 st.markdown("""
@@ -884,7 +922,7 @@ if st.session_state['selected_country']:
         macro_variables = [
             'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
         ]
-        combined_columns = columns + macro_variables
+        combined_columns = list(set(columns + macro_variables))  # Avoid duplicates
 
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
