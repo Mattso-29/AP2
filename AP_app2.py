@@ -4,6 +4,7 @@ from streamlit_folium import st_folium
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
 
 # Set the page configuration
 st.set_page_config(page_title="AP Project", layout="wide")
