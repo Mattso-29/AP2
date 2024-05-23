@@ -17,6 +17,7 @@ def load_data(file_path, columns_to_drop, start_date):
         df.index = pd.to_datetime(df.index)
         df = df.drop(df.columns[columns_to_drop], axis=1)
         df = df.loc[start_date:]
+        # st.write(f"Loaded {file_path} successfully")  # Commented out
         return df
     except Exception as e:
         st.write(f"Error loading {file_path}: {e}")
@@ -93,6 +94,7 @@ stock_market_indices = {
         }
     }
 }
+
 
 # Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
