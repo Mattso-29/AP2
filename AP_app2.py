@@ -645,13 +645,6 @@ def display_investment_advice(country):
 
 
 
-if 'selected_country' not in st.session_state:
-    st.session_state['selected_country'] = None
-
-st.sidebar.title("Select a country")
-for country in stock_market_indices.keys():
-    if st.sidebar.button(country):
-        st.session_state['selected_country'] = country
 
 st.title("WORLD MAP 🗺")
 display_map(st.session_state['selected_country'])
