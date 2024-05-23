@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
-# Function to load data and drop specified columns
 def load_data(file_path, columns_to_drop, start_date):
     try:
         df = pd.read_excel(file_path)
@@ -15,7 +14,6 @@ def load_data(file_path, columns_to_drop, start_date):
     except Exception as e:
         return pd.DataFrame()
 
-# Function to load all data for the specified countries
 def load_all_data():
     france = load_data('France copy.xlsx', [1, 4], '2000-01-01')
     germany = load_data('Allemagne copy.xlsx', [2], '2000-01-01')
@@ -23,7 +21,6 @@ def load_all_data():
     portugal = load_data('Portugal copy.xlsx', [], '2000-01-01')
     return france, germany, switzerland, portugal
 
-# Load macroeconomic variables with error handling
 def load_excel_with_dates(file_path, date_column):
     try:
         df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
@@ -173,4 +170,3 @@ def prepare_macroeconomic_data():
         'exchangerate_weekly': exchangerate_weekly,
         'unemployment_weekly': unemployment_weekly
     }
-
