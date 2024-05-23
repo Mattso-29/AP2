@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from data_loader import load_all_data, prepare_macroeconomic_data, add_weekly_column
+from Data_loader import load_all_data, prepare_macroeconomic_data, add_weekly_column
 from map_loader import display_map
 
 # Set the page configuration
