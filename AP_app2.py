@@ -949,8 +949,6 @@ if st.session_state['selected_country']:
             ]))
 
         valid_columns = [col for col in combined_columns if col in country_df.columns]
-        st.write("Valid columns for heatmap:")
-        st.write(valid_columns)
 
         heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
