@@ -913,24 +913,40 @@ if st.session_state['selected_country']:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'])
 
-    with tabs[2]:
+   with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
 
-        # Combine macroeconomic variables
+        # Ensure macroeconomic variables for Switzerland are correctly specified
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
-            macro_variables = [
-                'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1usd/chf', '1eur/chf', 'Unemployment', 'GDP(log)'
+            combined_columns = [
+                'SWX TECHNOLOGY - PRICE INDEX', 
+                'SWX FINANCIAL SVS - PRICE INDEX', 
+                'SWX INDS GDS & SVS - PRICE INDEX', 
+                'SWX TELECOM - PRICE INDEX', 
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1usd/chf', 
+                '1eur/chf', 
+                'Unemployment', 
+                'GDP(log)'
             ]
-        else:
-            macro_variables = [
-                'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
-            ]
-
-        indices = columns[:4]  # Only the first 4 columns are indices
-        combined_columns = list(set(indices + macro_variables))  # Avoid duplicates and exclude events
+    else:
+            combined_columns = list(set(columns[:4] + [
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1euro/dollar', 
+                'Unemployment', 
+                'GDP(log)'
+            ]))
 
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
