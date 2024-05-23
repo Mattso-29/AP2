@@ -373,11 +373,25 @@ for crisis, (start_date, end_date) in crises_portugal.items():
 for policy, (start_date, end_date) in stimulus_policies_portugal.items():
     portugal[policy] = ((portugal.index >= pd.to_datetime(start_date)) & (portugal.index <= pd.to_datetime(end_date))).astype(int)
 
-def display_image_and_text(country, section):
-    if country in country_images_and_texts and section in country_images_and_texts[country]:
-        images_info = country_images_and_texts[country][section]
+def display_sector_images_and_texts(country, section):
+    if country in sector_images_and_texts and section in sector_images_and_texts[country]:
+        sector = st.selectbox(f"Select sector ({section})", sector_images_and_texts[country][section].keys())
+        images_info = sector_images_and_texts[country][section][sector]
+        for info in images_info:
+            st.write(f"### {info['title']}")
+            try:
+                st.image(info['image'], use_column_width=True)
+            except Exception as e:
+                st.error(f"Error loading image: {e}")
+            st.write(info['text'])
+    else:
+        st.write("No data available")
+        
+def display_event_image_and_text(country):
+    if country in country_images_and_texts:
+        images_info = country_images_and_texts[country]['events']
         image_options = [info['image'] for info in images_info]
-        selected_image = st.selectbox(f"Select image to display ({section})", image_options)
+        selected_image = st.selectbox(f"Select image to display (events)", image_options)
         image_info = next(info for info in images_info if info['image'] == selected_image)
         
         try:
@@ -391,58 +405,176 @@ def display_image_and_text(country, section):
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
-            {'image': 'table events france.png', 'text': 'Description of macroeconomic event in France.'},
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
         ],
-        'regression': [
-            {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
-            {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
-        ],
-        'forecast': [
-            {'image': 'sarima_forecast_france copy.png', 'text': 'Forecast 1 in France.'},
-            {'image': 'forecast_france copy.png', 'text': 'Forecast 2 in France.'}
-        ]
+        'regression': {
+            'Technology': [
+                {'title': 'SVR', 'image': 'svr_technology_france.png', 'text': 'Support Vector Regression analysis for Technology sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_technology_france.png', 'text': 'Random Forest analysis for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'SVR', 'image': 'svr_financials_france.png', 'text': 'Support Vector Regression analysis for Financials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_financials_france.png', 'text': 'Random Forest analysis for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'SVR', 'image': 'svr_industrials_france.png', 'text': 'Support Vector Regression analysis for Industrials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_industrials_france.png', 'text': 'Random Forest analysis for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'SVR', 'image': 'svr_telecom_france.png', 'text': 'Support Vector Regression analysis for Telecom sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_telecom_france.png', 'text': 'Random Forest analysis for Telecom sector in France.'}
+            ]
+        },
+        'forecast': {
+            'Technology': [
+                {'title': 'Prophet', 'image': 'prophet_technology_france.png', 'text': 'Prophet forecast for Technology sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_technology_france.png', 'text': 'Sarima forecast for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'Prophet', 'image': 'prophet_financials_france.png', 'text': 'Prophet forecast for Financials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_financials_france.png', 'text': 'Sarima forecast for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'Prophet', 'image': 'prophet_industrials_france.png', 'text': 'Prophet forecast for Industrials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_industrials_france.png', 'text': 'Sarima forecast for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'Prophet', 'image': 'prophet_telecom_france.png', 'text': 'Prophet forecast for Telecom sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_telecom_france.png', 'text': 'Sarima forecast for Telecom sector in France.'}
+            ]
+        }
     },
+    country_images_and_texts = {
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events germany.png', 'text': 'Description of macroeconomic event in Germany.'},
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
         ],
-        'regression': [
-            {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
-            {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
-        ],
-        'forecast': [
-            {'image': 'sarima_forecast_germany copy.png', 'text': 'Forecast 1 in Germany.'},
-            {'image': 'forecast_germany copy.png', 'text': 'Forecast 2 in Germany.'}
-        ]
+        'regression': {
+            'Technology': [
+                {'title': 'SVR', 'image': 'svr_technology_france.png', 'text': 'Support Vector Regression analysis for Technology sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_technology_france.png', 'text': 'Random Forest analysis for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'SVR', 'image': 'svr_financials_france.png', 'text': 'Support Vector Regression analysis for Financials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_financials_france.png', 'text': 'Random Forest analysis for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'SVR', 'image': 'svr_industrials_france.png', 'text': 'Support Vector Regression analysis for Industrials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_industrials_france.png', 'text': 'Random Forest analysis for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'SVR', 'image': 'svr_telecom_france.png', 'text': 'Support Vector Regression analysis for Telecom sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_telecom_france.png', 'text': 'Random Forest analysis for Telecom sector in France.'}
+            ]
+        },
+        'forecast': {
+            'Technology': [
+                {'title': 'Prophet', 'image': 'prophet_technology_france.png', 'text': 'Prophet forecast for Technology sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_technology_france.png', 'text': 'Sarima forecast for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'Prophet', 'image': 'prophet_financials_france.png', 'text': 'Prophet forecast for Financials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_financials_france.png', 'text': 'Sarima forecast for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'Prophet', 'image': 'prophet_industrials_france.png', 'text': 'Prophet forecast for Industrials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_industrials_france.png', 'text': 'Sarima forecast for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'Prophet', 'image': 'prophet_telecom_france.png', 'text': 'Prophet forecast for Telecom sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_telecom_france.png', 'text': 'Sarima forecast for Telecom sector in France.'}
+            ]
+        }
     },
-    'Portugal 🇵🇹': {
-        'events': [
-            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic event in France.'},
-        ],
-        'regression': [
-            {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
-            {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
-        ],
-        'forecast': [
-            {'image': 'sarima_forecast_portugal copy.png', 'text': 'Forecast 1 in France.'},
-            {'image': 'forecast_portugal copy.png', 'text': 'Forecast 2 in France.'}
-        ]
-    },
+    country_images_and_texts = {
     'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic event in Germany.'},
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
         ],
-        'regression': [
-            {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
-            {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
-        ],
-        'forecast': [
-            {'image': 'sarima_forecast_switzerland copy.png', 'text': 'Forecast 1 in Germany.'},
-            {'image': 'forecast_switzerland copy.png', 'text': 'Forecast 2 in Germany.'}
-        ]
+        'regression': {
+            'Technology': [
+                {'title': 'SVR', 'image': 'svr_technology_france.png', 'text': 'Support Vector Regression analysis for Technology sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_technology_france.png', 'text': 'Random Forest analysis for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'SVR', 'image': 'svr_financials_france.png', 'text': 'Support Vector Regression analysis for Financials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_financials_france.png', 'text': 'Random Forest analysis for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'SVR', 'image': 'svr_industrials_france.png', 'text': 'Support Vector Regression analysis for Industrials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_industrials_france.png', 'text': 'Random Forest analysis for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'SVR', 'image': 'svr_telecom_france.png', 'text': 'Support Vector Regression analysis for Telecom sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_telecom_france.png', 'text': 'Random Forest analysis for Telecom sector in France.'}
+            ]
+        },
+        'forecast': {
+            'Technology': [
+                {'title': 'Prophet', 'image': 'prophet_technology_france.png', 'text': 'Prophet forecast for Technology sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_technology_france.png', 'text': 'Sarima forecast for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'Prophet', 'image': 'prophet_financials_france.png', 'text': 'Prophet forecast for Financials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_financials_france.png', 'text': 'Sarima forecast for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'Prophet', 'image': 'prophet_industrials_france.png', 'text': 'Prophet forecast for Industrials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_industrials_france.png', 'text': 'Sarima forecast for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'Prophet', 'image': 'prophet_telecom_france.png', 'text': 'Prophet forecast for Telecom sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_telecom_france.png', 'text': 'Sarima forecast for Telecom sector in France.'}
+            ]
+        }
     },
-}
-
+    country_images_and_texts = {
+    'Portugal 🇵🇹': {
+        'events': [
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+        ],
+        'regression': {
+            'Technology': [
+                {'title': 'SVR', 'image': 'svr_technology_france.png', 'text': 'Support Vector Regression analysis for Technology sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_technology_france.png', 'text': 'Random Forest analysis for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'SVR', 'image': 'svr_financials_france.png', 'text': 'Support Vector Regression analysis for Financials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_financials_france.png', 'text': 'Random Forest analysis for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'SVR', 'image': 'svr_industrials_france.png', 'text': 'Support Vector Regression analysis for Industrials sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_industrials_france.png', 'text': 'Random Forest analysis for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'SVR', 'image': 'svr_telecom_france.png', 'text': 'Support Vector Regression analysis for Telecom sector in France.'},
+                {'title': 'Random Forest', 'image': 'rf_telecom_france.png', 'text': 'Random Forest analysis for Telecom sector in France.'}
+            ]
+        },
+        'forecast': {
+            'Technology': [
+                {'title': 'Prophet', 'image': 'prophet_technology_france.png', 'text': 'Prophet forecast for Technology sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_technology_france.png', 'text': 'Sarima forecast for Technology sector in France.'}
+            ],
+            'Financials': [
+                {'title': 'Prophet', 'image': 'prophet_financials_france.png', 'text': 'Prophet forecast for Financials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_financials_france.png', 'text': 'Sarima forecast for Financials sector in France.'}
+            ],
+            'Industrials': [
+                {'title': 'Prophet', 'image': 'prophet_industrials_france.png', 'text': 'Prophet forecast for Industrials sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_industrials_france.png', 'text': 'Sarima forecast for Industrials sector in France.'}
+            ],
+            'Telecom': [
+                {'title': 'Prophet', 'image': 'prophet_telecom_france.png', 'text': 'Prophet forecast for Telecom sector in France.'},
+                {'title': 'Sarima', 'image': 'sarima_telecom_france.png', 'text': 'Sarima forecast for Telecom sector in France.'}
+            ]
+        }
+    },
+    }
 st.markdown("""
     <style>
     .stButton>button {
@@ -483,7 +615,7 @@ if st.session_state['selected_country']:
 
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
-        display_image_and_text(st.session_state['selected_country'], 'events')
+        display_event_image_and_text(st.session_state['selected_country'])
         
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
@@ -529,12 +661,12 @@ if st.session_state['selected_country']:
             st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
-        st.write(f"Regression analysis for {st.session_state['selected_country']}")
-        display_image_and_text(st.session_state['selected_country'], 'regression')
+    st.write(f"Regression analysis for {st.session_state['selected_country']}")
+    display_sector_images_and_texts(st.session_state['selected_country'], 'regression')
 
     with tabs[4]:
-        st.write(f"Forecast for {st.session_state['selected_country']}")
-        display_image_and_text(st.session_state['selected_country'], 'forecast')
+    st.write(f"Forecast for {st.session_state['selected_country']}")
+    display_sector_images_and_texts(st.session_state['selected_country'], 'forecast')
 
 
 
