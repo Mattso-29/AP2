@@ -587,10 +587,10 @@ def display_country_index(country):
             st.write("### Index Performance")
             
             st.write("#### Modulate Graph")
-            columns = st.multiselect("Select columns to display", country_df.columns.tolist(), default=country_df.columns.tolist())
-            start_date = st.date_input("Start date", value=country_df.index.min(), min_value=country_df.index.min(), max_value=country_df.index.max())
-            end_date = st.date_input("End date", value=country_df.index.max(), min_value=country_df.index.min(), max_value=country_df.index.max())
-            chart_type = st.radio("Select chart type", ('Line', 'Bar'))
+            columns = st.multiselect(f"Select columns to display ({country})", country_df.columns.tolist(), default=country_df.columns.tolist())
+            start_date = st.date_input(f"Start date ({country})", value=country_df.index.min(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            end_date = st.date_input(f"End date ({country})", value=country_df.index.max(), min_value=country_df.index.min(), max_value=country_df.index.max())
+            chart_type = st.radio(f"Select chart type ({country})", ('Line', 'Bar'))
             
             generate_index_chart(country_df, country, columns, start_date, end_date, chart_type)
             
@@ -637,16 +637,24 @@ def display_image_and_text(country):
 
 # Load macroeconomic variables
 def load_excel_with_dates(file_path, date_column):
-    df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
-    return df
+    try:
+        df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
+        return df
+    except FileNotFoundError:
+        st.error(f"File not found: {file_path}")
+        return pd.DataFrame()
+    except Exception as e:
+        st.error(f"Error loading {file_path}: {e}")
+        return pd.DataFrame()
 
-bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)  
-bci = load_excel_with_dates('bci copy.xlsx', 0)
-cci = load_excel_with_dates('CCI copy.xlsx', 0)
-exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
-gdp = load_excel_with_dates('GDP copy.xlsx', 0)
-inflation = load_excel_with_dates('Inflation copy.xlsx', 0)
-unemployment = load_excel_with_dates('unemployment copy.xlsx', 0)
+# Load macroeconomic variables with error handling
+bond = load_excel_with_dates('10Y Bond.xlsx', 0)  
+bci = load_excel_with_dates('bci.xlsx', 0)
+cci = load_excel_with_dates('CCI.xlsx', 0)
+exchangerate = load_excel_with_dates('Exchange rate.xlsx', 0)
+gdp = load_excel_with_dates('GDP.xlsx', 0)
+inflation = load_excel_with_dates('Inflation.xlsx', 0)
+unemployment = load_excel_with_dates('unemployment.xlsx', 0)
 
 def quarter_to_date(quarter):
     year = int(quarter.split()[1])
@@ -898,12 +906,12 @@ if st.session_state['selected_country']:
 
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
-        
+
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']})", columns, default=columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", columns, default=columns)
         generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
     with tabs[3]:
