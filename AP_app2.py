@@ -423,9 +423,9 @@ country_images_and_texts = {
             {'image': 'table events france.png', 'text': 'Description of macroeconomic event 1 in France.'},
         ],
         'regression': {
-            'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
-            'randomforest': {'image': 'regression france randomforest.png', 'text': 'RandomForest Regression analysis in France.'},
-            'svr': {'image': 'regression france svr.png', 'text': 'SVR Regression analysis in France.'}
+            'randomforest': {'image': 'RF1 france.png', 'text': 'RandomForest Regression analysis in France.'},
+            'randomforest': {'image': 'RF2 france.png', 'text': 'RandomForest Regression analysis in France.'},
+            'svr': {'image': 'SVR france.png', 'text': 'SVR Regression analysis in France.'}
         },
         'forecast': {
             'Technology': [
