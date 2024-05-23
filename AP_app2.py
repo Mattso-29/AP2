@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from Data_loader import load_all_data, prepare_macroeconomic_data, add_weekly_column
-from map_loader import display_map
+from map_loader import display_map, geojson_data
 
 # Set the page configuration
 st.set_page_config(page_title="AP Project", layout="wide")
