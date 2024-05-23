@@ -334,7 +334,6 @@ switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC T
 switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
 switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
 
-
 portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
 portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
 portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
@@ -436,44 +435,41 @@ if st.session_state['selected_country']:
         columns = country_df.columns.tolist()
 
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
-            st.image('path_to_switzerland_image.png', caption='Important Macroeconomic Variables for Switzerland')
+            combined_columns = [
+            'SWX TECHNOLOGY - PRICE INDEX', 
+            'SWX FINANCIAL SVS - PRICE INDEX', 
+            'SWX INDS GDS & SVS - PRICE INDEX', 
+            'SWX TELECOM - PRICE INDEX', 
+            'Bond_Yield', 
+            'BCI', 
+            'CCI', 
+            'GDP', 
+            'Inflation', 
+            '1usd/chf', 
+            '1eur/chf', 
+            'Unemployment', 
+            'GDP(log)'
+            ]
         else:
-            if st.session_state['selected_country'] == "Switzerland 🇨🇭":
-                combined_columns = [
-                'SWX TECHNOLOGY - PRICE INDEX', 
-                'SWX FINANCIAL SVS - PRICE INDEX', 
-                'SWX INDS GDS & SVS - PRICE INDEX', 
-                'SWX TELECOM - PRICE INDEX', 
-                'Bond_Yield', 
-                'BCI', 
-                'CCI', 
-                'GDP', 
-                'Inflation', 
-                '1usd/chf', 
-                '1eur/chf', 
-                'Unemployment', 
-                'GDP(log)'
-                ]
-            else:
-                combined_columns = list(set(columns[:4] + [
-                'Bond_Yield', 
-                'BCI', 
-                'CCI', 
-                'GDP', 
-                'Inflation', 
-                '1euro/dollar', 
-                'Unemployment', 
-                'GDP(log)'
-                ]))
+            combined_columns = list(set(columns[:4] + [
+            'Bond_Yield', 
+            'BCI', 
+            'CCI', 
+            'GDP', 
+            'Inflation', 
+            '1euro/dollar', 
+            'Unemployment', 
+            'GDP(log)'
+            ]))
 
-            valid_columns = [col for col in combined_columns if col in country_df.columns]
+        valid_columns = [col for col in combined_columns if col in country_df.columns]
 
-            heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
-            if heatmap_columns:
-                generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
-            else:
-                st.write("No valid columns selected for heatmap.")
+        if heatmap_columns:
+            generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
+        else:
+            st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
          st.write(f"Regression analysis for {st.session_state['selected_country']}")
@@ -482,3 +478,4 @@ if st.session_state['selected_country']:
     with tabs[4]:
          st.write(f"Forecast for {st.session_state['selected_country']}")
         # Add content for forecast here
+
