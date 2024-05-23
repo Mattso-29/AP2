@@ -392,7 +392,9 @@ def display_regression_model(country):
     if country in country_images_and_texts and 'regression' in country_images_and_texts[country]:
         models = ['Random Forest', 'Support Vector Regression']
         selected_model = st.selectbox(f"Select regression model", models)
-        image_info = country_images_and_texts[country]['regression'][selected_model]
+        
+        model_key = 'randomforest' if selected_model == 'Random Forest' else 'svr'
+        image_info = country_images_and_texts[country]['regression'][model_key]
         
         if selected_model == 'Random Forest' and isinstance(image_info, list):
             cols = st.columns(2)
