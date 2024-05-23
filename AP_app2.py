@@ -647,13 +647,13 @@ def load_excel_with_dates(file_path, date_column):
         return pd.DataFrame()
 
 # Load macroeconomic variables with error handling
-bond = load_excel_with_dates('10Y Bond.xlsx', 0)  
-bci = load_excel_with_dates('bci.xlsx', 0)
-cci = load_excel_with_dates('CCI.xlsx', 0)
-exchangerate = load_excel_with_dates('Exchange rate.xlsx', 0)
-gdp = load_excel_with_dates('GDP.xlsx', 0)
-inflation = load_excel_with_dates('Inflation.xlsx', 0)
-unemployment = load_excel_with_dates('unemployment.xlsx', 0)
+bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)  
+bci = load_excel_with_dates('bci copy.xlsx', 0)
+cci = load_excel_with_dates('CCI copy.xlsx', 0)
+exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
+gdp = load_excel_with_dates('GDP copy.xlsx', 0)
+inflation = load_excel_with_dates('Inflation copy.xlsx', 0)
+unemployment = load_excel_with_dates('unemployment copy.xlsx', 0)
 
 def quarter_to_date(quarter):
     year = int(quarter.split()[1])
