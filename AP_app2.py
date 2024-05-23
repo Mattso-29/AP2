@@ -651,8 +651,8 @@ def load_excel_with_dates(file_path, date_column):
         st.error(f"Error loading {file_path}: {e}")
         return pd.DataFrame()
 
-# Load macroeconomic variables with error handling
-bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)  
+# Chargement des variables macroéconomiques avec gestion des erreurs
+bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
 bci = load_excel_with_dates('bci copy.xlsx', 0)
 cci = load_excel_with_dates('CCI copy.xlsx', 0)
 exchangerate = load_excel_with_dates('Exchange rate copy.xlsx', 0)
@@ -719,6 +719,7 @@ def to_weekly(macro_df, method='ffill'):
     
     return weekly_df
 
+# Convertir les données macroéconomiques en données hebdomadaires
 bond_weekly = to_weekly(bond, method='ffill')
 bond_weekly.index = bond_weekly.index + pd.DateOffset(days=3)
 start_date = '2000-01-05'
@@ -919,11 +920,10 @@ if st.session_state['selected_country']:
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
 
-        # Print columns to debug
+        # Affichage des colonnes pour débogage
         st.write("Dataframe columns:")
         st.write(columns)
 
-        # Ensure macroeconomic variables for Switzerland are correctly specified
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
             combined_columns = [
             'SWX TECHNOLOGY - PRICE INDEX', 
@@ -952,22 +952,11 @@ if st.session_state['selected_country']:
             'GDP(log)'
             ]))
 
-        # Ensure only existing columns are selected for the heatmap
         valid_columns = [col for col in combined_columns if col in country_df.columns]
         st.write("Valid columns for heatmap:")
         st.write(valid_columns)
 
-        # Check for missing data
-        missing_data = country_df[valid_columns].isnull().sum()
-        st.write("Missing data in columns:")
-        st.write(missing_data)
-
-        # Ensure data types are numeric
-        numeric_columns = country_df[valid_columns].select_dtypes(include=[np.number]).columns.tolist()
-        st.write("Numeric columns for heatmap:")
-        st.write(numeric_columns)
-
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", numeric_columns, default=numeric_columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
         if heatmap_columns:
             generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
