@@ -619,9 +619,48 @@ Investment Advice:
 
     Long-Term Investment: The Technology sector appears promising for long-term investment, considering the growing importance of digital transformation and AI.
     Monitor Regulations: Keep an eye on EU regulations as they can impact the sector’s profitability.""",
-        'Financials': "Investment advice for the financial sector in France...",
-        'Industrials': "Investment advice for the industrial sector in France...",
-        'Telecom': "Investment advice for the telecom sector in France..."
+        'Financials': """Analysis:
+
+    Historical Performance: The Financials sector experienced significant volatility, particularly around the 2008 financial crisis.
+    Forecast: The forecast suggests moderate growth with a fair amount of uncertainty.
+
+Political and Economic Outlook:
+
+    Regulatory Environment: Financial regulations in the EU are becoming stricter, which may limit aggressive growth but enhance stability.
+    Interest Rates: Changes in ECB policies on interest rates will significantly impact this sector.
+
+Investment Advice:
+
+    Moderate Growth: Expect moderate returns; financial stability measures and interest rates will be key determinants.
+    Diversify Within Sector: Diversifying within the financial sector (e.g., insurance, fintech) could reduce risk.""",
+        'Industrials': """Analysis:
+
+    Historical Performance: This sector has shown steady growth with some cyclical downturns.
+    Forecast: Predictions show continued growth with some volatility, indicating a positive trend overall.
+
+Political and Economic Outlook:
+
+    Green Transition: The push towards green technologies and renewable energy is likely to bolster the Industrials sector.
+    Infrastructure Projects: Government spending on infrastructure projects will support this sector.
+
+Investment Advice:
+
+    Growth Potential: Given the focus on green technology and infrastructure, Industrials present a solid investment opportunity.
+    Cyclical Nature: Be prepared for some cyclical downturns; consider a diversified portfolio to mitigate risks.""",
+        'Telecom': """Analysis:
+
+    Historical Performance: The Telecom sector has shown a long-term decline with some stabilization in recent years.
+    Forecast: Projections indicate very modest growth with high uncertainty, suggesting a stagnant market.
+
+Political and Economic Outlook:
+
+    5G Rollout: Investment in 5G technology could provide growth opportunities.
+    Competition: High competition within the sector may suppress profitability.
+
+Investment Advice:
+
+    Selective Investment: Focus on companies investing in new technologies like 5G.
+    Short to Medium Term: Given the high uncertainty, a short to medium-term investment horizon may be prudent."""
     },
     'Germany 🇩🇪': {
         'Technology': "Investment advice for the technology sector in Germany...",
