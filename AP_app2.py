@@ -912,7 +912,7 @@ if st.session_state['selected_country']:
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'])
-
+        
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
@@ -936,8 +936,8 @@ if st.session_state['selected_country']:
                 'Unemployment', 
                 'GDP(log)'
             ]
-        else: 
-             combined_columns = list(set(columns[:4] + [
+        else:
+            combined_columns = list(set(columns[:4] + [
                 'Bond_Yield', 
                 'BCI', 
                 'CCI', 
@@ -950,9 +950,15 @@ if st.session_state['selected_country']:
 
         st.write("### Correlation Heatmap")
         st.write("#### Modulate Heatmap")
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", combined_columns, default=combined_columns)
-        generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
+        # Ensure only existing columns are selected for the heatmap
+        valid_columns = [col for col in combined_columns if col in country_df.columns]
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
+
+        if heatmap_columns:
+            generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
+        else:
+            st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
         st.write(f"Regression analysis for {st.session_state['selected_country']}")
