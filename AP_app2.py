@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.set_page_config(page_title="AP Project", layout="wide")
 # Function to load data and drop specified columns
 def load_data(file_path, columns_to_drop, start_date):
     try:
