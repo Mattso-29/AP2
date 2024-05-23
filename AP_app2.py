@@ -534,6 +534,18 @@ center_coords = {
     "Switzerland 🇨🇭": [46.818188, 10.227512]  
 }
 
+def generate_correlation_heatmap(data, title):
+    correlation_matrix = data.corr()
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+    plt.title(title)
+    st.pyplot(plt)
+    plt.close()
+    
+def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
+    selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
+    return country_df.join(selected_column, how='left')
+    
 # Functions to generate charts and heatmaps
 def generate_index_chart(data, country, columns, start_date, end_date, chart_type):
     data_filtered = data.loc[start_date:end_date]
@@ -676,7 +688,24 @@ if st.session_state['selected_country']:
 
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
-        # Add content for important macroeconomic variables here
+        # Add this to the "Important Macroeconomic Variables" tab section
+if st.session_state['selected_country']:
+    country = st.session_state['selected_country']
+    if country in country_data:
+        country_df = country_data[country]
+        st.write(f"Important macroeconomic variables for {country}")
+        
+        # Select the relevant columns for the correlation heatmap
+        columns = ['Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)']
+        filtered_columns = [col for col in columns if col in country_df.columns]
+        
+        if filtered_columns:
+            st.write("### Correlation Heatmap")
+            generate_correlation_heatmap(country_df[filtered_columns], f'Correlation Heatmap for {country}')
+        else:
+            st.write("No data available for the selected columns.")
+    else:
+        st.write("No data available for the selected country.")
 
     with tabs[3]:
         st.write(f"Regression analysis for {st.session_state['selected_country']}")
