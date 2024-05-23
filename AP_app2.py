@@ -466,16 +466,16 @@ country_images_and_texts = {
                 {'image': 'sar tech france.png', 'text': 'Forecast 2 for Technology in France.'}
             ],
             'Financials': [
-                {'image': 'forecast france fin1.png', 'text': 'Forecast 1 for Financials in France.'},
-                {'image': 'forecast france fin2.png', 'text': 'Forecast 2 for Financials in France.'}
+                {'image': 'pro fin france.png', 'text': 'Forecast 1 for Financials in France.'},
+                {'image': 'sar fin france.png', 'text': 'Forecast 2 for Financials in France.'}
             ],
             'Industrials': [
-                {'image': 'forecast france ind1.png', 'text': 'Forecast 1 for Industrials in France.'},
-                {'image': 'forecast france ind2.png', 'text': 'Forecast 2 for Industrials in France.'}
+                {'image': 'pro ind france.png', 'text': 'Forecast 1 for Industrials in France.'},
+                {'image': 'sar ind france.png', 'text': 'Forecast 2 for Industrials in France.'}
             ],
             'Telecom': [
-                {'image': 'forecast france tel1.png', 'text': 'Forecast 1 for Telecom in France.'},
-                {'image': 'forecast france tel2.png', 'text': 'Forecast 2 for Telecom in France.'}
+                {'image': 'pro tel france.png', 'text': 'Forecast 1 for Telecom in France.'},
+                {'image': 'sar tel france.png', 'text': 'Forecast 2 for Telecom in France.'}
             ],
         }
     },
@@ -492,20 +492,20 @@ country_images_and_texts = {
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast germany tech1.png', 'text': 'Forecast 1 for Technology in Germany.'},
-                {'image': 'forecast germany tech2.png', 'text': 'Forecast 2 for Technology in Germany.'}
+                {'image': 'pro tech germany.png', 'text': 'Forecast 1 for Technology in Germany.'},
+                {'image': 'sar tech germany.png', 'text': 'Forecast 2 for Technology in Germany.'}
             ],
             'Financials': [
-                {'image': 'forecast germany fin1.png', 'text': 'Forecast 1 for Financials in Germany.'},
-                {'image': 'forecast germany fin2.png', 'text': 'Forecast 2 for Financials in Germany.'}
+                {'image': 'pro fin germany.png', 'text': 'Forecast 1 for Financials in Germany.'},
+                {'image': 'sar fin germany.png', 'text': 'Forecast 2 for Financials in Germany.'}
             ],
             'Industrials': [
-                {'image': 'forecast germany ind1.png', 'text': 'Forecast 1 for Industrials in Germany.'},
-                {'image': 'forecast germany ind2.png', 'text': 'Forecast 2 for Industrials in Germany.'}
+                {'image': 'pro ind germany.png', 'text': 'Forecast 1 for Industrials in Germany.'},
+                {'image': 'sar ind germany.png', 'text': 'Forecast 2 for Industrials in Germany.'}
             ],
             'Telecom': [
-                {'image': 'forecast germany tel1.png', 'text': 'Forecast 1 for Telecom in Germany.'},
-                {'image': 'forecast germany tel2.png', 'text': 'Forecast 2 for Telecom in Germany.'}
+                {'image': 'pro tel germany.png', 'text': 'Forecast 1 for Telecom in Germany.'},
+                {'image': 'sar tel germany.png', 'text': 'Forecast 2 for Telecom in Germany.'}
             ],
         }
     },
@@ -522,20 +522,20 @@ country_images_and_texts = {
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast switzerland tech1.png', 'text': 'Forecast 1 for Technology in Switzerland.'},
-                {'image': 'forecast switzerland tech2.png', 'text': 'Forecast 2 for Technology in Switzerland.'}
+                {'image': 'pro tech switzerland.png', 'text': 'Forecast 1 for Technology in Switzerland.'},
+                {'image': 'sar tech switzerland.png', 'text': 'Forecast 2 for Technology in Switzerland.'}
             ],
             'Financials': [
-                {'image': 'forecast switzerland fin1.png', 'text': 'Forecast 1 for Financials in Switzerland.'},
-                {'image': 'forecast switzerland fin2.png', 'text': 'Forecast 2 for Financials in Switzerland.'}
+                {'image': 'pro fin switzerland.png', 'text': 'Forecast 1 for Financials in Switzerland.'},
+                {'image': 'sar fin switzerland.png', 'text': 'Forecast 2 for Financials in Switzerland.'}
             ],
             'Industrials': [
-                {'image': 'forecast switzerland ind1.png', 'text': 'Forecast 1 for Industrials in Switzerland.'},
-                {'image': 'forecast switzerland ind2.png', 'text': 'Forecast 2 for Industrials in Switzerland.'}
+                {'image': 'pro ind switzerland.png', 'text': 'Forecast 1 for Industrials in Switzerland.'},
+                {'image': 'sar ind switzerland.png', 'text': 'Forecast 2 for Industrials in Switzerland.'}
             ],
             'Telecom': [
-                {'image': 'forecast switzerland tel1.png', 'text': 'Forecast 1 for Telecom in Switzerland.'},
-                {'image': 'forecast switzerland tel2.png', 'text': 'Forecast 2 for Telecom in Switzerland.'}
+                {'image': 'pro tel switzerland.png', 'text': 'Forecast 1 for Telecom in Switzerland.'},
+                {'image': 'sar tel switzerland.png', 'text': 'Forecast 2 for Telecom in Switzerland.'}
             ],
         }
     },
@@ -552,20 +552,20 @@ country_images_and_texts = {
         },
         'forecast': {
             'Technology': [
-                {'image': 'forecast portugal tech1.png', 'text': 'Forecast 1 for Technology in Portugal.'},
-                {'image': 'forecast portugal tech2.png', 'text': 'Forecast 2 for Technology in Portugal.'}
+                {'image': 'pro tech portugal.png', 'text': 'Forecast 1 for Technology in Portugal.'},
+                {'image': 'sar tech portugal.png', 'text': 'Forecast 2 for Technology in Portugal.'}
             ],
             'Financials': [
-                {'image': 'forecast portugal fin1.png', 'text': 'Forecast 1 for Financials in Portugal.'},
-                {'image': 'forecast portugal fin2.png', 'text': 'Forecast 2 for Financials in Portugal.'}
+                {'image': 'pro fin portugal.png', 'text': 'Forecast 1 for Financials in Portugal.'},
+                {'image': 'sar fin portugal.png', 'text': 'Forecast 2 for Financials in Portugal.'}
             ],
             'Industrials': [
-                {'image': 'forecast portugal ind1.png', 'text': 'Forecast 1 for Industrials in Portugal.'},
-                {'image': 'forecast portugal ind2.png', 'text': 'Forecast 2 for Industrials in Portugal.'}
+                {'image': 'pro ind portugal.png', 'text': 'Forecast 1 for Industrials in Portugal.'},
+                {'image': 'sar ind portugal.png', 'text': 'Forecast 2 for Industrials in Portugal.'}
             ],
             'Telecom': [
-                {'image': 'forecast portugal tel1.png', 'text': 'Forecast 1 for Telecom in Portugal.'},
-                {'image': 'forecast portugal tel2.png', 'text': 'Forecast 2 for Telecom in Portugal.'}
+                {'image': 'pro tel portugal.png', 'text': 'Forecast 1 for Telecom in Portugal.'},
+                {'image': 'sar tel portugal.png', 'text': 'Forecast 2 for Telecom in Portugal.'}
             ],
         }
     }
