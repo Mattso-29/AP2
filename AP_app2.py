@@ -590,7 +590,7 @@ def display_country_index(country):
             st.write("### Index Performance")
             
             st.write("#### Modulate Graph")
-            columns = st.multiselect(f"Select columns to display ({country})", country_df.columns.tolist(), default=country_df.columns.tolist())
+            columns = st.multiselect(f"Select columns to display ({country})", country_df.columns.tolist(), default=country_df.columns.tolist()[:4])  # Only the first 4 columns by default
             start_date = st.date_input(f"Start date ({country})", value=country_df.index.min(), min_value=country_df.index.min(), max_value=country_df.index.max())
             end_date = st.date_input(f"End date ({country})", value=country_df.index.max(), min_value=country_df.index.min(), max_value=country_df.index.max())
             chart_type = st.radio(f"Select chart type ({country})", ('Line', 'Bar'))
@@ -599,12 +599,13 @@ def display_country_index(country):
             
             st.write("### Correlation Heatmap")
             st.write("#### Modulate Heatmap")
-            heatmap_columns = country_df.columns.tolist()[:4]  # Only the first 4 columns
+            heatmap_columns = columns  # Use the selected columns for the heatmap
             generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
         else:
             st.write("No data available for the performance chart")
     else:
         st.write("No data available")
+
 
 def display_map(selected_country):
     center = center_coords.get(selected_country, [48.8566, 2.3522])
@@ -913,21 +914,22 @@ if st.session_state['selected_country']:
         display_image_and_text(st.session_state['selected_country'])
 
     with tabs[2]:
-        st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
+    st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
-        country_df = country_data[st.session_state['selected_country']]
-        columns = country_df.columns.tolist()
+    country_df = country_data[st.session_state['selected_country']]
+    columns = country_df.columns.tolist()
 
-        # Combine macroeconomic variables
-        macro_variables = [
-            'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
-        ]
-        combined_columns = list(set(columns + macro_variables))  # Avoid duplicates
+    # Combine macroeconomic variables
+    macro_variables = [
+        'Bond_Yield', 'BCI', 'CCI', 'GDP', 'Inflation', '1euro/dollar', 'Unemployment', 'GDP(log)'
+    ]
+    indices = columns[:4]  # Only the first 4 columns are indices
+    combined_columns = list(set(indices + macro_variables))  # Avoid duplicates and exclude events
 
-        st.write("### Correlation Heatmap")
-        st.write("#### Modulate Heatmap")
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", combined_columns, default=combined_columns)
-        generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
+    st.write("### Correlation Heatmap")
+    st.write("#### Modulate Heatmap")
+    heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", combined_columns, default=combined_columns)
+    generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
     with tabs[3]:
         st.write(f"Regression analysis for {st.session_state['selected_country']}")
