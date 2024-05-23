@@ -168,18 +168,6 @@ def display_map(selected_country):
 
     st_folium(m, width=1400, height=800)
 
-def display_image_and_text(country):
-    if country in country_images_and_texts:
-        image_info = country_images_and_texts[country]
-        image_path = image_info['image']
-        try:
-            st.image(image_path, use_column_width=True)
-        except Exception as e:
-            st.error(f"Error loading image: {e}")
-        st.write(image_info['text'])
-    else:
-        st.write("No data available")
-
 # Load macroeconomic variables
 bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
 bci = load_excel_with_dates('bci copy.xlsx', 0)
@@ -385,7 +373,80 @@ for crisis, (start_date, end_date) in crises_portugal.items():
 for policy, (start_date, end_date) in stimulus_policies_portugal.items():
     portugal[policy] = ((portugal.index >= pd.to_datetime(start_date)) & (portugal.index <= pd.to_datetime(end_date))).astype(int)
 
-# Start Streamlit app
+def display_image_and_text(country, section):
+    if country in country_images_and_texts and section in country_images_and_texts[country]:
+        images_info = country_images_and_texts[country][section]
+        image_options = [info['image'] for info in images_info]
+        selected_image = st.selectbox(f"Select image to display ({section})", image_options)
+        image_info = next(info for info in images_info if info['image'] == selected_image)
+        
+        try:
+            st.image(image_info['image'], use_column_width=True)
+        except Exception as e:
+            st.error(f"Error loading image: {e}")
+        st.write(image_info['text'])
+    else:
+        st.write("No data available")
+
+country_images_and_texts = {
+    'France 🇫🇷': {
+        'events': [
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+        ],
+        'regression': [
+            {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
+            {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
+        ],
+        'forecast': [
+            {'image': 'forecast france1.png', 'text': 'Forecast 1 in France.'},
+            {'image': 'forecast france2.png', 'text': 'Forecast 2 in France.'}
+        ]
+    },
+    'Germany 🇩🇪': {
+        'events': [
+            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
+            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
+        ],
+        'regression': [
+            {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
+            {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
+        ],
+        'forecast': [
+            {'image': 'forecast germany1.png', 'text': 'Forecast 1 in Germany.'},
+            {'image': 'forecast germany2.png', 'text': 'Forecast 2 in Germany.'}
+        ]
+    },
+    'Portugal 🇵🇹': {
+        'events': [
+            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
+            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+        ],
+        'regression': [
+            {'image': 'regression france1.png', 'text': 'Regression analysis 1 in France.'},
+            {'image': 'regression france2.png', 'text': 'Regression analysis 2 in France.'}
+        ],
+        'forecast': [
+            {'image': 'forecast france1.png', 'text': 'Forecast 1 in France.'},
+            {'image': 'forecast france2.png', 'text': 'Forecast 2 in France.'}
+        ]
+    },
+    'Switzerland 🇨🇭': {
+        'events': [
+            {'image': 'table events germany1.png', 'text': 'Description of macroeconomic event 1 in Germany.'},
+            {'image': 'table events germany2.png', 'text': 'Description of macroeconomic event 2 in Germany.'}
+        ],
+        'regression': [
+            {'image': 'regression germany1.png', 'text': 'Regression analysis 1 in Germany.'},
+            {'image': 'regression germany2.png', 'text': 'Regression analysis 2 in Germany.'}
+        ],
+        'forecast': [
+            {'image': 'forecast germany1.png', 'text': 'Forecast 1 in Germany.'},
+            {'image': 'forecast germany2.png', 'text': 'Forecast 2 in Germany.'}
+        ]
+    },
+}
+
 st.markdown("""
     <style>
     .stButton>button {
@@ -426,7 +487,7 @@ if st.session_state['selected_country']:
 
     with tabs[1]:
         st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
-        display_image_and_text(st.session_state['selected_country'])
+        display_image_and_text(st.session_state['selected_country'], 'events')
         
     with tabs[2]:
         st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
@@ -472,11 +533,14 @@ if st.session_state['selected_country']:
             st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
-         st.write(f"Regression analysis for {st.session_state['selected_country']}")
-            # Add content for regression analysis here
+        st.write(f"Regression analysis for {st.session_state['selected_country']}")
+        display_image_and_text(st.session_state['selected_country'], 'regression')
 
     with tabs[4]:
-         st.write(f"Forecast for {st.session_state['selected_country']}")
-        # Add content for forecast here
+        st.write(f"Forecast for {st.session_state['selected_country']}")
+        display_image_and_text(st.session_state['selected_country'], 'forecast')
+
+    with tabs[5]:
+        st.write(f"Investment strategies for {st.session_state['selected_country']}")
 
 
