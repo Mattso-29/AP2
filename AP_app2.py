@@ -919,40 +919,44 @@ if st.session_state['selected_country']:
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
 
+        # Print columns to debug
+        st.write("Dataframe columns:")
+        st.write(columns)
+
         # Ensure macroeconomic variables for Switzerland are correctly specified
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
             combined_columns = [
-                'SWX TECHNOLOGY - PRICE INDEX', 
-                'SWX FINANCIAL SVS - PRICE INDEX', 
-                'SWX INDS GDS & SVS - PRICE INDEX', 
-                'SWX TELECOM - PRICE INDEX', 
-                'Bond_Yield', 
-                'BCI', 
-                'CCI', 
-                'GDP', 
-                'Inflation', 
-                '1usd/chf', 
-                '1eur/chf', 
-                'Unemployment', 
-                'GDP(log)'
+            'SWX TECHNOLOGY - PRICE INDEX', 
+            'SWX FINANCIAL SVS - PRICE INDEX', 
+            'SWX INDS GDS & SVS - PRICE INDEX', 
+            'SWX TELECOM - PRICE INDEX', 
+            'Bond_Yield', 
+            'BCI', 
+            'CCI', 
+            'GDP', 
+            'Inflation', 
+            '1usd/chf', 
+            '1eur/chf', 
+            'Unemployment', 
+            'GDP(log)'
             ]
         else:
             combined_columns = list(set(columns[:4] + [
-                'Bond_Yield', 
-                'BCI', 
-                'CCI', 
-                'GDP', 
-                'Inflation', 
-                '1euro/dollar', 
-                'Unemployment', 
-                'GDP(log)'
+            'Bond_Yield', 
+            'BCI', 
+            'CCI', 
+            'GDP', 
+            'Inflation', 
+            '1euro/dollar', 
+            'Unemployment', 
+            'GDP(log)'
             ]))
-
-        st.write("### Correlation Heatmap")
-        st.write("#### Modulate Heatmap")
 
         # Ensure only existing columns are selected for the heatmap
         valid_columns = [col for col in combined_columns if col in country_df.columns]
+        st.write("Valid columns for heatmap:")
+        st.write(valid_columns)
+
         heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
         if heatmap_columns:
