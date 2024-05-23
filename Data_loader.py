@@ -1,4 +1,3 @@
-# data_loader.py
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -13,7 +12,6 @@ def load_data(file_path, columns_to_drop, start_date):
         df = df.loc[start_date:]
         return df
     except Exception as e:
-        print(f"Error loading {file_path}: {e}")
         return pd.DataFrame()
 
 def load_all_data():
@@ -28,10 +26,8 @@ def load_excel_with_dates(file_path, date_column):
         df = pd.read_excel(file_path, parse_dates=[date_column], index_col=date_column)
         return df
     except FileNotFoundError:
-        print(f"File not found: {file_path}")
         return pd.DataFrame()
     except Exception as e:
-        print(f"Error loading {file_path}: {e}")
         return pd.DataFrame()
 
 def quarter_to_date(quarter):
@@ -56,23 +52,14 @@ def to_weekly(macro_df, method='ffill'):
         weekly_df = macro_df.resample('W-SUN').interpolate(method='linear')
     else:
         raise ValueError(f"Unknown method: {method}")
+    
     return weekly_df
 
 def add_weekly_column(country_df, weekly_df, weekly_column, new_column_name):
     selected_column = weekly_df[[weekly_column]].rename(columns={weekly_column: new_column_name})
     return country_df.join(selected_column, how='left')
 
-def prepare_data():
-    # Load country data
-    france, germany, switzerland, portugal = load_all_data()
-    country_data = {
-        'France 🇫🇷': france,
-        'Germany 🇩🇪': germany,
-        'Switzerland 🇨🇭': switzerland,
-        'Portugal 🇵🇹': portugal
-    }
-
-    # Load macroeconomic data
+def prepare_macroeconomic_data():
     bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
     bci = load_excel_with_dates('bci copy.xlsx', 0)
     cci = load_excel_with_dates('CCI copy.xlsx', 0)
@@ -105,7 +92,6 @@ def prepare_data():
     gdp_normalized = gdp[numeric_columns].apply(np.log1p)
 
     exchangerate = exchangerate.loc['2000-01-01':]
-
     inflation = inflation.loc['2000-01-01':]
     inflation = inflation.drop(inflation.columns[[4]], axis=1)
 
@@ -118,57 +104,69 @@ def prepare_data():
     end_date = '2024-05-01'
     new_index = pd.date_range(start=start_date, end=end_date, freq='W-WED')
 
-    bond_weekly = to_weekly(bond, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    bci_weekly = to_weekly(bci, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    cci_weekly = to_weekly(cci, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    gdp_weekly = to_weekly(gdp, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    inflation_weekly = to_weekly(inflation, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    exchangerate_weekly = to_weekly(exchangerate, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
-    unemployment_weekly = to_weekly(unemployment, method='ffill').reindex(new_index).apply(pd.to_numeric, errors='coerce').fillna(method='bfill').interpolate(method='linear')
+    bond_weekly = to_weekly(bond, method='ffill')
+    bond_weekly.index = bond_weekly.index + pd.DateOffset(days=3)
+    bond_weekly = bond_weekly.reindex(new_index)
+    bond_weekly = bond_weekly.apply(pd.to_numeric, errors='coerce')
+    bond_weekly.fillna(method='bfill', inplace=True)
+    bond_weekly.interpolate(method='linear', inplace=True)
 
-    france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
-    france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
-    france = add_weekly_column(france, gdp_weekly, 'FRANCE GDP (CON) ', 'GDP')
-    france = add_weekly_column(france, inflation_weekly, 'FR INFLATION RATE ', 'Inflation')
-    france = add_weekly_column(france, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    france = add_weekly_column(france, unemployment_weekly, 'FR ILO UNEMPLOYMENT RATE SADJ', 'Unemployment')
-    france = add_weekly_column(france, gdp_weekly_normalized, 'FRANCE GDP (CON) ', 'GDP(log)')
+    bci_weekly = to_weekly(bci, method='ffill')
+    bci_weekly.index = bci_weekly.index + pd.DateOffset(days=3)
+    bci_weekly = bci_weekly.reindex(new_index)
+    bci_weekly = bci_weekly.apply(pd.to_numeric, errors='coerce')
+    bci_weekly.fillna(method='bfill', inplace=True)
+    bci_weekly.interpolate(method='linear', inplace=True)
 
-    germany = add_weekly_column(germany, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    germany = add_weekly_column(germany, bci_weekly, 'BD TRADE & IND: BUS CLIMATE, INDEX, SA VOLA', 'BCI')
-    germany = add_weekly_column(germany, cci_weekly, 'BD CONSUMER CONFIDENCE INDICATOR - GERMANY SADJ', 'CCI')
-    germany = add_weekly_column(germany, gdp_weekly, 'Germany GDP CONA', 'GDP')
-    germany = add_weekly_column(germany, inflation_weekly, 'Germany INFLATION', 'Inflation')
-    germany = add_weekly_column(germany, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    germany = add_weekly_column(germany, unemployment_weekly, 'BD UNEMPLOYMENT RATE - DEPENDENT CIVILIAN LABOUR FORCE NADJ', 'Unemployment')
-    germany = add_weekly_column(germany, gdp_weekly_normalized, 'Germany GDP CONA', 'GDP(log)')
+    cci_weekly = to_weekly(cci, method='ffill')
+    cci_weekly.index = cci_weekly.index + pd.DateOffset(days=3)
+    cci_weekly = cci_weekly.reindex(new_index)
+    cci_weekly = cci_weekly.apply(pd.to_numeric, errors='coerce')
+    cci_weekly.fillna(method='bfill', inplace=True)
+    cci_weekly.interpolate(method='linear', inplace=True)
 
-    switzerland = add_weekly_column(switzerland, bond_weekly, 'SW CONFEDERATION BOND YIELD - 10 YEARS NADJ', 'Bond_Yield')
-    switzerland = add_weekly_column(switzerland, bci_weekly, 'SW KOF IND. SURVEY: MACHINERY - BUSINESS CLIMATE(DISC.) NADJ', 'BCI')
-    switzerland = add_weekly_column(switzerland, cci_weekly, 'SW SECO CONSUMER CONFIDENCE INDICATOR SEASONAL ADJUSTED SADJ', 'CCI')
-    switzerland = add_weekly_column(switzerland, gdp_weekly, 'SW GDP (SA WDA) CONA', 'GDP')
-    switzerland = add_weekly_column(switzerland, inflation_weekly, 'SW ANNUAL INFLATION RATE NADJ', 'Inflation')
-    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SW SWISS FRANCS TO USD NADJ', '1usd/chf')
-    switzerland = add_weekly_column(switzerland, exchangerate_weekly, 'SWISS FRANC TO EURO (WMR) - EXCHANGE RATE', '1eur/chf')
-    switzerland = add_weekly_column(switzerland, unemployment_weekly, 'SW UNEMPLOYMENT RATE (METHOD BREAK JAN 2014) NADJ', 'Unemployment')
-    switzerland = add_weekly_column(switzerland, gdp_weekly_normalized, 'SW GDP (SA WDA) CONA', 'GDP(log)')
+    gdp_weekly = to_weekly(gdp, method='ffill')
+    gdp_weekly.index = gdp_weekly.index + pd.DateOffset(days=3)
+    gdp_weekly = gdp_weekly.reindex(new_index)
+    gdp_weekly = gdp_weekly.apply(pd.to_numeric, errors='coerce')
+    gdp_weekly.fillna(method='bfill', inplace=True)
+    gdp_weekly.interpolate(method='linear', inplace=True)
 
-    portugal = add_weekly_column(portugal, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
-    portugal = add_weekly_column(portugal, bci_weekly, 'PT BUS SURVEY-MFG.: ECONOMIC CLIMATE INDICATOR (3MMA) NADJ', 'BCI')
-    portugal = add_weekly_column(portugal, cci_weekly, 'PT CONSUMER CONFIDENCE INDICATOR - PORTUGAL SADJ', 'CCI')
-    portugal = add_weekly_column(portugal, gdp_weekly, 'Portugal GDP CONA', 'GDP')
-    portugal = add_weekly_column(portugal, inflation_weekly, 'Portugal Inflation', 'Inflation')
-    portugal = add_weekly_column(portugal, exchangerate_weekly, 'EM U.S. $ TO 1 EURO (ECU PRIOR TO 1999) NADJ', '1euro/dollar')
-    portugal = add_weekly_column(portugal, unemployment_weekly, 'PT UNEMPLOYMENT RATE (METH. BREAK Q1.11) NADJ', 'Unemployment')
-    portugal = add_weekly_column(portugal, gdp_weekly_normalized, 'Portugal GDP CONA', 'GDP(log)')
+    gdp_weekly_normalized = to_weekly(gdp_normalized, method='ffill')
+    gdp_weekly_normalized.index = gdp_weekly_normalized.index + pd.DateOffset(days=3)
+    gdp_weekly_normalized = gdp_weekly_normalized.reindex(new_index)
+    gdp_weekly_normalized = gdp_weekly_normalized.apply(pd.to_numeric, errors='coerce')
+    gdp_weekly_normalized.fillna(method='bfill', inplace=True)
+    gdp_weekly_normalized.interpolate(method='linear', inplace=True)
 
-    country_data['France 🇫🇷'] = france
-    country_data['Germany 🇩🇪'] = germany
-    country_data['Switzerland 🇨🇭'] = switzerland
-    country_data['Portugal 🇵🇹'] = portugal
+    inflation_weekly = to_weekly(inflation, method='ffill')
+    inflation_weekly.index = inflation_weekly.index + pd.DateOffset(days=3)
+    inflation_weekly = inflation_weekly.reindex(new_index)
+    inflation_weekly = inflation_weekly.apply(pd.to_numeric, errors='coerce')
+    inflation_weekly.fillna(method='bfill', inplace=True)
+    inflation_weekly.interpolate(method='linear', inplace=True)
 
-    return country_data
+    exchangerate_weekly = to_weekly(exchangerate, method='ffill')
+    exchangerate_weekly.index = exchangerate_weekly.index + pd.DateOffset(days=3)
+    exchangerate_weekly = exchangerate_weekly.reindex(new_index)
+    exchangerate_weekly = exchangerate_weekly.apply(pd.to_numeric, errors='coerce')
+    exchangerate_weekly.fillna(method='bfill', inplace=True)
+    exchangerate_weekly.interpolate(method='linear', inplace=True)
 
+    unemployment_weekly = to_weekly(unemployment, method='ffill')
+    unemployment_weekly.index = unemployment_weekly.index + pd.DateOffset(days=3)
+    unemployment_weekly = unemployment_weekly.reindex(new_index)
+    unemployment_weekly = unemployment_weekly.apply(pd.to_numeric, errors='coerce')
+    unemployment_weekly.fillna(method='bfill', inplace=True)
+    unemployment_weekly.interpolate(method='linear', inplace=True)
 
+    return {
+        'bond_weekly': bond_weekly,
+        'bci_weekly': bci_weekly,
+        'cci_weekly': cci_weekly,
+        'gdp_weekly': gdp_weekly,
+        'gdp_weekly_normalized': gdp_weekly_normalized,
+        'inflation_weekly': inflation_weekly,
+        'exchangerate_weekly': exchangerate_weekly,
+        'unemployment_weekly': unemployment_weekly
+    }
