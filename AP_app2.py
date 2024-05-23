@@ -436,41 +436,44 @@ if st.session_state['selected_country']:
         columns = country_df.columns.tolist()
 
         if st.session_state['selected_country'] == "Switzerland 🇨🇭":
-            combined_columns = [
-            'SWX TECHNOLOGY - PRICE INDEX', 
-            'SWX FINANCIAL SVS - PRICE INDEX', 
-            'SWX INDS GDS & SVS - PRICE INDEX', 
-            'SWX TELECOM - PRICE INDEX', 
-            'Bond_Yield', 
-            'BCI', 
-            'CCI', 
-            'GDP', 
-            'Inflation', 
-            '1usd/chf', 
-            '1eur/chf', 
-            'Unemployment', 
-            'GDP(log)'
-            ]
+            st.image('path_to_switzerland_image.png', caption='Important Macroeconomic Variables for Switzerland')
         else:
-            combined_columns = list(set(columns[:4] + [
-            'Bond_Yield', 
-            'BCI', 
-            'CCI', 
-            'GDP', 
-            'Inflation', 
-            '1euro/dollar', 
-            'Unemployment', 
-            'GDP(log)'
-            ]))
+            if st.session_state['selected_country'] == "Switzerland 🇨🇭":
+                combined_columns = [
+                'SWX TECHNOLOGY - PRICE INDEX', 
+                'SWX FINANCIAL SVS - PRICE INDEX', 
+                'SWX INDS GDS & SVS - PRICE INDEX', 
+                'SWX TELECOM - PRICE INDEX', 
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1usd/chf', 
+                '1eur/chf', 
+                'Unemployment', 
+                'GDP(log)'
+                ]
+            else:
+                combined_columns = list(set(columns[:4] + [
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1euro/dollar', 
+                'Unemployment', 
+                'GDP(log)'
+                ]))
 
-        valid_columns = [col for col in combined_columns if col in country_df.columns]
+            valid_columns = [col for col in combined_columns if col in country_df.columns]
 
-        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
+            heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
-        if heatmap_columns:
-            generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
-        else:
-            st.write("No valid columns selected for heatmap.")
+            if heatmap_columns:
+                generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
+            else:
+                st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
          st.write(f"Regression analysis for {st.session_state['selected_country']}")
@@ -479,4 +482,3 @@ if st.session_state['selected_country']:
     with tabs[4]:
          st.write(f"Forecast for {st.session_state['selected_country']}")
         # Add content for forecast here
-
