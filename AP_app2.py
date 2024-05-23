@@ -416,6 +416,7 @@ def display_forecast(country):
             st.write(image_info['text'])
     else:
         st.write("No data available")
+        
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
