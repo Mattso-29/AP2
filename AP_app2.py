@@ -405,8 +405,7 @@ def display_event_image_and_text(country):
 country_images_and_texts = {
     'France 🇫🇷': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events france.png', 'text': 'Description of macroeconomic event 1 in France.'},
         ],
         'regression': {
             'Technology': [
@@ -447,8 +446,7 @@ country_images_and_texts = {
     },
     'Germany 🇩🇪': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events germany.png', 'text': 'Description of macroeconomic event in Germany.'},
         ],
         'regression': {
             'Technology': [
@@ -489,8 +487,7 @@ country_images_and_texts = {
     },
     'Switzerland 🇨🇭': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events switzerland.png', 'text': 'Description of macroeconomic event in Switzerland.'},
         ],
         'regression': {
             'Technology': [
@@ -531,8 +528,7 @@ country_images_and_texts = {
     },
     'Portugal 🇵🇹': {
         'events': [
-            {'image': 'table events france1.png', 'text': 'Description of macroeconomic event 1 in France.'},
-            {'image': 'table events france2.png', 'text': 'Description of macroeconomic event 2 in France.'}
+            {'image': 'table events portugal.png', 'text': 'Description of macroeconomic event in Portugal.'},
         ],
         'regression': {
             'Technology': [
