@@ -419,6 +419,8 @@ def display_regression_model(country):
         st.write("No data available")
         
 
+import streamlit as st
+
 def display_forecast(country):
     if country in country_images_and_texts and 'forecast' in country_images_and_texts[country]:
         sectors = ['Technology', 'Financials', 'Industrials', 'Telecom']
@@ -427,8 +429,8 @@ def display_forecast(country):
         if selected_sector in country_images_and_texts[country]['forecast']:
             images_info = country_images_and_texts[country]['forecast'][selected_sector]
 
-            sarima_info = next((info for info in images_info if 'sarima' in info['image'].lower()), None)
-            prophet_info = next((info for info in images_info if 'prophet' in info['image'].lower()), None)
+            sarima_info = next((info for info in images_info if 'sar' in info['image'].lower()), None)
+            prophet_info = next((info for info in images_info if 'pro' in info['image'].lower()), None)
             
             if sarima_info:
                 try:
