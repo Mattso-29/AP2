@@ -937,6 +937,7 @@ if st.session_state['selected_country']:
         heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", combined_columns, default=combined_columns)
         generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
 
+
     with tabs[3]:
         st.write(f"Regression analysis for {st.session_state['selected_country']}")
         # Add content for regression analysis here
