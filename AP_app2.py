@@ -605,212 +605,208 @@ for country in stock_market_indices.keys():
 
 investment_advice = {
     'France 🇫🇷': {
-        'Technology': """Analysis:
-
-    Historical Performance: The Technology sector showed a significant decline around 2000-2002, followed by a long period of stability and recent growth from around 2015 onwards.
-    Forecast: Projections indicate a steady increase, though with high uncertainty reflected in the wide forecast range.
-
-Political and Economic Outlook:
-
-    Government Support: France is likely to continue investing in technology, given its strategic importance for economic competitiveness.
-    EU Regulations: Stricter EU regulations on data privacy and technology could impact growth but also stabilize the market by creating trust.
-
-Investment Advice:
-
-    Long-Term Investment: The Technology sector appears promising for long-term investment, considering the growing importance of digital transformation and AI.
-    Monitor Regulations: Keep an eye on EU regulations as they can impact the sector’s profitability.""",
-        'Financials': """Analysis:
-
-    Historical Performance: The Financials sector experienced significant volatility, particularly around the 2008 financial crisis.
-    Forecast: The forecast suggests moderate growth with a fair amount of uncertainty.
-
-Political and Economic Outlook:
-
-    Regulatory Environment: Financial regulations in the EU are becoming stricter, which may limit aggressive growth but enhance stability.
-    Interest Rates: Changes in ECB policies on interest rates will significantly impact this sector.
-
-Investment Advice:
-
-    Moderate Growth: Expect moderate returns; financial stability measures and interest rates will be key determinants.
-    Diversify Within Sector: Diversifying within the financial sector (e.g., insurance, fintech) could reduce risk.""",
-        'Industrials': """Analysis:
-
-    Historical Performance: This sector has shown steady growth with some cyclical downturns.
-    Forecast: Predictions show continued growth with some volatility, indicating a positive trend overall.
-
-Political and Economic Outlook:
-
-    Green Transition: The push towards green technologies and renewable energy is likely to bolster the Industrials sector.
-    Infrastructure Projects: Government spending on infrastructure projects will support this sector.
-
-Investment Advice:
-
-    Growth Potential: Given the focus on green technology and infrastructure, Industrials present a solid investment opportunity.
-    Cyclical Nature: Be prepared for some cyclical downturns; consider a diversified portfolio to mitigate risks.""",
-        'Telecom': """Analysis:
-
-    Historical Performance: The Telecom sector has shown a long-term decline with some stabilization in recent years.
-    Forecast: Projections indicate very modest growth with high uncertainty, suggesting a stagnant market.
-
-Political and Economic Outlook:
-
-    5G Rollout: Investment in 5G technology could provide growth opportunities.
-    Competition: High competition within the sector may suppress profitability.
-
-Investment Advice:
-
-    Selective Investment: Focus on companies investing in new technologies like 5G.
-    Short to Medium Term: Given the high uncertainty, a short to medium-term investment horizon may be prudent."""
+        'Technology': """
+        **Analysis:**
+        - Historical Performance: The Technology sector showed a significant decline around 2000-2002, followed by a long period of stability and recent growth from around 2015 onwards.
+        - Forecast: Projections indicate a steady increase, though with high uncertainty reflected in the wide forecast range.
+        
+        **Political and Economic Outlook:**
+        - Government Support: France is likely to continue investing in technology, given its strategic importance for economic competitiveness.
+        - EU Regulations: Stricter EU regulations on data privacy and technology could impact growth but also stabilize the market by creating trust.
+        
+        **Investment Advice:**
+        - Long-Term Investment: The Technology sector appears promising for long-term investment, considering the growing importance of digital transformation and AI.
+        - Monitor Regulations: Keep an eye on EU regulations as they can impact the sector’s profitability.
+        """,
+        'Financials': """
+        **Analysis:**
+        - Historical Performance: The Financials sector experienced significant volatility, particularly around the 2008 financial crisis.
+        - Forecast: The forecast suggests moderate growth with a fair amount of uncertainty.
+        
+        **Political and Economic Outlook:**
+        - Regulatory Environment: Financial regulations in the EU are becoming stricter, which may limit aggressive growth but enhance stability.
+        - Interest Rates: Changes in ECB policies on interest rates will significantly impact this sector.
+        
+        **Investment Advice:**
+        - Moderate Growth: Expect moderate returns; financial stability measures and interest rates will be key determinants.
+        - Diversify Within Sector: Diversifying within the financial sector (e.g., insurance, fintech) could reduce risk.
+        """,
+        'Industrials': """
+        **Analysis:**
+        - Historical Performance: This sector has shown steady growth with some cyclical downturns.
+        - Forecast: Predictions show continued growth with some volatility, indicating a positive trend overall.
+        
+        **Political and Economic Outlook:**
+        - Green Transition: The push towards green technologies and renewable energy is likely to bolster the Industrials sector.
+        - Infrastructure Projects: Government spending on infrastructure projects will support this sector.
+        
+        **Investment Advice:**
+        - Growth Potential: Given the focus on green technology and infrastructure, Industrials present a solid investment opportunity.
+        - Cyclical Nature: Be prepared for some cyclical downturns; consider a diversified portfolio to mitigate risks.
+        """,
+        'Telecom': """
+        **Analysis:**
+        - Historical Performance: The Telecom sector has shown a long-term decline with some stabilization in recent years.
+        - Forecast: Projections indicate very modest growth with high uncertainty, suggesting a stagnant market.
+        
+        **Political and Economic Outlook:**
+        - 5G Rollout: Investment in 5G technology could provide growth opportunities.
+        - Competition: High competition within the sector may suppress profitability.
+        
+        **Investment Advice:**
+        - Selective Investment: Focus on companies investing in new technologies like 5G.
+        - Short to Medium Term: Given the high uncertainty, a short to medium-term investment horizon may be prudent.
+        """
     },
     'Germany 🇩🇪': {
-        'Technology': """Analysis:
-
-    Historical Performance: The Technology sector in Germany has shown a steady increase since 2012 after a period of volatility.
-    Forecast: The projections indicate continued growth, with a moderate level of uncertainty.
-
-Political and Economic Outlook:
-
-    Government Support: The German government is heavily investing in digitalization and Industry 4.0, which will drive growth in the technology sector.
-    EU Regulations: Similar to France, EU regulations on data privacy and technology can influence the sector but are likely to create a stable market environment.
-
-Investment Advice:
-
-    Long-Term Growth: The Technology sector is expected to benefit from ongoing digital transformation initiatives, making it a strong candidate for long-term investment.
-    Monitor Innovation: Focus on companies that are leading in innovation and adapting to new regulations.""",
-        'Financials': """Analysis:
-
-    Historical Performance: The Financials sector has been highly volatile, especially around the global financial crisis and recent economic uncertainties.
-    Forecast: The forecast suggests moderate growth with substantial uncertainty.
-
-Political and Economic Outlook:
-
-    Regulatory Environment: Stricter financial regulations in the EU could limit aggressive growth but enhance market stability.
-    Interest Rates: Changes in ECB policies on interest rates will directly affect the sector’s performance.
-
-Investment Advice:
-
-    Moderate Returns: Expect moderate growth; the sector offers stability, but regulatory and interest rate changes will be key factors.
-    Diversify Investments: Diversify within financial services to manage risk effectively.""",
-        'Industrials': """Analysis:
-
-    Historical Performance: The Industrials sector has shown robust growth with cyclical downturns, reflecting the overall economic cycles.
-    Forecast: The forecast shows a continued upward trend with some expected volatility.
-
-Political and Economic Outlook:
-
-    Green Transition: The push for green technology and sustainable industrial practices is expected to support growth in the industrial sector.
-    Export Dependency: Germany's industrial sector is highly dependent on exports, which means global economic conditions will have a significant impact.
-
-Investment Advice:
-
-    Solid Growth: Investing in Industrials offers strong growth potential, particularly in green technologies and sustainable industries.
-    Global Economic Watch: Keep an eye on global economic conditions and trade policies as they can significantly impact this sector.""",
-        'Telecom': """Analysis:
-
-    Historical Performance: The Telecom sector has shown a significant recovery since 2016 after a long period of stagnation.
-    Forecast: Projections indicate steady growth, with relatively lower uncertainty compared to other sectors.
-
-Political and Economic Outlook:
-
-    5G Rollout: Investment in 5G infrastructure will drive growth and create new opportunities within the Telecom sector.
-    Market Competition: High competition in the telecom market might limit profit margins but will push innovation and customer-focused services.
-
-Investment Advice:
-
-    Growth in Infrastructure: Telecom presents a good investment opportunity, particularly with the ongoing 5G rollout.
-    Competitive Edge: Focus on companies that are leading in 5G and technological advancements."""
+        'Technology': """
+        **Analysis:**
+        - Historical Performance: The Technology sector in Germany has shown a steady increase since 2012 after a period of volatility.
+        - Forecast: The projections indicate continued growth, with a moderate level of uncertainty.
+        
+        **Political and Economic Outlook:**
+        - Government Support: The German government is heavily investing in digitalization and Industry 4.0, which will drive growth in the technology sector.
+        - EU Regulations: Similar to France, EU regulations on data privacy and technology can influence the sector but are likely to create a stable market environment.
+        
+        **Investment Advice:**
+        - Long-Term Growth: The Technology sector is expected to benefit from ongoing digital transformation initiatives, making it a strong candidate for long-term investment.
+        - Monitor Innovation: Focus on companies that are leading in innovation and adapting to new regulations.
+        """,
+        'Financials': """
+        **Analysis:**
+        - Historical Performance: The Financials sector has been highly volatile, especially around the global financial crisis and recent economic uncertainties.
+        - Forecast: The forecast suggests moderate growth with substantial uncertainty.
+        
+        **Political and Economic Outlook:**
+        - Regulatory Environment: Stricter financial regulations in the EU could limit aggressive growth but enhance market stability.
+        - Interest Rates: Changes in ECB policies on interest rates will directly affect the sector’s performance.
+        
+        **Investment Advice:**
+        - Moderate Returns: Expect moderate growth; the sector offers stability, but regulatory and interest rate changes will be key factors.
+        - Diversify Investments: Diversify within financial services to manage risk effectively.
+        """,
+        'Industrials': """
+        **Analysis:**
+        - Historical Performance: The Industrials sector has shown robust growth with cyclical downturns, reflecting the overall economic cycles.
+        - Forecast: The forecast shows a continued upward trend with some expected volatility.
+        
+        **Political and Economic Outlook:**
+        - Green Transition: The push for green technology and sustainable industrial practices is expected to support growth in the industrial sector.
+        - Export Dependency: Germany's industrial sector is highly dependent on exports, which means global economic conditions will have a significant impact.
+        
+        **Investment Advice:**
+        - Solid Growth: Investing in Industrials offers strong growth potential, particularly in green technologies and sustainable industries.
+        - Global Economic Watch: Keep an eye on global economic conditions and trade policies as they can significantly impact this sector.
+        """,
+        'Telecom': """
+        **Analysis:**
+        - Historical Performance: The Telecom sector has shown a significant recovery since 2016 after a long period of stagnation.
+        - Forecast: Projections indicate steady growth, with relatively lower uncertainty compared to other sectors.
+        
+        **Political and Economic Outlook:**
+        - 5G Rollout: Investment in 5G infrastructure will drive growth and create new opportunities within the Telecom sector.
+        - Market Competition: High competition in the telecom market might limit profit margins but will push innovation and customer-focused services.
+        
+        **Investment Advice:**
+        - Growth in Infrastructure: Telecom presents a good investment opportunity, particularly with the ongoing 5G rollout.
+        - Competitive Edge: Focus on companies that are leading in 5G and technological advancements.
+        """
     },
     'Switzerland 🇨🇭': {
-        'Technology': """Analysis:
-
-    Historical Performance: The Technology sector in Switzerland has shown significant volatility but has demonstrated strong growth in recent years.
-    Forecast: The projections indicate moderate growth with a moderate level of uncertainty.
-
-Political and Economic Outlook:
-
-    Innovation Hub: Switzerland is known for its innovation and investment in technology, providing a robust foundation for growth.
-    Regulatory Environment: The regulatory environment in Switzerland is favorable for technology companies, encouraging innovation and development.
-
-Investment Advice:
-
-    Long-Term Investment: The Technology sector is expected to continue benefiting from Switzerland’s strong innovation culture, making it a solid candidate for long-term investment.
-    Focus on Innovation: Prioritize companies that are at the forefront of technological advancements and innovations.""",
-        'Financials': """Analysis:
-
-    Historical Performance: The Financials sector has experienced significant volatility, particularly around global financial crises.
-    Forecast: The forecast suggests moderate growth with substantial uncertainty.
-
-Political and Economic Outlook:
-
-    Regulatory Stability: Switzerland’s financial sector benefits from a stable regulatory environment, which enhances market confidence.
-    Global Financial Hub: Switzerland’s position as a global financial hub provides a stable foundation for growth.
-
-Investment Advice:
-
-    Moderate Returns: Expect moderate growth; the sector offers stability, but global financial conditions will be key factors.
-    Diversify Investments: Diversify within financial services to manage risk effectively.""",
-        'Industrials': """Analysis:
-
-    Historical Performance: The Industrials sector has shown consistent growth with cyclical downturns, reflecting the overall economic cycles.
-    Forecast: The forecast shows a continued upward trend with some expected volatility.
-
-Political and Economic Outlook:
-
-    Sustainability Initiatives: Switzerland’s focus on sustainability and green technologies is expected to support growth in the industrial sector.
-    Export Dependency: Similar to Germany, Switzerland’s industrial sector is heavily reliant on exports, making it sensitive to global economic conditions.
-
-Investment Advice:
-
-    Solid Growth Potential: Investing in Industrials offers strong growth potential, particularly in green technologies and sustainable industries.
-    Global Economic Sensitivity: Keep an eye on global economic conditions and trade policies as they can significantly impact this sector.""",
-        'Telecom': """Analysis:
-
-    Historical Performance: The Telecom sector has shown a steady recovery since 2016 after a long period of stagnation.
-    Forecast: Projections indicate steady growth with relatively lower uncertainty compared to other sectors.
-
-Political and Economic Outlook:
-
-    Technological Advancements: Investment in new technologies like 5G will drive growth and create new opportunities within the Telecom sector.
-    Competitive Market: High competition in the telecom market might limit profit margins but will push innovation and customer-focused services.
-
-Investment Advice:
-
-    Growth in Infrastructure: Telecom presents a good investment opportunity, particularly with the ongoing advancements in 5G technology.
-    Competitive Edge: Focus on companies that are leading in technological advancements and customer service."""
+        'Technology': """
+        **Analysis:**
+        - Historical Performance: The Technology sector in Switzerland has shown significant volatility but has demonstrated strong growth in recent years.
+        - Forecast: The projections indicate moderate growth with a moderate level of uncertainty.
+        
+        **Political and Economic Outlook:**
+        - Innovation Hub: Switzerland is known for its innovation and investment in technology, providing a robust foundation for growth.
+        - Regulatory Environment: The regulatory environment in Switzerland is favorable for technology companies, encouraging innovation and development.
+        
+        **Investment Advice:**
+        - Long-Term Investment: The Technology sector is expected to continue benefiting from Switzerland’s strong innovation culture, making it a solid candidate for long-term investment.
+        - Focus on Innovation: Prioritize companies that are at the forefront of technological advancements and innovations.
+        """,
+        'Financials': """
+        **Analysis:**
+        - Historical Performance: The Financials sector has experienced significant volatility, particularly around global financial crises.
+        - Forecast: The forecast suggests moderate growth with substantial uncertainty.
+        
+        **Political and Economic Outlook:**
+        - Regulatory Stability: Switzerland’s financial sector benefits from a stable regulatory environment, which enhances market confidence.
+        - Global Financial Hub: Switzerland’s position as a global financial hub provides a stable foundation for growth.
+        
+        **Investment Advice:**
+        - Moderate Returns: Expect moderate growth; the sector offers stability, but global financial conditions will be key factors.
+        - Diversify Investments: Diversify within financial services to manage risk effectively.
+        """,
+        'Industrials': """
+        **Analysis:**
+        - Historical Performance: The Industrials sector has shown consistent growth with cyclical downturns, reflecting the overall economic cycles.
+        - Forecast: The forecast shows a continued upward trend with some expected volatility.
+        
+        **Political and Economic Outlook:**
+        - Sustainability Initiatives: Switzerland’s focus on sustainability and green technologies is expected to support growth in the industrial sector.
+        - Export Dependency: Similar to Germany, Switzerland’s industrial sector is heavily reliant on exports, making it sensitive to global economic conditions.
+        
+        **Investment Advice:**
+        - Solid Growth Potential: Investing in Industrials offers strong growth potential, particularly in green technologies and sustainable industries.
+        - Global Economic Sensitivity: Keep an eye on global economic conditions and trade policies as they can significantly impact this sector.
+        """,
+        'Telecom': """
+        **Analysis:**
+        - Historical Performance: The Telecom sector has shown a steady recovery since 2016 after a long period of stagnation.
+        - Forecast: Projections indicate steady growth with relatively lower uncertainty compared to other sectors.
+        
+        **Political and Economic Outlook:**
+        - Technological Advancements: Investment in new technologies like 5G will drive growth and create new opportunities within the Telecom sector.
+        - Competitive Market: High competition in the telecom market might limit profit margins but will push innovation and customer-focused services.
+        
+        **Investment Advice:**
+        - Growth in Infrastructure: Telecom presents a good investment opportunity, particularly with the ongoing advancements in 5G technology.
+        - Competitive Edge: Focus on companies that are leading in technological advancements and customer service.
+        """
     },
     'Portugal 🇵🇹': {
-        'Technology': """Analysis:
-The technology sector in Portugal has been expanding with significant investments in startups and digital innovation. The forecast indicates robust growth driven by increasing demand for digital services and technological advancements.
-
-Political and Economic Outlook:
-Portugal has been supportive of technological advancements with policies encouraging innovation and entrepreneurship. The global shift towards digitalization provides a favorable environment for tech investments.
-
-Investment Advice:
-Investing in the technology sector is highly recommended due to its strong growth potential. Focus on companies involved in software development, digital services, and innovative technologies. Startups and growth-stage tech companies present attractive investment opportunities.""",
-        'Financials': """Analysis:
-    The financial sector in Portugal has faced challenges, particularly during the European debt crisis. However, it has been stabilizing with regulatory reforms and improved banking practices. The forecast suggests a stable outlook with moderate growth.
-
-    Political and Economic Outlook:
-    Regulatory reforms and EU support have strengthened the financial sector. Continued political stability and economic reforms will be essential. The performance of the Eurozone and global financial markets will also influence this sector.
-
-    Investment Advice:
-    Investors should adopt a cautious approach with selective investments in well-capitalized banks and financial institutions. Consider financial services companies with a strong digital presence and innovative financial products.""",
-        'Industrials': """Analysis:
-    Portugal's industrial sector has shown a steady recovery post-2008 financial crisis with recent growth attributed to improvements in manufacturing and exports. The sector has been moderately volatile but shows a positive trend in recent years.
-
-    Political and Economic Outlook:
-    Portugal's economic policies have been favorable towards industrial growth with a focus on innovation and technology integration. However, political stability and economic reforms are crucial to maintain investor confidence. The European Union's policies and global economic conditions will also impact the sector.
-
-    Investment Advice:
-    Given the steady growth and positive outlook, a moderate investment in Portugal's industrial sector is recommended. Look for companies with strong export capabilities and innovative practices. Diversification within the industrial sub-sectors can mitigate risks.""",
-        'Telecom': """Analysis:
-    The telecom sector has experienced moderate growth, with fluctuations reflecting global trends. The forecast suggests a stable outlook with gradual growth as the sector adapts to new technologies and consumer demands.
-
-    Political and Economic Outlook:
-    Regulatory support and infrastructure investments are critical for the telecom sector. The government’s focus on improving digital infrastructure and connectivity will drive growth. However, global market trends and technological disruptions need to be considered.
-
-    Investment Advice:
-    Investments in the telecom sector should be focused on companies with strong infrastructure and the ability to adapt to new technologies like 5G. Consider investing in telecom companies with a diverse service portfolio and strong market presence."""
+        'Technology': """
+        **Analysis:**
+        The technology sector in Portugal has been expanding with significant investments in startups and digital innovation. The forecast indicates robust growth driven by increasing demand for digital services and technological advancements.
+        
+        **Political and Economic Outlook:**
+        Portugal has been supportive of technological advancements with policies encouraging innovation and entrepreneurship. The global shift towards digitalization provides a favorable environment for tech investments.
+        
+        **Investment Advice:**
+        Investing in the technology sector is highly recommended due to its strong growth potential. Focus on companies involved in software development, digital services, and innovative technologies. Startups and growth-stage tech companies present attractive investment opportunities.
+        """,
+        'Financials': """
+        **Analysis:**
+        The financial sector in Portugal has faced challenges, particularly during the European debt crisis. However, it has been stabilizing with regulatory reforms and improved banking practices. The forecast suggests a stable outlook with moderate growth.
+        
+        **Political and Economic Outlook:**
+        Regulatory reforms and EU support have strengthened the financial sector. Continued political stability and economic reforms will be essential. The performance of the Eurozone and global financial markets will also influence this sector.
+        
+        **Investment Advice:**
+        Investors should adopt a cautious approach with selective investments in well-capitalized banks and financial institutions. Consider financial services companies with a strong digital presence and innovative financial products.
+        """,
+        'Industrials': """
+        **Analysis:**
+        Portugal's industrial sector has shown a steady recovery post-2008 financial crisis with recent growth attributed to improvements in manufacturing and exports. The sector has been moderately volatile but shows a positive trend in recent years.
+        
+        **Political and Economic Outlook:**
+        Portugal's economic policies have been favorable towards industrial growth with a focus on innovation and technology integration. However, political stability and economic reforms are crucial to maintain investor confidence. The European Union's policies and global economic conditions will also impact the sector.
+        
+        **Investment Advice:**
+        Given the steady growth and positive outlook, a moderate investment in Portugal's industrial sector is recommended. Look for companies with strong export capabilities and innovative practices. Diversification within the industrial sub-sectors can mitigate risks.
+        """,
+        'Telecom': """
+        **Analysis:**
+        The telecom sector has experienced moderate growth, with fluctuations reflecting global trends. The forecast suggests a stable outlook with gradual growth as the sector adapts to new technologies and consumer demands.
+        
+        **Political and Economic Outlook:**
+        Regulatory support and infrastructure investments are critical for the telecom sector. The government’s focus on improving digital infrastructure and connectivity will drive growth. However, global market trends and technological disruptions need to be considered.
+        
+        **Investment Advice:**
+        Investments in the telecom sector should be focused on companies with strong infrastructure and the ability to adapt to new technologies like 5G. Consider investing in telecom companies with a diverse service portfolio and strong market presence.
+        """
     }
 }
 
