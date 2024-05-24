@@ -840,7 +840,7 @@ if st.session_state['selected_country']:
         display_image_and_text(st.session_state['selected_country'], 'events')
 
     with tabs[2]:
-        st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
+        st.subheader(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
         country_df = country_data[st.session_state['selected_country']]
         columns = country_df.columns.tolist()
@@ -883,11 +883,11 @@ if st.session_state['selected_country']:
             st.write("No valid columns selected for heatmap.")
 
     with tabs[3]:
-        st.write(f"Regression analysis for {st.session_state['selected_country']}")
+        st.subheader(f"Regression analysis for {st.session_state['selected_country']}")
         display_regression_model(st.session_state['selected_country'])
 
     with tabs[4]:
-        st.write(f"Forecast for {st.session_state['selected_country']}")
+        st.subheader(f"Forecast for {st.session_state['selected_country']}")
         display_forecast(st.session_state['selected_country'])
 
     with tabs[5]:
