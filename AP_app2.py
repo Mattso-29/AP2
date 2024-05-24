@@ -833,11 +833,10 @@ if st.session_state['selected_country']:
     tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast", "Investment Advice"])
 
     with tabs[0]:
-        st.write(f"Analysis for {st.session_state['selected_country']}")
         display_country_index(st.session_state['selected_country'])
 
     with tabs[1]:
-        st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
+        st.subheader(f"Major macroeconomic events for {st.session_state['selected_country']}")
         display_image_and_text(st.session_state['selected_country'], 'events')
 
     with tabs[2]:
