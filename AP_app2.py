@@ -812,10 +812,10 @@ investment_advice = {
 
 def display_investment_advice(country):
     if country in investment_advice:
-        st.subheader(f"Investment Advice for {country}")
+        st.subheader(f"Investment Recommendations for {country}")
 
         sectors = list(investment_advice[country].keys())
-        selected_sector = st.selectbox(f"Select sector for investment advice", sectors)
+        selected_sector = st.selectbox(f"Select sector for investment recommendations", sectors)
 
         advice = investment_advice[country][selected_sector]
         
@@ -892,5 +892,5 @@ if st.session_state['selected_country']:
         display_forecast(st.session_state['selected_country'])
 
     with tabs[5]:
-        st.write(f"Investment advice for {st.session_state['selected_country']}")
+        st.write(f"Investment recommendations for {st.session_state['selected_country']}")
         display_investment_advice(st.session_state['selected_country'])
