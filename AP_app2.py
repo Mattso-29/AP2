@@ -892,5 +892,4 @@ if st.session_state['selected_country']:
         display_forecast(st.session_state['selected_country'])
 
     with tabs[5]:
-        st.write(f"Investment recommendations for {st.session_state['selected_country']}")
         display_investment_advice(st.session_state['selected_country'])
