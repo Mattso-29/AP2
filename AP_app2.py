@@ -22,7 +22,6 @@ country_data = {
     'Portugal 🇵🇹': portugal
 }
 
-
 country_images_and_texts = {
     'France 🇫🇷': {
         'image': 'table events france.png',
@@ -77,6 +76,7 @@ stock_market_indices = {
     }
 }
 
+# Functions to generate charts and heatmaps
 def generate_index_chart(data, country, columns, start_date, end_date, chart_type):
     data_filtered = data.loc[start_date:end_date]
     
@@ -91,7 +91,6 @@ def generate_index_chart(data, country, columns, start_date, end_date, chart_typ
     plt.xlabel("Date")
     plt.ylabel("Index value")
     plt.legend()
-    plt.tight_layout()
     st.pyplot(plt)
     plt.close()
 
@@ -109,7 +108,6 @@ def generate_correlation_heatmap(data, columns, start_date, end_date):
     plt.figure(figsize=(10, 8))
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
     plt.title('Correlation Heatmap')
-    plt.tight_layout()
     st.pyplot(plt)
     plt.close()
 
@@ -579,61 +577,24 @@ country_images_and_texts = {
     
 st.markdown("""
     <style>
-    /* General styles */
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f5f5f5;
-    }
     .stButton>button {
-        background-color: #4CAF50;
+        display: block;
+        width: 100%;
+        background-color: black;
         color: white;
+        text-align: center;
         padding: 10px;
         margin: 10px 0;
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        width: 100%;
     }
     .stButton>button:hover {
-        background-color: #45a049;
-    }
-    .stSidebar {
-        background-color: #333;
-        color: white;
-    }
-    .stSidebar .stButton>button {
-        background-color: #555;
-        color: white;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        width: 100%;
-    }
-    .stSidebar .stButton>button:hover {
-        background-color: #777;
-    }
-    .stTabs .stTab {
-        background-color: #4CAF50;
-        color: white;
-        border-radius: 5px;
-    }
-    .stTabs .stTab:hover {
-        background-color: #45a049;
-    }
-    .stDataFrame {
-        background-color: white;
-        border-radius: 5px;
-        padding: 10px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    }
-    .stMarkdown {
-        background-color: white;
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        background-color: darkgray;
     }
     </style>
     """, unsafe_allow_html=True)
+
 if 'selected_country' not in st.session_state:
     st.session_state['selected_country'] = None
 
@@ -865,73 +826,72 @@ def display_investment_advice(country):
 
 
 
-if __name__ == "__main__":
-    # Your existing Streamlit code to run the app
-    st.title("WORLD MAP 🗺")
-    display_map(st.session_state['selected_country'])
+st.title("WORLD MAP 🗺")
+display_map(st.session_state['selected_country'])
 
-    if st.session_state['selected_country']:
-        tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast", "Investment Advice"])
+if st.session_state['selected_country']:
+    tabs = st.tabs(["Country Analysis", "Major Macroeconomic Events", "Important Macroeconomic Variables", "Regression", "Forecast", "Investment Advice"])
 
-        with tabs[0]:
-            st.write(f"Analysis for {st.session_state['selected_country']}")
-            display_country_index(st.session_state['selected_country'])
+    with tabs[0]:
+        st.write(f"Analysis for {st.session_state['selected_country']}")
+        display_country_index(st.session_state['selected_country'])
 
-        with tabs[1]:
-            st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
-            display_image_and_text(st.session_state['selected_country'], 'events')
+    with tabs[1]:
+        st.write(f"Major macroeconomic events for {st.session_state['selected_country']}")
+        display_image_and_text(st.session_state['selected_country'], 'events')
 
-        with tabs[2]:
-            st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
+    with tabs[2]:
+        st.write(f"Important macroeconomic variables for {st.session_state['selected_country']}")
 
-            country_df = country_data[st.session_state['selected_country']]
-            columns = country_df.columns.tolist()
+        country_df = country_data[st.session_state['selected_country']]
+        columns = country_df.columns.tolist()
 
-            if st.session_state['selected_country'] == "Switzerland 🇨🇭":
-                combined_columns = [
-                    'SWX TECHNOLOGY - PRICE INDEX', 
-                    'SWX FINANCIAL SVS - PRICE INDEX', 
-                    'SWX INDS GDS & SVS - PRICE INDEX', 
-                    'SWX TELECOM - PRICE INDEX', 
-                    'Bond_Yield', 
-                    'BCI', 
-                    'CCI', 
-                    'GDP', 
-                    'Inflation', 
-                    '1usd/chf', 
-                    '1eur/chf', 
-                    'Unemployment', 
-                    'GDP(log)'
-                ]
-            else:
-                combined_columns = list(set(columns[:4] + [
-                    'Bond_Yield', 
-                    'BCI', 
-                    'CCI', 
-                    'GDP', 
-                    'Inflation', 
-                    '1euro/dollar', 
-                    'Unemployment', 
-                    'GDP(log)'
-                ]))
+        if st.session_state['selected_country'] == "Switzerland 🇨🇭":
+            combined_columns = [
+                'SWX TECHNOLOGY - PRICE INDEX', 
+                'SWX FINANCIAL SVS - PRICE INDEX', 
+                'SWX INDS GDS & SVS - PRICE INDEX', 
+                'SWX TELECOM - PRICE INDEX', 
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1usd/chf', 
+                '1eur/chf', 
+                'Unemployment', 
+                'GDP(log)'
+            ]
+        else:
+            combined_columns = list(set(columns[:4] + [
+                'Bond_Yield', 
+                'BCI', 
+                'CCI', 
+                'GDP', 
+                'Inflation', 
+                '1euro/dollar', 
+                'Unemployment', 
+                'GDP(log)'
+            ]))
 
-            valid_columns = [col for col in combined_columns if col in country_df.columns]
+        valid_columns = [col for col in combined_columns if col in country_df.columns]
 
-            heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
+        heatmap_columns = st.multiselect(f"Select columns for heatmap ({st.session_state['selected_country']} - macroeconomic)", valid_columns, default=valid_columns)
 
-            if heatmap_columns:
-                generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
-            else:
-                st.write("No valid columns selected for heatmap.")
+        if heatmap_columns:
+            generate_correlation_heatmap(country_df, heatmap_columns, start_date, end_date)
+        else:
+            st.write("No valid columns selected for heatmap.")
 
-        with tabs[3]:
-            st.write(f"Regression analysis for {st.session_state['selected_country']}")
-            display_regression_model(st.session_state['selected_country'])
+    with tabs[3]:
+        st.write(f"Regression analysis for {st.session_state['selected_country']}")
+        display_regression_model(st.session_state['selected_country'])
 
-        with tabs[4]:
-            st.write(f"Forecast for {st.session_state['selected_country']}")
-            display_forecast(st.session_state['selected_country'])
+    with tabs[4]:
+        st.write(f"Forecast for {st.session_state['selected_country']}")
+        display_forecast(st.session_state['selected_country'])
 
-        with tabs[5]:
-            st.write(f"Investment advice for {st.session_state['selected_country']}")
-            display_investment_advice(st.session_state['selected_country'])
+    with tabs[5]:
+        st.write(f"Investment advice for {st.session_state['selected_country']}")
+        display_investment_advice(st.session_state['selected_country'])
+
