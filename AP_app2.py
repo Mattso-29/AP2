@@ -165,8 +165,14 @@ def display_map(selected_country):
             highlight_function=lambda x: {'weight': 3, 'color': 'black'},
             tooltip=folium.Tooltip(country)
         ).add_to(m)
-
-    st_folium(m, width=1400, height=800)
+        
+        folium.ClickForMarker(popup=country).add_to(m)
+    
+    click = st_folium(m, width=1400, height=800)
+    
+    if click:
+        clicked_country = click['last_object_clicked']['popup']
+        st.session_state['selected_country'] = clicked_country
 
 # Load macroeconomic variables
 bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
