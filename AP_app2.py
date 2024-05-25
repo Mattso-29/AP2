@@ -76,7 +76,6 @@ stock_market_indices = {
     }
 }
 
-# Functions to generate charts and heatmaps
 def generate_index_chart(data, country, columns, start_date, end_date, chart_type):
     data_filtered = data.loc[start_date:end_date]
     
@@ -111,7 +110,6 @@ def generate_correlation_heatmap(data, columns, start_date, end_date):
     st.pyplot(plt)
     plt.close()
 
-# Functions to display content
 def display_country_index(country):
     st.subheader(f"Stock market Index for {country}")
 
@@ -168,7 +166,6 @@ def display_map(selected_country):
 
     st_folium(m, width=1400, height=800)
 
-# Load macroeconomic variables
 bond = load_excel_with_dates('10Y Bond copy.xlsx', 0)
 bci = load_excel_with_dates('bci copy.xlsx', 0)
 cci = load_excel_with_dates('CCI copy.xlsx', 0)
@@ -225,7 +222,6 @@ scaler = MinMaxScaler()
 numeric_columns = unemployment.select_dtypes(include=np.number).columns
 unemployment[numeric_columns] = scaler.fit_transform(unemployment[numeric_columns])
 
-# Convertir les données macroéconomiques en données hebdomadaires
 bond_weekly = to_weekly(bond, method='ffill')
 bond_weekly.index = bond_weekly.index + pd.DateOffset(days=3)
 start_date = '2000-01-05'
@@ -293,7 +289,6 @@ unemployment_weekly = unemployment_weekly.apply(pd.to_numeric, errors='coerce')
 unemployment_weekly.fillna(method='bfill', inplace=True)
 unemployment_weekly.interpolate(method='linear', inplace=True)
 
-# Add weekly data to country datasets
 france = add_weekly_column(france, bond_weekly, 'EM GOVERNMENT BOND YIELD - 10 YEAR NADJ', 'Bond_Yield')
 france = add_weekly_column(france, bci_weekly, 'FR SURVEY: BUSINESS CLIMATE FOR FRANCE NADJ', 'BCI')
 france = add_weekly_column(france, cci_weekly, 'FR CONSUMER CONFIDENCE INDICATOR SADJ', 'CCI')
@@ -336,7 +331,6 @@ country_data['Germany 🇩🇪'] = germany
 country_data['Switzerland 🇨🇭'] = switzerland
 country_data['Portugal 🇵🇹'] = portugal
 
-# Add crises and stimulus policies to the data
 crises_france = {'Dotcom bubble burst': ['2000-03-01', '2002-01-01'], 'Subprime crises': ['2008-01-01', '2009-01-01'], 'Covid 19': ['2020-01-01', '2021-01-01']}
 stimulus_policies_france = {'LCME': ['2003-01-01', '2004-01-01'], 'Stimulus policy 2009': ['2009-01-01', '2010-01-01'], 'Stimulus policy Covid': ['2020-03-01', '2022-06-01']}
 
@@ -406,7 +400,7 @@ def display_regression_model(country):
                     except Exception as e:
                         st.error(f"Error loading image: {e}")
                     texts.append(rf_data['text'])
-            # Combine texts into a single text block below the images
+            
             combined_text = "\n\n".join(texts)
             st.write(combined_text)
         else:
