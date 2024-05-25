@@ -1,7 +1,6 @@
 import folium
 from streamlit_folium import st_folium
 
-# Coordonnées simplifiées des polygones pour chaque pays
 geojson_data = {
     "France 🇫🇷": {
         "type": "Feature",
